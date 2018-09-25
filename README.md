@@ -127,3 +127,18 @@ Problem: `Error: Cannot find module <module_name>`
 Solution: In the `frontend` directory run `yarn`
 
 Why: This error means there is a node module that is referenced in the code that you haven't installed. Normally this is because someone added a new node module.
+
+Common backend problems
+
+Problem:
+
+```
+File "manage.py", line 14
+    ) from exc
+         ^
+SyntaxError: invalid syntax
+```
+
+Solution: Activate your virtual environment by running `. .venv/bin/activate`
+
+Why: The dependencies needed to run the backend are in the virtual environment, not your system environment
