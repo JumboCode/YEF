@@ -1,6 +1,19 @@
 # YEF
 
-JumboCode 2018-2019 project for Youth Educational Forum, led by Dan Katz.
+JumboCode 2018-2019 project for Youth Educational Forum.
+
+Team members:
+
+- Manish Aryal
+- Ben Ewing
+- Carl Froneberger
+- Andrew Gross
+- Alessandra Jacimovic
+- Panru Jing (Designer)
+- Dan Katz (Project lead)
+- Anita Lam
+- Nivi Nath
+- Meguna Okawa
 
 ## Overview
 
@@ -42,6 +55,14 @@ brew install python3 node yarn
 sudo pip3 install --upgrade pip
 ```
 
+Next install project dependencies:
+
+In the `frontend` directory you will need to run:
+
+```
+yarn
+```
+
 In the `backend` directory you will need to run:
 
 ```
@@ -51,10 +72,21 @@ pip install --upgrade pip setuptools
 pip install -r requirements.txt
 ```
 
-In the `frontend` directory you will need to run:
+## Running the app
+
+To run the frontend, go into the `react` directory and run:
 
 ```
-yarn
+npm start // This will run the frontend on port 3000
+```
+
+Then go to your web browser and enter `http://localhost:3000` in the address bar
+
+To run the backend, go into the `backend` directory and run:
+
+```
+. .venv/bin/activate // This will activate the virtual environment
+python manage.py runserver // This will run the backend on port 8000
 ```
 
 ## Developer workflow
