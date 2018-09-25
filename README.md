@@ -102,3 +102,28 @@ When working on new features or bug fixes:
 - Double check it's working in the production app.
 
 Small/noisy commits are totally OK on the feature branches. When the branch is merged into master it will typically have 'squash commits'
+
+## Helpful commands and solutions to common problems
+
+Common Git commands
+
+```
+git add <path to file> // adds file to staging area
+git add . // adds all files in current directory to staging area
+git add -u // adds all already tracked files to staging area
+git commit -m <commit message> // commits staged changes with given commit message
+git push // pushes committed changes to remote repository
+git pull // gets changes from remote repository
+git status // shows changed files and whether or not they have been staged
+git branch // shows all branches (there will be a * next to the current branch)
+git checkout <branch name> // switches to pre-existing branch with name <branch_name>
+git checkout -b <branch_name> // creates a new branch with name <branch_name> and switches to it
+```
+
+Common Frontend problems
+
+Problem: `Error: Cannot find module <module_name>`
+
+Solution: In the `frontend` directory run `yarn`
+
+Why: This error means there is a node module that is referenced in the code that you haven't installed. Normally this is because someone added a new node module.
