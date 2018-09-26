@@ -51,6 +51,13 @@ If you don't have homebrew installed:
 
 brew install python3 node yarn
 
+#Ubuntu
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update
+sudo apt install -y python3-pip python3-venv nodejs yarn
+
+
 # All Platforms:
 sudo pip3 install --upgrade pip
 ```
