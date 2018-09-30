@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+import dj_database_url
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,6 +28,10 @@ SECRET_KEY = '71f!(pb*@k)7s7%0_lt(h^qs_*2tkmp_%$&)&9ihd60e8rm#i9'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+DATABASES = {}
+
+DATABASES['default'] = dj_database_url.parse('postgres://qlyffupuioojwm:d6345444f1dc8ef21902d4f102f7773f898564827bdb48e94c854b0a9002db31@ec2-54-83-50-145.compute-1.amazonaws.com:5432/ddvcubs9frr4p0', conn_max_age=600)
 
 
 # Application definition
@@ -73,12 +79,13 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
+'''DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'URL': 
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-}
+}'''
 
 
 # Password validation
