@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./styles.css"
 
 class CreateTournament extends Component {
 constructor(props) {
@@ -37,21 +38,21 @@ handleSubmit(event) {
 
   render() {
     return (<form onSubmit={this.handleSubmit}>
-   	<p> Name:</p>
-  	<input type="text" name="name" value={this.state.name} onChange={this.nameChange}/>
+   	<p> Name: </p>
+  	<p> <input type="text" name="name" value={this.state.name} onChange={this.nameChange}/> </p> 
 
   	<p> Start Date: </p>
-  	<input type="text" name="startdate" value={this.state.startdate} onChange={this.startdateChange}/>
+  	<p> <input type="text" name="startdate" value={this.state.startdate} onChange={this.startdateChange}/> </p>
 
   	<p> End Date: </p>
-  	<input type="text" name="enddate" value={this.state.enddate} onChange={this.enddateChange}/>
+  	<p> <input type="text" name="enddate" value={this.state.enddate} onChange={this.enddateChange}/> </p>
 
   	<p> Location: </p>
-  	<input type="text" name="location" value={this.state.location} onChange={this.locationChange}/>
+  	<p> <input type="text" name="location" value={this.state.location} onChange={this.locationChange}/> </p>
 
-  	 <input type="submit" value="Submit"/>
+	 <p> <input type="submit" value="Submit"/> </p>
 
-    </form>
+	    </form>
   );
 
   }
