@@ -4,11 +4,11 @@ import "./styles.css"
 class CreateTournament extends Component {
 constructor(props) {
 	super(props);
-	this.state = {name: '', startdate: '', enddate: '', location: ''};
+	this.state = {name: '', startDate: '', endDate: '', location: ''};
 
 	this.nameChange = this.nameChange.bind(this);
-	this.startdateChange = this.startdateChange.bind(this);
-	this.enddateChange = this.enddateChange.bind(this);
+	this.startDateChange = this.startDateChange.bind(this);
+	this.endDateChange = this.endDateChange.bind(this);
 	this.locationChange = this.locationChange.bind(this);
 	this.handleSubmit = this.handleSubmit.bind(this);
 }
@@ -17,12 +17,12 @@ nameChange(event) {
 	this.setState({name: event.target.value});
 }
 
-startdateChange(event) {
-	this.setState({startdate: event.target.value});
+startDateChange(event) {
+	this.setState({startDate: event.target.value});
 }
 
-enddateChange(event) {
-	this.setState({enddate: event.target.value});
+endDateChange(event) {
+	this.setState({endDate: event.target.value});
 }
 
 locationChange(event) {
@@ -42,10 +42,10 @@ handleSubmit(event) {
   	<p> <input type="text" name="name" value={this.state.name} onChange={this.nameChange}/> </p> 
 
   	<p> Start Date: </p>
-  	<p> <input type="text" name="startdate" value={this.state.startdate} onChange={this.startdateChange}/> </p>
+  	<p> <input type="text" name="startDate" value={this.state.startDate} onChange={this.startDateChange}/> </p>
 
   	<p> End Date: </p>
-  	<p> <input type="text" name="enddate" value={this.state.enddate} onChange={this.enddateChange}/> </p>
+  	<p> <input type="text" name="endDate" value={this.state.endDate} onChange={this.endDateChange}/> </p>
 
   	<p> Location: </p>
   	<p> <input type="text" name="location" value={this.state.location} onChange={this.locationChange}/> </p>
