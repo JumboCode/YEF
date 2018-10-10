@@ -1,7 +1,8 @@
-import React from "react";
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import React from 'react';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
-import CreateTournament from "./modules/CreateTournament";
+import CreateTournament from './modules/CreateTournament';
+import TournamentsList from './modules/TournamentsList';
 
 export default class AppRouter extends React.Component {
   render() {
@@ -9,6 +10,7 @@ export default class AppRouter extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route path="/createTournament" component={CreateTournament} />
+          <Route path="/tournaments" component={TournamentsList} />
         </Switch>
       </BrowserRouter>
     );
