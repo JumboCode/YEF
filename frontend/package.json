@@ -5,6 +5,9 @@
   "dependencies": {
     "@blueprintjs/core": "^3.6.1",
     "connected-react-router": "^4.5.0",
+    "husky": "^1.1.1",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.14.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
@@ -12,7 +15,14 @@
     "react-scripts": "1.1.5",
     "redux": "^4.0.0"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
   "scripts": {
+    "precommit": "lint-staged",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
