@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import CreateTournament from "./modules/CreateTournament";
+import AppRouter from "./routes";
 
 class App extends Component {
   render() {
-    return <CreateTournament />;
+    return <AppRouter />;
   }
 }
 
