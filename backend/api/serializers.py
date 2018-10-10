@@ -17,5 +17,3 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Team
 		fields = ('name', 'city', 'clubName', 'member1', 'member2', 'member3')
-
-# which field for the model you want to return
