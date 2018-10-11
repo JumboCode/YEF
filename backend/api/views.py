@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from api.models import Team
-from api.serializers import UserSerializer, GroupSerializer, TeamSerializer
+from api.models import Team, Tournament
+from api.serializers import UserSerializer, GroupSerializer, TeamSerializer, TournamentSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -24,3 +24,6 @@ class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
 
+class TournamentViewSet(viewsets.ModelViewSet):
+    queryset = Tournament.objects.all()
+    serializer_class = TournamentSerializer
