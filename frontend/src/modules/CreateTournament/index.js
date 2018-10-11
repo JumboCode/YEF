@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+// eslint-disable-next-line
 import "./styles.css"
 
+// eslint-disable-next-line
 class CreateTournament extends Component {
 constructor(props) {
 	super(props);
@@ -54,8 +56,9 @@ handleSubmit(event) {
 
 	    </form>
   );
+}
 
-  }
+  
 }
 
 export default CreateTournament;
