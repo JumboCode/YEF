@@ -15,11 +15,13 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'name')
 
 class TeamSerializer(serializers.HyperlinkedModelSerializer):
-	class Meta:
-		model = Team
-		fields = ('name', 'city', 'clubName', 'member1', 'member2', 'member3')
+    class Meta:
+        model = Team
+        fields = ('name', 'city', 'clubName', 'member1', 'member2', 'member3')
 
 class TournamentSerializer(serializers.HyperlinkedModelSerializer):
-	class Meta:
-		model = Tournament
-		fields = ('name', 'location', 'start_date', 'end_date')
+    teams = TeamSerializer(many=True,read_only=True)
+
+    class Meta:
+        model = Tournament
+        fields = ('name', 'location', 'start_date', 'end_date', 'teams', 'id')
