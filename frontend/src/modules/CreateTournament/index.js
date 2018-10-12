@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-// eslint-disable-next-line
 import "./styles.css"
 
-// eslint-disable-next-line
 class CreateTournament extends Component {
 constructor(props) {
 	super(props);
@@ -43,20 +41,21 @@ handleSubmit(event) {
    	<p> Name: </p>
   	<p> <input type="text" name="name" value={this.state.name} onChange={this.nameChange}/> </p> 
 
-  	<p> Start Date: </p>
-  	<p> <input type="text" name="startDate" value={this.state.startDate} onChange={this.startDateChange}/> </p>
+  	<p> Start Date: mm/dd/year </p>
+  	<p> <input type="date" name="startDate" value={this.state.startDate} onChange={this.startDateChange}/> </p>
 
-  	<p> End Date: </p>
-  	<p> <input type="text" name="endDate" value={this.state.endDate} onChange={this.endDateChange}/> </p>
+  	<p> End Date: mm/dd/year </p>
+  	<p> <input type="date" name="endDate" value={this.state.endDate} onChange={this.endDateChange}/> </p>
 
   	<p> Location: </p>
   	<p> <input type="text" name="location" value={this.state.location} onChange={this.locationChange}/> </p>
 
-	 <p> <input type="submit" value="Submit"/> </p>
+	 <p> <input type="submit" value="Create"/> </p>
 
 	    </form>
   );
 }
+
 
   
 }
