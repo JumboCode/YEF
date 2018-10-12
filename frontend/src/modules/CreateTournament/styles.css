@@ -1,25 +1,36 @@
 input {
-    width: 100%;
-    padding: 20px 20px;
-    margin: 0px;
-    box-sizing: border-box;
-    border: 2px;
-    border-style: solid;
-    border-color: rgb(101, 76, 76);
-    border-radius: 4px;
-    }   
+  width: 10%;
+  padding: 10px 10px;
+  margin: 0px;
+  box-sizing: border-box;
+  border: 2px;
+  border-style: solid;
+  border-color: rgb(101, 76, 76);
+  border-radius: 4px;
+}
 
 p {
-    margin: 20 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-right: 450px;
-    margin-left: 450px;
-    
+  margin: 20 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 450px;
+  margin-left: 450px;
 }
 
 body {
-    background-color: rgb(188, 226, 246);
+  background-color: rgb(188, 226, 246);
 }
 
+table {
+  width: 25%;
+  border-spacing: 2px;
+  border: 1px solid black;
+  border-color: gray;
+}
 
+th,
+tr {
+  height: 25px;
+  padding: 10px;
+  text-align: left;
+}
