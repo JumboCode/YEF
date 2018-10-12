@@ -6,13 +6,15 @@ import "./styles.css"
 class CreateTournament extends Component {
 constructor(props) {
 	super(props);
-	this.state = {name: '', startDate: '', endDate: '', location: ''};
+    this.state = {name: '', startDate: '', endDate: '', numTeams: '', location: '', numRounds: ''};
 
-	this.nameChange = this.nameChange.bind(this);
-	this.startDateChange = this.startDateChange.bind(this);
-	this.endDateChange = this.endDateChange.bind(this);
-	this.locationChange = this.locationChange.bind(this);
-	this.handleSubmit = this.handleSubmit.bind(this);
+    this.nameChange = this.nameChange.bind(this);
+    this.startDateChange = this.startDateChange.bind(this);
+    this.endDateChange = this.endDateChange.bind(this);
+    this.numTeamsChange = this.numTeamsChange.bind(this);
+    this.locationChange = this.locationChange.bind(this);
+    this.numRoundsChange = this.numRoundsChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 }
 
 nameChange(event) {
@@ -23,10 +25,18 @@ startDateChange(event) {
 	this.setState({startDate: event.target.value});
 }
 
+numTeamsChange(event) {
+	this.setState({numTeams: event.target.value});
+}
+
 endDateChange(event) {
 	this.setState({endDate: event.target.value});
 }
 
+numRoundsChange(event) {
+	this.setState({numRounds: event.target.value});
+}
+    
 locationChange(event) {
 	this.setState({location: event.target.value});
 }
@@ -39,21 +49,41 @@ handleSubmit(event) {
 
 
   render() {
-    return (<form onSubmit={this.handleSubmit}>
-   	<p> Name: </p>
+      return (<form onSubmit={this.handleSubmit}>
+	<p> <b> Create a Tournament </b> </p>
+
+	      <table>
+	      <tr>
+   	<p> Tournament Name: </p>
   	<p> <input type="text" name="name" value={this.state.name} onChange={this.nameChange}/> </p> 
+	      </tr>
+	      
+	      <tr>
+        <p> Location: </p>
+	<p> <input type="text" name="location" value={this.state.location} onChange={this.locationChange}/> </p>
+	      </tr>
 
-  	<p> Start Date: </p>
-  	<p> <input type="text" name="startDate" value={this.state.startDate} onChange={this.startDateChange}/> </p>
+	      <tr>
+  	<th> <p> Start Date: </p>
+  	<p> <input type="text" name="startDate" value={this.state.startDate} onChange={this.startDateChange}/> </p> </th>
 
-  	<p> End Date: </p>
-  	<p> <input type="text" name="endDate" value={this.state.endDate} onChange={this.endDateChange}/> </p>
+        <th> <p> Number of Teams: </p>
+	<p> <input type="text" name="numTeams" value={this.state.numTeams} onChange={this.numTeamsChange}/> </p> </th>
+	      </tr>
 
-  	<p> Location: </p>
-  	<p> <input type="text" name="location" value={this.state.location} onChange={this.locationChange}/> </p>
+	      <tr>
+  	<th> <p> End Date: </p>
+  	<p> <input type="text" name="endDate" value={this.state.endDate} onChange={this.endDateChange}/> </p> </th>
 
-	 <p> <input type="submit" value="Submit"/> </p>
-
+        <th> <p> Number of Rounds: </p>
+	<p> <input type="text" name="numRounds" value={this.state.numRounds} onChange={this.numRoundsChange}/> </p> </th>
+	      </tr>
+	      
+	      <tr>
+	 <p> <input type="submit" value="Create"/> </p>
+	      </tr>
+	      
+	  </table>
 	    </form>
   );
 }
