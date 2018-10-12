@@ -1,5 +1,5 @@
 input {
-    width: 35%;
+    width: 10%;
     padding: 10px 10px;
     margin: 0px;
     box-sizing: border-box;
@@ -16,4 +16,16 @@ p {
     margin-left: 20px;
 }
 
+table {
+    width: 25%;
+    border-spacing: 2px;
+    border: 1px solid black;
+    border-color: gray;
+}
+
+th, tr {
+    height: 25px;
+    padding: 10px;
+    text-align: left;
+}
 
