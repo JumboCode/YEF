@@ -1,14 +1,12 @@
 input {
-    height: auto;
-    width: auto;
+    width: 35%;
     padding: 10px 10px;
     margin: 0px;
     box-sizing: border-box;
     border: 2px;
     border-style: solid;
-    border-color: rgb(101, 76, 76); 
+    border-color: rgb(101, 76, 76);
     border-radius: 4px;
-
 }
 
 p {
@@ -16,27 +14,4 @@ p {
     margin-bottom: 20px;
     margin-right: 20px;
     margin-left: 20px;
-    
 }
-
-table {
-        display: table;
-        border-collapse: separate;
-        border-spacing: 2px;
-        border-color: gray;
-    }
-
-th, tr {
-    height: 25px;
-    padding: 10px;
-    text-align: left;
-}
-
-
-
-
-
-
-
-
-
