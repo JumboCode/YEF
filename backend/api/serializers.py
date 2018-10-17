@@ -3,25 +3,26 @@ from rest_framework import serializers
 from api.models import Team
 from api.models import Tournament
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('url', 'username', 'email', 'groups')
 
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
+class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ('url', 'name')
 
-class TeamSerializer(serializers.HyperlinkedModelSerializer):
+class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields = ('name', 'city', 'clubName', 'member1', 'member2', 'member3')
+        fields = ('name', 'city', 'clubName', 'member1', 'member2', 'member3', 'tournamentID')
 
-class TournamentSerializer(serializers.HyperlinkedModelSerializer):
-    teams = TeamSerializer(many=True,read_only=True)
+class TournamentSerializer(serializers.ModelSerializer):
+    #teams = serializers.HyperlinkedIdentityField(view_name='Team-detail')
+    teams = TeamSerializer(source='team_set', many=True)
 
     class Meta:
         model = Tournament
-        fields = ('name', 'location', 'start_date', 'end_date', 'teams', 'id')
+        fields = ('id', 'name', 'location', 'start_date', 'end_date', 'teams')
