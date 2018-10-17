@@ -3,7 +3,7 @@ import AppRouter from "./routes";
 
 class App extends Component {
   render() {
-    return <AppRouter />;
+    return <AddTeam />;
   }
 }
 
