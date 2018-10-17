@@ -4,7 +4,7 @@ import AddTeam from "./modules/AddTeam";
 
 class App extends Component {
   render() {
-      return <CreateTournament />;
+      return <AddTeam />;
   }
 }
 

@@ -39,19 +39,33 @@ class AddTeam extends Component {
     render() {
 
 	return (<form onSubmit={this.handleSubmit}>
-	<p> Club Name: </p>
-	<p> <input type="text" name="clubName" value={this.state.clubName} onChange={this.clubNameChange}/> </p>
+	<div className = "flex-container">
 
-	<p> City: </p>
-	<p> <input type="text" name="city" value={this.state.city} onChange={this.cityChange}/> </p>
+	<p className = "input-label"> Club Name: </p>
+	<input type="text" name="clubName" value={this.state.clubName} onChange={this.clubNameChange}/> 
+	</div>
 
-	<p> Team Name: </p>
-	<p> <input type="text" name="teamName" value={this.state.teamName} onChange={this.teamNameChange}/> </p>
+	<div className = "flex-container">
+	<p className= "input-label"> City: </p>
+	<input type="text" name="city" value={this.state.city} onChange={this.cityChange}/>
+	</div>
 
-	<p> Team Members: </p>
-	<p> <input type="text" name="teamMembers" value={this.state.teamMembers} onChange={this.teamMembersChange}/> </p>
+	<div className = "flex-container">
+	<p className = "input-label"> Team Name: </p>
+	<input type="text" name="teamName" value={this.state.teamName} onChange={this.teamNameChange}/>
+	</div>
 
-	<p> <input type="submit" value="Submit"/> </p>
+	<div className = "flex-container">
+	<p className = "input-label"> Team Members: </p>
+	<input type="text" name="teamMembers" value={this.state.teamMembers} onChange={this.teamMembersChange}/>
+	</div>
+
+	<div className = "flex-container">
+	<input type="submit" value="Submit"/> 
+	</div>
+
+
+	
 
 	</form>
        );

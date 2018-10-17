@@ -1,5 +1,4 @@
 input {
-    width: 100%;
     padding: 20px 20px;
     margin: 0px;
     box-sizing: border-box;
@@ -7,9 +6,16 @@ input {
     border-style: solid;
     border-color: rgb(101, 76, 76);
     border-radius: 4px;
-    }   
+    }  
 
-p {
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    max-width: 1200px;
+    justify-content: center;
+} 
+
+/*p {
     margin: 20 auto;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -17,7 +23,13 @@ p {
     margin-left: 450px;
     
 }
+*/
+
+.input-label {
+    width: 200px;
+}
 
 body {
-    background-color: rgb(188, 226, 246);
+    background-color: rgb(172, 252, 180);
 }
+
