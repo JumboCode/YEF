@@ -8,111 +8,119 @@
 
 <body>
 	<h1>Team Name 1 vs Team Name 2</h1>
-			<h2>Room # and Time</h2>
-			<h2>Round #</h2>
+			<p>Room # and Time</p>
+			<p>Round #</p>
 
-			<form>
-				<label htmlFor="motion-container">Motion</label>
-				<div id = "motion-container">
-					<label htmlFor="motion-chosen">Chosen</label>
-					<input id = "motion-chosen"
-						type = "text"
-						placeholder = "Chosen"
-						/>
-					<label htmlFor="motion-aff">Aff Veto</label>
-					<input id = "motion-aff"
-						type = "text"
-						placeholder = "Aff Veto"
-					/>
-
-					<label htmlFor="motion-neg">Neg Veto</label>
-					<input id = "motion-neg"
-						type = "text"
-						placeholder = "Neg Veto"
-					/>
-				</div>
-				<label htmlFor="ballot-container">Ballot</label>
-				<div id = "ballot-container">
+			<form autocomplete="off">
+				<div id = "motion-container" class="big-container">
+					<h2 class="big-container-title"> Motion</h2>
+					<div class="big-container-wo-title">
+						<div class="motion-option-container">
+							<label class="motion-option-label" htmlFor="motion-chosen">Chosen</label>
+							<input id = "motion-chosen"
+								type = "text"
+								placeholder = "Chosen"
+							/>
+						</div>
+						<div class="motion-option-container">
+							<label class="motion-option-label" htmlFor="motion-aff">Aff Veto</label>
+							<input id = "motion-aff"
+								type = "text"
+								placeholder = "Aff Veto"
+							/>	
+						</div>
+						<div class="motion-option-container">
+							<label class="motion-option-label" htmlFor="motion-neg">Neg Veto</label>
+							<input id = "motion-neg"
+								type = "text"
+								placeholder = "Neg Veto"
+							/>
+						</div>
+					</div>
 					
-					<fieldset id = "left-team-member">
-						<legend>Affirmative: Team Member 1</legend>
-						<label htmlFor="one">1. </label>
-						<div id = "one">
-
-							<input
-								type = "text"
-								placeholder = "Name"
-							/>
-							<input
-								type = "text"
-								placeholder = "Score"
-							/>
-						</div>
-						<label htmlFor="two">2. </label>
-						<div id="two">
-
-							<input
-								type = "text"
-								placeholder = "Name"
-							/>
-							<input
-								type = "text"
-								placeholder = "Score"
-							/>
-						</div>
-						<label htmlFor="three">3. </label>
-						<div id = "three">
-
-							<input
-								type = "text"
-								placeholder = "Name"
-							/>
-							<input
-								type = "text"
-								placeholder = "Score"
-							/>
-						</div>
-					</fieldset>
-
-					<fieldset id = "right-team-member">
-						<legend>Negative: Team Member 2</legend>
-						<label htmlFor="one">1. </label>
-						<div id = "one">
-
-							<input
-								type = "text"
-								placeholder = "Name"
-							/>
-							<input
-								type = "text"
-								placeholder = "Score"
-							/>
-						</div>
-						<label htmlFor="two">2. </label>
-						<div id = "two">
-
-							<input
-								type = "text"
-								placeholder = "Name"
-							/>
-							<input
-								type = "text"
-								placeholder = "Score"
-							/>
-						</div>
-						<label htmlFor="three">3. </label>
-						<div id = "three">
-
-							<input
-								type = "text"
-								placeholder = "Name"
-							/>
-							<input
-								type = "text"
-								placeholder = "Score"
-							/>
-						</div>
-					</fieldset>
+				</div>
+				<div id = "ballot-container" class="big-container">
+					<h2 class="big-container-title"> Ballot</h2>
+					<div class="big-container-wo-title" id="ballot-options-container">
+						<fieldset id = "left-team-member">
+							<legend>Affirmative: Team Member 1</legend>
+							<div class="ballot-member-container" id = "one">
+								<label htmlFor="one">1. </label>
+								<input
+									type = "text"
+									placeholder = "Name"
+								/>
+								<input
+									type = "text"
+									placeholder = "Score"
+									class = "score-input-field"
+								/>
+							</div>
+							<div class="ballot-member-container" id="two">
+								<label htmlFor="two">2. </label>
+								<input
+									type = "text"
+									placeholder = "Name"
+								/>
+								<input
+									type = "text"
+									placeholder = "Score"
+									class = "score-input-field"
+								/>
+							</div>
+							<div class="ballot-member-container" id = "three">
+								<label htmlFor="three">3. </label>
+								<input
+									type = "text"
+									placeholder = "Name"
+								/>
+								<input
+									type = "text"
+									placeholder = "Score"
+									class = "score-input-field"
+								/>
+							</div>
+						</fieldset>
+						<fieldset id = "right-team-member">
+							<legend>Negative: Team Member 2</legend>
+							<div class="ballot-member-container" id = "one">
+								<label htmlFor="one">1. </label>
+								<input
+									type = "text"
+									placeholder = "Name"
+								/>
+								<input
+									type = "text"
+									placeholder = "Score"
+									class = "score-input-field"
+								/>
+							</div>
+							<div class="ballot-member-container" id = "two">
+								<label htmlFor="two">2. </label>
+								<input
+									type = "text"
+									placeholder = "Name"
+								/>
+								<input
+									type = "text"
+									placeholder = "Score"
+									class = "score-input-field"
+								/>
+							</div>
+							<div class="ballot-member-container" id = "three">
+								<label htmlFor="three">3. </label>
+								<input
+									type = "text"
+									placeholder = "Name"
+								/>
+								<input
+									type = "text"
+									placeholder = "Score"
+									class = "score-input-field"
+								/>
+							</div>
+						</fieldset>
+					</div>
 				</div>
 			</form>
 </body>
