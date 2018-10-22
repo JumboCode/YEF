@@ -10,9 +10,13 @@ input {
 
 .flex-container {
     display: flex;
-    flex-direction: row;
-    max-width: 1200px;
+    flex-direction: column;
+    max-width: 800px;
     justify-content: center;
+    margin: 0px 275px;
+    padding: 50px 50px;
+    align-items: center;
+    background-color: rgb(255,255,255);
 } 
 
 /*p {
