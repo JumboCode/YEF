@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
+from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from api.models import Team, Tournament
 from api.serializers import UserSerializer, GroupSerializer, TeamSerializer, TournamentSerializer
+from django.contrib.auth.models import User
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -21,6 +25,8 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
 
 class TeamViewSet(viewsets.ModelViewSet):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
 
