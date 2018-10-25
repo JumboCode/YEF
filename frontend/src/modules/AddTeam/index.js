@@ -4,14 +4,14 @@ import "./styles.css"
 class AddTeam extends Component {
     constructor(props) {
 	super(props);
-	this.state = {clubName: '', city: '', teamName: '', teamMembers1: '', teamMembers2: '', teamMembers3: ''};
+	this.state = {clubName: '', city: '', teamName: '', teamMember1: '', teamMember2: '', teamMember3: ''};
 
 	this.clubNameChange = this.clubNameChange.bind(this);
 	this.cityChange = this.cityChange.bind(this);
 	this.teamNameChange = this.teamNameChange.bind(this);
-	this.teamMembers1Change = this.teamMembers1Change.bind(this);
-	this.teamMembers2Change = this.teamMembers2Change.bind(this);
-	this.teamMembers3Change = this.teamMembers3Change.bind(this);
+	this.teamMember1Change = this.teamMember1Change.bind(this);
+	this.teamMember2Change = this.teamMember2Change.bind(this);
+	this.teamMember3Change = this.teamMember3Change.bind(this);
 	this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -26,17 +26,17 @@ class AddTeam extends Component {
     teamNameChange(event) {
 	this.setState({teamName: event.target.value});
     }
-
-    teamMembers1Change(event) {
-	this.setState({teamMembers1: event.target.value});
+ 
+ 	teamMember1Change(event) {
+	this.setState({teamMember1: event.target.value});
     }
 
-    teamMembers2Change(event) {
-	this.setState({teamMembers2: event.target.value});
+    teamMember2Change(event) {
+	this.setState({teamMember2: event.target.value});
     }
 
-    teamMembers3Change(event) {
-	this.setState({teamMembers3: event.target.value});
+    teamMember3Change(event) {
+	this.setState({teamMember3: event.target.value});
     }
 
     handleSubmit(event) {
@@ -51,30 +51,36 @@ class AddTeam extends Component {
 	return (<form onSubmit={this.handleSubmit}>
 	<div className = "flex-container">
 
-		
-	<p> Add a Team </p>
-		
-	<p className = "input-label"> Club Name: 
-	<input type="text" name="clubName" value={this.state.clubName} onChange={this.clubNameChange}/></p> 
+	<p className = "input-label"> Club Name: </p>
+	<input type="text" name="clubName" value={this.state.clubName} onChange={this.clubNameChange}/> 
+	</div>
 
+	<div className = "flex-container">
+	<p className= "input-label"> City: </p>
+	<input type="text" name="city" value={this.state.city} onChange={this.cityChange}/>
+	</div>
 
+	<div className = "flex-container">
+	<p className = "input-label"> Team Name: </p>
+	<input type="text" name="teamName" value={this.state.teamName} onChange={this.teamNameChange}/>
+	</div>
 
-	<p className= "input-label"> City: 
-	<input type="text" name="city" value={this.state.city} onChange={this.cityChange}/></p>
+	<div className = "flex-container">
+	<p className = "input-label"> Team Member 1: </p>
+	<input type="text" name="teamMembers" value={this.state.teamMember1} onChange={this.teamMember1Change}/>
+	</div>
 
+	<div className = "flex-container">
+	<p className = "input-label"> Team Member 2: </p>
+	<input type="text" name="teamMembers" value={this.state.teamMember2} onChange={this.teamMember2Change}/>
+	</div>
 
+	<div className = "flex-container">
+	<p className = "input-label"> Team Member 3: </p>
+	<input type="text" name="teamMembers" value={this.state.teamMember3} onChange={this.teamMember3Change}/>
+	</div>
 
-	<p className = "input-label"> Team Name: 
-	<input type="text" name="teamName" value={this.state.teamName} onChange={this.teamNameChange}/></p>
-
-
-
-	<p className = "input-label"> Team Members: </p>
-	<input type="text" name="teamMembers1" value={this.state.teamMembers1} onChange={this.teamMembers1Change}/>
-	<input type="text" name="teamMembers2" value={this.state.teamMembers2} onChange={this.teamMembers2Change}/>
-	<input type="text" name="teamMembers3" value={this.state.teamMembers3} onChange={this.teamMembers3Change}/>
-
-	<p></p>
+	<div className = "flex-container">
 	<input type="submit" value="Submit"/> 
 	</div>
 
