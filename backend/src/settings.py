@@ -37,6 +37,7 @@ DATABASES['default'] = dj_database_url.parse('postgres://qlyffupuioojwm:d6345444
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,8 +47,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'api'
 ]
-
+CORS_ORIGIN_WHITELIST = (
+    "localhost:3000",
+    "localhost:8000"
+)
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -89,7 +95,7 @@ REST_FRAMEWORK = {
 
 '''DATABASES = {
     'default': {
-        'URL': 
+        'URL':
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
