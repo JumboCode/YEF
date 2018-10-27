@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import "./styles.css";
+import React, { Component } from 'react';
+import './styles.css';
 
 class CreateTournament extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      startDate: "",
-      endDate: "",
-      numTeams: "",
-      location: "",
-      numRounds: ""
+      name: '',
+      startDate: '',
+      endDate: '',
+      numTeams: '',
+      location: '',
+      numRounds: ''
     };
 
     this.nameChange = this.nameChange.bind(this);
@@ -52,147 +52,91 @@ class CreateTournament extends Component {
   }
 
   render() {
-      return (<form onSubmit={this.handleSubmit}>
-	<ul class = "flex">
-	<p> <b> Create a Tournament </b> </p>
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <ul class="flex">
+          <p>
+            {' '}
+            <b> Create a Tournament </b>{' '}
+          </p>
 
-   	<p> Tournament Name: </p>
-  	<p> <input type="text" name="name" value={this.state.name} onChange={this.nameChange}/> </p> 
-	      
-        <p> Location: </p>
-	<p> <input type="text" name="location" value={this.state.location} onChange={this.locationChange}/> </p>
+          <p> Tournament Name: </p>
+          <p>
+            {' '}
+            <input
+              type="text"
+              name="name"
+              value={this.state.name}
+              onChange={this.nameChange}
+            />{' '}
+          </p>
 
-	<u2 class = "flex2">
-	<u2><p> Start Date: </p>
-  	<p> <input type="text" name="startDate" value={this.state.startDate} onChange={this.startDateChange}/> </p></u2> 
+          <p> Location: </p>
+          <p>
+            {' '}
+            <input
+              type="text"
+              name="location"
+              value={this.state.location}
+              onChange={this.locationChange}
+            />{' '}
+          </p>
 
-        <u2><p> Number of Teams: </p>
-	<p> <input type="text" name="numTeams" value={this.state.numTeams} onChange={this.numTeamsChange}/> </p></u2>
-	 </u2>
-	      
-	<p> End Date: </p>
-  	<p> <input type="text" name="endDate" value={this.state.endDate} onChange={this.endDateChange}/> </p>
-
-        <p> Number of Rounds: </p>
-	<p> <input type="text" name="numRounds" value={this.state.numRounds} onChange={this.numRoundsChange}/> </p>
-	      
-	 <p> <input type="submit" value="Create"/> </p>
-
-	 </ul>
-	    </form>
-  );
-}
-
-        <p> Location: </p>
-        <p>
-          {" "}
-          <input
-            type="text"
-            name="location"
-            value={this.state.location}
-            onChange={this.locationChange}
-          />{" "}
-        </p>
-
-        <p>
-          {" "}
-          <input type="submit" value="Create" />{" "}
-        </p>
-
-        <table>
-          <tr>
-            <p> Tournament Name: </p>
-            <p>
-              {" "}
-              <input
-                type="text"
-                name="name"
-                value={this.state.name}
-                onChange={this.nameChange}
-              />{" "}
-            </p>
-          </tr>
-
-          <tr>
-            <p> Location: </p>
-            <p>
-              {" "}
-              <input
-                type="text"
-                name="location"
-                value={this.state.location}
-                onChange={this.locationChange}
-              />{" "}
-            </p>
-          </tr>
-
-          <tr>
-            <th>
-              {" "}
+          <u2 class="flex2">
+            <u2>
               <p> Start Date: </p>
               <p>
-                {" "}
+                {' '}
                 <input
                   type="text"
                   name="startDate"
                   value={this.state.startDate}
                   onChange={this.startDateChange}
-                />{" "}
-              </p>{" "}
-            </th>
+                />{' '}
+              </p>
+            </u2>
 
-            <th>
-              {" "}
+            <u2>
               <p> Number of Teams: </p>
               <p>
-                {" "}
+                {' '}
                 <input
                   type="text"
                   name="numTeams"
                   value={this.state.numTeams}
                   onChange={this.numTeamsChange}
-                />{" "}
-              </p>{" "}
-            </th>
-          </tr>
+                />{' '}
+              </p>
+            </u2>
+          </u2>
 
-          <tr>
-            <th>
-              {" "}
-              <p> End Date: </p>
-              <p>
-                {" "}
-                <input
-                  type="text"
-                  name="endDate"
-                  value={this.state.endDate}
-                  onChange={this.endDateChange}
-                />{" "}
-              </p>{" "}
-            </th>
+          <p> End Date: </p>
+          <p>
+            {' '}
+            <input
+              type="text"
+              name="endDate"
+              value={this.state.endDate}
+              onChange={this.endDateChange}
+            />{' '}
+          </p>
 
-            <th>
-              {" "}
-              <p> Number of Rounds: </p>
-              <p>
-                {" "}
-                <input
-                  type="text"
-                  name="numRounds"
-                  value={this.state.numRounds}
-                  onChange={this.numRoundsChange}
-                />{" "}
-              </p>{" "}
-            </th>
-          </tr>
+          <p> Number of Rounds: </p>
+          <p>
+            {' '}
+            <input
+              type="text"
+              name="numRounds"
+              value={this.state.numRounds}
+              onChange={this.numRoundsChange}
+            />{' '}
+          </p>
 
-          <tr>
-            <p>
-              {" "}
-              <input type="submit" value="Create" />{" "}
-            </p>
-          </tr>
-        </table>
+          <p>
+            {' '}
+            <input type="submit" value="Create" />{' '}
+          </p>
+        </ul>
       </form>
     );
   }

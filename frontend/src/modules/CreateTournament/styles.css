@@ -1,6 +1,8 @@
 input {
-  width: 100%;
+  width: 35%;
+  padding: 10px 10px;
   margin: 0px;
+  box-sizing: border-box;
   border: 2px;
   border-style: solid;
   border-color: rgb(101, 76, 76);
@@ -8,22 +10,8 @@ input {
 }
 
 p {
-  margin: 10px;
-}
-
-.flex {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  flex-flow: row wrap;
-  flex-direction: row;
-}
-
-.flex2 {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  flex-flow: row wrap;
-  flex-direction: row;
-  flex: 1 0 220px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
 }
