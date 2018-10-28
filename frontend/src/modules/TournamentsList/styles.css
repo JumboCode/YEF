@@ -1,12 +1,119 @@
-body {
-  width: 100%;
-  height: 100%;
+.date {
+  width: 89px;
+  /* height: 10px; */
+  margin-left: 30px;
+  font-family: HelveticaNeue;
+  font-size: 70px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;}
+.tournament_list_mainbox{
+  width: 1920px;
+  height: 120px;
+  border: solid 1px #707070;
+  background-color: #ffaf3c;
 }
-table,
-th,
-td {
-  border: 1px solid black;
+.titles{
+  height: 42px;
+  width:500px;
+  font-family: HelveticaNeue;
+  font-size: 35px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.23;
+  letter-spacing: normal;
+  text-align: left;
+  color: #707070;
 }
-table {
-  width: 100%;
+.current_tournament_box {
+  margin-left: 160px;
+  width: 655.2px;
+  height: 150px;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.16);
+  background-color: #a09f9d;
+}
+.present_date_box {
+  width: 150px;
+  height: 150px;
+  float: left;
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.16);
+  background-color: #ffaf3c;
+}
+.past_date_box {
+    height: 100px;
+    width: 150px;
+    float: left;
+    height: 150px;
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.16);
+    background-color: #e07f00;
+}
+.past_tournament_box {
+  margin-left: 160px;
+  width: 655.2px;
+  height: 150px;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.16);
+  background-color: #797877;}
+.location {
+  font-family: HelveticaNeue;
+  /* width: 500px; */
+  margin-left: 50px;
+  font-size: 27px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 3;
+  letter-spacing: normal;
+  /* text-align: center; */
+  color: #ffffff;
+}
+.tournament_name {
+    margin-left: 50px;
+    margin-top: 10px;
+    /* width: 222px; */
+    height: 32px;
+    font-family: HelveticaNeue;
+    font-size: 27px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 3;
+    letter-spacing: normal;
+    /* text-align: center; */
+    color: #ffffff;
+}
+.month {
+  width: 60px;
+  height: 0px;
+  font-family: HelveticaNeue;
+  font-size: 32px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  margin-left: 40px;
+  letter-spacing: normal;
+  /* text-align: center; */
+  color: #ffffff;
+}
+.orange_line {
+    width: 810px;
+    height: 6px;
+    border: 0px;
+    border-top: solid 7px #ffaf3c;
+}
+#Tlist{
+  width:50%;
+}
+#pTlist,#cTlist{
+
+  width:100%;
+}
+
+.tournament_div{
+  margin-bottom: 20px;
 }

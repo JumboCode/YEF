@@ -31,5 +31,8 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "devDependencies": {
+    "babel-plugin-react-html-attrs": "^2.1.0"
   }
 }
