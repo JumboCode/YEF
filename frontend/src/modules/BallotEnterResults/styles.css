@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
-body {
+/*body {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   margin: 10vh 20vw 10vh 20vw;
-}
-h1 {
+}*/
+/*h1 {
   font-weight: 400;
 }
 h2 {
   margin: 0;
-}
+}*/
 
 #ballot-options-container {
   display: flex;

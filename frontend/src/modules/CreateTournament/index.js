@@ -55,86 +55,74 @@ class CreateTournament extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <ul class="flex">
-          <p>
-            {' '}
-            <b> Create a Tournament </b>{' '}
-          </p>
-
           <p> Tournament Name: </p>
           <p>
-            {' '}
             <input
               type="text"
               name="name"
               value={this.state.name}
               onChange={this.nameChange}
-            />{' '}
+            />
           </p>
 
           <p> Location: </p>
           <p>
-            {' '}
             <input
               type="text"
               name="location"
               value={this.state.location}
               onChange={this.locationChange}
-            />{' '}
+            />
           </p>
 
           <u2 class="flex2">
             <u2>
               <p> Start Date: </p>
               <p>
-                {' '}
                 <input
                   type="text"
                   name="startDate"
                   value={this.state.startDate}
                   onChange={this.startDateChange}
-                />{' '}
+                />
               </p>
             </u2>
 
             <u2>
               <p> Number of Teams: </p>
               <p>
-                {' '}
                 <input
                   type="text"
                   name="numTeams"
                   value={this.state.numTeams}
                   onChange={this.numTeamsChange}
-                />{' '}
+                />
               </p>
             </u2>
           </u2>
 
           <p> End Date: </p>
           <p>
-            {' '}
             <input
               type="text"
               name="endDate"
               value={this.state.endDate}
               onChange={this.endDateChange}
-            />{' '}
+            />
           </p>
 
           <p> Number of Rounds: </p>
           <p>
-            {' '}
             <input
               type="text"
               name="numRounds"
               value={this.state.numRounds}
               onChange={this.numRoundsChange}
-            />{' '}
+            />
           </p>
 
           <p>
-            {' '}
-            <input type="submit" value="Create" />{' '}
+            <input type="submit" value="Create" />
           </p>
         </ul>
       </form>
