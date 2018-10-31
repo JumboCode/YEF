@@ -39,9 +39,28 @@ class AddTeam extends Component {
 	this.setState({teamMember3: event.target.value});
     }
 
+
     handleSubmit(event) {
-	console.log(this.state);
-	event.preventDefault();
+
+	//console.log(this.state);
+	//event.preventDefault();
+
+	fetch('localhost:8000/teams', {
+	    method: 'POST',
+	    headers: {
+		'Accept': 'application/json',
+		'Content-Type': 'application/json',
+	    },
+	    body: JSON.stringify({
+		name: this.state.teamName,
+		city: this.state.city,
+		clubName: this.state.clubName,
+		member1: this.state.teamMember1,
+		member2: this.state.teamMember2,
+		member3: this.state.teamMember3,
+		tournamentID: 2,
+	    })
+	})
     }
 
 
