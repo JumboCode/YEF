@@ -11,7 +11,7 @@ class TournamentView extends React.Component {
         <Header />
         <br />
         <div style={{ margin: 20 }}>
-          <h1>Tufts Halloween Invitational</h1>
+          <h1>Tournament ID: {this.props.match.params.id}</h1>
         </div>
         <br />
         <div style={{ display: 'flex' }}>
