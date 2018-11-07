@@ -47,10 +47,7 @@ class AddTeam extends Component {
   }
 
   handleSubmit(event) {
-    //console.log(this.state);
-    //event.preventDefault();
-
-    fetch('localhost:8000/teams', {
+    fetch('http://localhost:8000/teams/', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -135,7 +132,9 @@ class AddTeam extends Component {
         </div>
 
         <div className="flex-container">
-          <input type="submit" value="Submit" />
+          <div className="flex-container2">
+            <input type="submit" value="Submit" />
+          </div>
         </div>
       </form>
     );
