@@ -47,8 +47,22 @@ class AddTeam extends Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state);
-    event.preventDefault();
+    fetch('http://localhost:8000/teams/', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: this.state.teamName,
+        city: this.state.city,
+        clubName: this.state.clubName,
+        member1: this.state.teamMember1,
+        member2: this.state.teamMember2,
+        member3: this.state.teamMember3,
+        tournamentID: 2
+      })
+    });
   }
 
   render() {
@@ -118,7 +132,9 @@ class AddTeam extends Component {
         </div>
 
         <div className="flex-container">
-          <input type="submit" value="Submit" />
+          <div className="flex-container2">
+            <input type="submit" value="Submit" />
+          </div>
         </div>
       </form>
     );
