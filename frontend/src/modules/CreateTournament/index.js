@@ -47,8 +47,14 @@ class CreateTournament extends Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state);
     event.preventDefault();
+    let data = JSON.stringify({
+      name: this.state.name,
+      location: this.state.location,
+      start_date: this.state.startDate,
+      end_date: this.state.endDate
+    });
+    this.props.onSubmit(data);
   }
 
   render() {
