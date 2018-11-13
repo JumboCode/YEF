@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from api.models import Team, Tournament, Round, MemberPoints, JudgePoints, MatchUp, Judge, Member, Club
+from api.models import Team, Tournament, Round, MemberPoint, JudgePoint, MatchUp, Judge, Member, Club
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -24,14 +24,14 @@ class TournamentSerializer(serializers.ModelSerializer):
         model = Tournament
         fields = ('id', 'name', 'location', 'start_date', 'end_date', 'teams')
 
-class MemberPointsSerializer(serializers.ModelSerializer):
+class MemberPointSerializer(serializers.ModelSerializer):
     class Meta:
-        model = MemberPoints
+        model = MemberPoint
         fields = ("memberID", "roundID", "StylePoints", "ContentPoints", "StratergyPoints")
 
-class JudgePointsSerializer(serializers.ModelSerializer):
+class JudgePointSerializer(serializers.ModelSerializer):
     class Meta:
-        model = JudgePoints
+        model = JudgePoint
         fields = ("judgeID", "points", "roundID")
 
 class MatchUpSerializer(serializers.ModelSerializer):

@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from api.models import Team, Tournament, Round, MemberPoints, JudgePoints, MatchUp, Judge, Member, Club
-from api.serializers import UserSerializer, GroupSerializer, TeamSerializer, TournamentSerializer, RoundSerializer, MemberPointsSerializer, JudgePointsSerializer, MatchUpSerializer, JudgeSerializer, MemberSerializer, ClubSerializer
+from api.models import Team, Tournament, Round, MemberPoint, JudgePoint, MatchUp, Judge, Member, Club
+from api.serializers import UserSerializer, GroupSerializer, TeamSerializer, TournamentSerializer, RoundSerializer, MemberPointSerializer, JudgePointSerializer, MatchUpSerializer, JudgeSerializer, MemberSerializer, ClubSerializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -32,13 +32,13 @@ class TournamentViewSet(viewsets.ModelViewSet):
     queryset = Tournament.objects.all()
     serializer_class = TournamentSerializer
 
-class MemberPointsViewSet(viewsets.ModelViewSet):
-    queryset = MemberPoints.objects.all()
-    serializer_class = MemberPointsSerializer
+class MemberPointViewSet(viewsets.ModelViewSet):
+    queryset = MemberPoint.objects.all()
+    serializer_class = MemberPointSerializer
 
-class JudgePointsViewSet(viewsets.ModelViewSet):
-    queryset = JudgePoints.objects.all()
-    serializer_class = JudgePointsSerializer
+class JudgePointViewSet(viewsets.ModelViewSet):
+    queryset = JudgePoint.objects.all()
+    serializer_class = JudgePointSerializer
 
 class MatchUpViewSet(viewsets.ModelViewSet):
     queryset = MatchUp.objects.all()

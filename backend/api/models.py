@@ -20,6 +20,7 @@ class Judge(models.Model):
     teamID = models.ForeignKey(Team, on_delete=models.CASCADE)
     clubID = models.ForeignKey(Club, on_delete=models.CASCADE)
 
+
 class Member(models.Model):
     name = models.CharField(max_length=512)
     teamID = models.ForeignKey(Team, on_delete=models.CASCADE)
@@ -29,26 +30,27 @@ class Round(models.Model):
     round = models.IntegerField()
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
     statement = models.CharField(max_length=4096)
-    chair = models.ForeignKey(Judge, on_delete=models.CASCADE)
-    win = models.ForeignKey(Team, on_delete=models.CASCADE)
-    decision = models.CharField(max_length=20, choices=(
-        ("Split",'Split'),
-        ("Unaminous",'Unaminous')), default='Split')
+
+
 
 class MatchUp(models.Model):
     oppID = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='opposition')
     propID = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='proposition')
     judgeID = models.ForeignKey(Judge, on_delete=models.CASCADE)
     roundID = models.ForeignKey(Round, on_delete=models.CASCADE)
+    win = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
+    decision = models.CharField(max_length=20, choices=(
+        ("Split",'Split'),
+        ("Unaminous",'Unaminous')), default='Split')
 
-class MemberPoints(models.Model):
+class MemberPoint(models.Model):
     memberID = models.ForeignKey(Member, on_delete=models.CASCADE)
     roundID = models.ForeignKey(Round, on_delete=models.CASCADE)
     StylePoints = models.FloatField()
     ContentPoints = models.FloatField()
     StratergyPoints = models.FloatField()
 
-class JudgePoints(models.Model):
+class JudgePoint(models.Model):
     judgeID = models.ForeignKey(Judge, on_delete=models.CASCADE)
     points = models.FloatField()
     roundID = models.ForeignKey(Round, on_delete=models.CASCADE)
