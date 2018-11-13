@@ -48,9 +48,11 @@ Three key parts:
 ### Component Descriptions (Pages)
 
 Homepage
+
 Shows list of upcoming tournaments with Date, Tournament Name, and Location on left half of web page. Has button for popup to create new tournament (inputs Tournament Name, Location, Start Date, Number of Teams, End Date, and Number of Rounds). Has search bar to search all tournaments and also shows a master calendar. 
 
 Tournament Page
+
 Has a section to show registered teams, which is a list showing Team Name, Club, and City of all current registered teams. Also has a form to add a team, which takes in Club Name, City, Team Name and Team Members(3) in order to create a team. 
 
 
