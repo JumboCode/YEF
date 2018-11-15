@@ -5,19 +5,27 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from api.models import Team, Tournament
-from api.serializers import UserSerializer, GroupSerializer, TeamSerializer, TournamentSerializer
+from api.serializers import UserSerializer, GroupSerializer, TeamSerializer, TournamentSerializer, RetrieveTournamentSerializer
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
+from django.shortcuts import get_object_or_404
 
 
+from api.models import Team, Tournament, Round, MemberPoint, JudgePoint, MatchUp, Judge, Member, Club
+from api.serializers import UserSerializer, GroupSerializer, TeamSerializer, TournamentSerializer, RoundSerializer, MemberPointSerializer, JudgePointSerializer, MatchUpSerializer, JudgeSerializer, MemberSerializer, ClubSerializer
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
+from rest_framework.decorators import api_view
+from collections import defaultdict
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-
 
 class GroupViewSet(viewsets.ModelViewSet):
     """
@@ -32,9 +40,41 @@ class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
 
+
 class TournamentViewSet(viewsets.ModelViewSet):
-    queryset = Tournament.objects.all()
-    serializer_class = TournamentSerializer
+    """ serializer_class = TournamentSerializer"""
+    queryset = Tournament.objects.all()#Team.objects.all()
+    #serializer_class = RetrieveTournamentSerializer
+    def list(self, request):
+        queryset = Tournament.objects.all()#Team.objects.all()
+        serializer = TournamentSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = Tournament.objects.all()
+        Tournament = get_object_or_404(queryset, pk=pk)
+        serializer = RetrieveTournamentSerializer(Tournament)
+        return Response(serializer.data)
+
+class TeamsInTournamentViewSet(viewsets.ModelViewSet):
+    queryset = Tournament.objects.all()#Team.objects.all()
+    #serializer_class = RetrieveTournamentSerializer
+    #queryset = Tournament.objects.all()
+    def list(self, request):
+        serializer = TournamentSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        Tournament = get_object_or_404(queryset, pk=pk)
+        serializer = RetrieveTournamentSerializer(Tournament)
+        return Response(serializer.data)
+        #return self.request.Tournament.Team.all()
+
+#    queryset = Team.objects.all()
+#    serializer_class = RetrieveTournamentSerializer
+#    team_list = TeamsInTournamentViewSet.as_view({'get': 'list'})
+#    team_detail = TeamsInTournamentViewSet.as_view({'get': 'retrieve'})
+
 
 class CustomAuthToken(ObtainAuthToken):
 
@@ -49,3 +89,56 @@ class CustomAuthToken(ObtainAuthToken):
             'user_id': user.pk,
             'email': user.email
         })
+class MemberPointViewSet(viewsets.ModelViewSet):
+    queryset = MemberPoint.objects.all()
+    serializer_class = MemberPointSerializer
+
+class JudgePointViewSet(viewsets.ModelViewSet):
+    queryset = JudgePoint.objects.all()
+    serializer_class = JudgePointSerializer
+
+class MatchUpViewSet(viewsets.ModelViewSet):
+    queryset = MatchUp.objects.all()
+    serializer_class = MatchUpSerializer
+
+class MemberViewSet(viewsets.ModelViewSet):
+    queryset = Member.objects.all()
+    serializer_class = MemberSerializer
+
+class JudgeViewSet(viewsets.ModelViewSet):
+    queryset = Judge.objects.all()
+    serializer_class = JudgeSerializer
+
+class ClubViewSet(viewsets.ModelViewSet):
+    queryset = Club.objects.all()
+    serializer_class = ClubSerializer
+
+class RoundViewSet(viewsets.ModelViewSet):
+    queryset = Round.objects.all()
+    serializer_class = RoundSerializer
+
+
+class TeamList(APIView):
+    """
+    View to list all users in the system.
+
+    * Requires token authentication.
+    * Only admin users are able to access this view.
+    """
+    authentication_classes = (authentication.BasicAuthentication,authentication.SessionAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, format=None):
+        r_id = ""
+        if(request.query_params and "tournament" in request.query_params):
+            r_id = request.query_params["tournament"]
+
+        matched_team = defaultdict(list)
+        teams = Team.objects.all()
+        teamlist = TeamSerializer(teams, many=True)
+        for team in teamlist.data:
+            t_id = list(team.items())[6][1]
+            matched_team[str(t_id)].append(team)
+        if(r_id != ""):
+            return Response(matched_team[r_id])
+        return Response(matched_team)

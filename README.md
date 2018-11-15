@@ -5,7 +5,6 @@ JumboCode 2018-2019 project for Youth Educational Forum.
 Team members:
 
 - Manish Aryal
-- Ben Ewing
 - Carl Froneberger
 - Andrew Gross
 - Alessandra Jacimovic
@@ -23,6 +22,18 @@ Three key parts:
 
 [Django](https://www.djangoproject.com/) REST API for all tournament operations. This interacts with the [PostgreSQL](https://www.postgresql.org/) database.
 
+#### Routes:
+
+/tournaments (GET) returns all tournaments with the following fields `'id', 'name', 'location', 'start_date', 'end_date', 'teams'`
+
+/tournaments (POST) adds a tournament to the database. The fields in the request should be `'id', 'name', 'location', 'start_date', 'end_date', 'teams'`
+
+/tournaments/<tournament_id> (GET) returns the tournament with the given id
+
+/tournaments/<tournament_id> (PATCH) patches the tournament with the given id and the fields in the request. (This means the if you send a request with the following data `{"name":"New name", "location":"New location"}` the name and location of the tournament with id `<tournament_id>` will be updated
+
+/teams (POST) adds a team to the database. The fields in the request should be `'name', 'city', 'clubName', 'member1', 'member2', 'member3', 'tournamentID'`
+
 ### Database
 
 [PostgreSQL](https://www.postgresql.org/) database. Stores all data. (For later: add link to admin interface)
@@ -30,6 +41,24 @@ Three key parts:
 ### Frontend
 
 [React](https://facebook.github.io/react/docs/hello-world.html) application.
+
+[Mockups](https://xd.adobe.com/view/079cf1b1-193d-480a-5cc2-bdd162119a3b-71ad/) 
+
+### Component Descriptions (Pages)
+
+Homepage
+
+Frontend Route: localhost:3000
+
+Shows list of upcoming tournaments with Date, Tournament Name, and Location on left half of web page. Has button for popup to create new tournament (inputs Tournament Name, Location, Start Date, Number of Teams, End Date, and Number of Rounds). Has a search bar to search all tournaments and a master calendar, both of which are not currently functional. 
+
+
+Tournament Page
+
+Frontend Route: localhost:3000/tournament
+
+Has a section to show registered teams, which is a list showing Team Name, Club, and City of all current registered teams. Also has a form to add a team, which takes in Club Name, City, Team Name and Team Members(3) in order to create a team. 
+
 
 ## One time developer setup
 
@@ -158,36 +187,25 @@ A model is Python class that represents a component of a database. Each model ho
 fields and behaviors of the data stored.
 
 In this project, we have two main models:
+
 - Tournament
 - Team
 
 Each of these contain their component fields and behaviors:
-- Tournament
-	- name
-	- location
-	- start date
-	- end date
 
-- Team
-	- name
-	- city
-	- club name
-	- member names
-	- tournament ID 
-		- Each team points to a tournament but tournaments do not point to teams.
+- Tournament - name - location - start date - end date
+
+- Team - name - city - club name - member names - tournament ID - Each team points to a tournament but tournaments do not point to teams.
 
 ### Views
 
 A view is Python function that takes a web request (a url) and returns a data in the form of a web page.
 
 At this time in the project, we have two important views:
-- Team View
-	- Returns all the teams for viewing and editing.
-	- Has a serializer class: TeamSerializer.
 
-- Tournament View
-	- Returns all the tournaments for viewing and editing.
-	- Has a serializer class: TournamentSerializer.
+- Team View - Returns all the teams for viewing and editing. - Has a serializer class: TeamSerializer.
+
+- Tournament View - Returns all the tournaments for viewing and editing. - Has a serializer class: TournamentSerializer.
 
 ### Serializers
 
@@ -195,11 +213,7 @@ A serializer is function that will take Django models/queries and will convert t
 In our case, our serializers convert our models in JSON objects.
 
 At this time in the project, we have two important serializers:
-- TeamSerializer
-	- Converts the Team model into a JSON.
-	- Has the fields of the Team model.
 
-- TournamentSerializer
-	- Converts the Tournament model into a JSON.
-	- Has the fields of the Tournament model.
-	- Returns associated teams and the tournament's ID.
+- TeamSerializer - Converts the Team model into a JSON. - Has the fields of the Team model.
+
+- TournamentSerializer - Converts the Tournament model into a JSON. - Has the fields of the Tournament model. - Returns associated teams and the tournament's ID.
