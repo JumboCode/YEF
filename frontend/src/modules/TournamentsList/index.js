@@ -179,7 +179,7 @@ class TournamentList extends Component {
               onClose={this._handleClose}
               title="Create a Tournament"
             >
-              <CreateTournament />
+              <CreateTournament onSubmit={data => this._onSubmit(data)} />
             </B.Dialog>
           </div>
         </div>
@@ -187,6 +187,19 @@ class TournamentList extends Component {
     } else {
       return 'Loading...';
     }
+  }
+
+  _onSubmit(data) {
+    fetch('http://localhost:8000/tournaments/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: data
+    })
+      .then(response => response.json())
+      .then(result => console.log('Success:', result))
+      .catch(error => console.error('Error:', error));
   }
 
   _handleClose = () => this.setState({ isModalOpen: false });
