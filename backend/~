@@ -1,0 +1,5 @@
+1. installing globally with -g flag
+2. nodemon => to update the changes in server side
+3. res.json(obj) to send the json file
+4. use --save to add the installed package to package.json
+5. to send a file => render || sendFile
