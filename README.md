@@ -55,7 +55,7 @@ Shows list of upcoming tournaments with Date, Tournament Name, and Location on l
 
 Tournament Page
 
-Frontend Route: Http://localhost:3000/tournament
+Frontend Route: http://localhost:3000/tournament
 
 Has a section to show registered teams, which is a list showing Team Name, Club, and City of all current registered teams. Also has a form to add a team, which takes in Club Name, City, Team Name and Team Members(3) in order to create a team. 
 
