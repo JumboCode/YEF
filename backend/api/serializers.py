@@ -27,7 +27,7 @@ class TournamentSerializer(serializers.ModelSerializer):
         model = Tournament
         fields = ('id', 'name', 'location', 'start_date', 'end_date')
 
-class RetrieveTournamentSerializer(serializers.ModelSerializer):
+class TeamsInTournamentSerializer(serializers.ModelSerializer):
     #teams = serializers.HyperlinkedIdentityField(view_name='Team-detail')
     teams = TeamSerializer(source='team_set', many=True)
     class Meta:
