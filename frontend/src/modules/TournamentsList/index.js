@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import AddTeam from '../AddTeam';
-import CreateTournament from '../CreateTournament';
+import CreateTournamentContainer from '../Containers/CreateTournamentContainer.js';
 import Header from '../Header';
 import * as B from '@blueprintjs/core';
 import './styles.css';
@@ -12,29 +12,12 @@ class TournamentList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: null,
-      isLoaded: false,
-      items: []
+      isModalOpen: false
     };
   }
 
   componentDidMount() {
-    fetch('http://localhost:8000/tournaments/')
-      .then(res => res.json())
-      .then(
-        result => {
-          this.setState({
-            items: result,
-            isLoaded: true
-          });
-        },
-        error => {
-          this.setState({
-            isLoaded: true,
-            error: true
-          });
-        }
-      );
+    this.props.fetchTournaments();
   }
 
   checkDate(t_date) {
@@ -76,49 +59,36 @@ class TournamentList extends Component {
       '11': 'Nov',
       '12': 'Dec'
     };
-    if (this.state.isLoaded && !this.state.error) {
-      var presentTlist = [];
-      var pastTlist = [];
-      this.state.items.forEach(item => {
-        var e_date = item.end_date.split('-');
-        var s_date = item.start_date.split('-');
-        item['date'] = { date: s_date[2], month: monthList[s_date[1]] };
-        var flag_present = this.checkDate(e_date);
-        if (flag_present) {
-          presentTlist.push(item);
-        } else {
-          pastTlist.push(item);
-        }
-      });
 
-      return (
-        <div>
-          <Header />
-          <div className="container">
-            <div className="tournament-list-container">
-              <h3 className="titles"> Upcoming Tournaments </h3>
-              <hr className="orange_line" />
-              <div>
-                {presentTlist.map(item => (
-                  <Link to="/tournament">
-                    <div className="tournament_div" key={item.id}>
-                      <div className="present_date_box">
-                        <p className="month"> {item.date.month} </p>
-                        <p className="date"> {item.date.date} </p>
-                      </div>
-                      <div className="current_tournament_box">
-                        <p className="tournament_name"> {item.name} </p>
-                        <p className="tournament_name"> {item.location} </p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
+    if (this.props.loading) {
+      return <p>Loading...</p>;
+    }
 
-              <div>
-                <h3 className="titles"> Past Tournaments </h3>
-                <hr className="orange_line" />
-                {pastTlist.map(item => (
+    var presentTlist = [];
+    var pastTlist = [];
+    this.props.tournamentList.forEach(item => {
+      console.log(item);
+      var e_date = item.end_date.split('-');
+      var s_date = item.start_date.split('-');
+      item['date'] = { date: s_date[2], month: monthList[s_date[1]] };
+      var flag_present = this.checkDate(e_date);
+      if (flag_present) {
+        presentTlist.push(item);
+      } else {
+        pastTlist.push(item);
+      }
+    });
+
+    return (
+      <div>
+        <Header />
+        <div className="container">
+          <div className="tournament-list-container">
+            <h3 className="titles"> Upcoming Tournaments </h3>
+            <hr className="orange_line" />
+            <div>
+              {presentTlist.map(item => (
+                <Link to="/tournament">
                   <div className="tournament_div" key={item.id}>
                     <div className="present_date_box">
                       <p className="month"> {item.date.month} </p>
@@ -129,79 +99,79 @@ class TournamentList extends Component {
                       <p className="tournament_name"> {item.location} </p>
                     </div>
                   </div>
-                ))}
-              </div>
+                </Link>
+              ))}
             </div>
-            <div className="right-container">
-              <button
-                style={{
-                  width: '100%',
-                  backgroundColor: '#ffaf3c',
-                  fontSize: 24,
-                  color: 'white',
-                  paddingTop: 10,
-                  paddingBottom: 10
-                }}
-                onClick={() => this.setState({ isModalOpen: true })}
-              >
-                Create New Tournament
-              </button>
-              <div>
-                <h3 className="titles"> Search Tournaments </h3>
-                <hr className="orange_line" />
-                <div
-                  style={{
-                    fontSize: 24
-                  }}
-                  class="bp3-input-group bp3-large .modifier"
-                >
-                  <span class="bp3-icon bp3-icon-search" />
-                  <input
-                    style={{ fontSize: 24, paddingLeft: 50 }}
-                    type="text"
-                    class="bp3-input"
-                    placeholder="Search"
-                  />
-                  <button class="bp3-button bp3-minimal bp3-intent-primary bp3-icon-arrow-right" />
+
+            <div>
+              <h3 className="titles"> Past Tournaments </h3>
+              <hr className="orange_line" />
+              {pastTlist.map(item => (
+                <div className="tournament_div" key={item.id}>
+                  <div className="present_date_box">
+                    <p className="month"> {item.date.month} </p>
+                    <p className="date"> {item.date.date} </p>
+                  </div>
+                  <div className="current_tournament_box">
+                    <p className="tournament_name"> {item.name} </p>
+                    <p className="tournament_name"> {item.location} </p>
+                  </div>
                 </div>
-                <br />
-                <div>
-                  <h3 className="titles"> Master Calendar </h3>
-                  <hr className="orange_line" />
-                  <div style={{ height: 400, backgroundColor: '#a09f9d' }} />
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-          <div>
-            <B.Dialog
-              isOpen={this.state.isModalOpen}
-              onClose={this._handleClose}
-              title="Create a Tournament"
+          <div className="right-container">
+            <button
+              style={{
+                width: '100%',
+                backgroundColor: '#ffaf3c',
+                fontSize: 24,
+                color: 'white',
+                paddingTop: 10,
+                paddingBottom: 10
+              }}
+              onClick={() => this.setState({ isModalOpen: true })}
             >
-              <CreateTournament onSubmit={data => this._onSubmit(data)} />
-            </B.Dialog>
+              Create New Tournament
+            </button>
+            <div>
+              <h3 className="titles"> Search Tournaments </h3>
+              <hr className="orange_line" />
+              <div
+                style={{
+                  fontSize: 24
+                }}
+                class="bp3-input-group bp3-large .modifier"
+              >
+                <span class="bp3-icon bp3-icon-search" />
+                <input
+                  style={{ fontSize: 24, paddingLeft: 50 }}
+                  type="text"
+                  class="bp3-input"
+                  placeholder="Search"
+                />
+                <button class="bp3-button bp3-minimal bp3-intent-primary bp3-icon-arrow-right" />
+              </div>
+              <br />
+              <div>
+                <h3 className="titles"> Master Calendar </h3>
+                <hr className="orange_line" />
+                <div style={{ height: 400, backgroundColor: '#a09f9d' }} />
+              </div>
+            </div>
           </div>
         </div>
-      );
-    } else {
-      return 'Loading...';
-    }
+        <div>
+          <B.Dialog
+            isOpen={this.state.isModalOpen}
+            onClose={() => this.setState({ isModalOpen: false })}
+            title="Create a Tournament"
+          >
+            <CreateTournamentContainer />
+          </B.Dialog>
+        </div>
+      </div>
+    );
   }
-
-  _onSubmit(data) {
-    fetch('http://localhost:8000/tournaments/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: data
-    })
-      .then(response => response.json())
-      .then(result => console.log('Success:', result))
-      .catch(error => console.error('Error:', error));
-  }
-
-  _handleClose = () => this.setState({ isModalOpen: false });
 }
 export default TournamentList;
