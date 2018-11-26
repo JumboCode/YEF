@@ -60,28 +60,26 @@ class RoundViewSet(viewsets.ModelViewSet):
     queryset = Round.objects.all()
     serializer_class = RoundSerializer
 
-
-class TeamList(APIView):
-    """
-    View to list all users in the system.
-
-    * Requires token authentication.
-    * Only admin users are able to access this view.
-    """
+class Tournament_Matchups(APIView):
     authentication_classes = (authentication.BasicAuthentication,authentication.SessionAuthentication)
     permission_classes = (permissions.IsAuthenticated,)
 
-    def get(self, request, format=None):
-        r_id = ""
-        if(request.query_params and "tournament" in request.query_params):
-            r_id = request.query_params["tournament"]
-
-        matched_team = defaultdict(list)
+    def get(self, request, t_id):
         teams = Team.objects.all()
         teamlist = TeamSerializer(teams, many=True)
+
+        matched_team = []
+        matchup_two = []
+        count = 0
         for team in teamlist.data:
-            t_id = list(team.items())[6][1]
-            matched_team[str(t_id)].append(team)
-        if(r_id != ""):
-            return Response(matched_team[r_id])
-        return Response(matched_team)
+            count += 1
+            current_id = list(team.items())[3][1]
+            if(current_id == t_id):
+                matchup_two.append(team)
+            if(count % 2 == 0):
+                matched_team.append(matchup_two)
+                matchup_two = []
+        if(len(matchup_two) == 1):
+            matchup_two.append({"name": "Swing Team"})
+            matched_team.append(matchup_two)
+        return Response({"matchups" : matched_team})
