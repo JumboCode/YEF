@@ -31,8 +31,15 @@ ALLOWED_HOSTS = []
 
 DATABASES = {}
 
-DATABASES['default'] = dj_database_url.parse('postgres://qlyffupuioojwm:d6345444f1dc8ef21902d4f102f7773f898564827bdb48e94c854b0a9002db31@ec2-54-83-50-145.compute-1.amazonaws.com:5432/ddvcubs9frr4p0', conn_max_age=600)
-
+#DATABASES['default'] = dj_database_url.parse('postgres://qlyffupuioojwm:d6345444f1dc8ef21902d4f102f7773f898564827bdb48e94c854b0a9002db31@ec2-54-83-50-145.compute-1.amazonaws.com:5432/ddvcubs9frr4p0', conn_max_age=600)
+DATABASES['default']= {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'yef_test_db',
+        'USER': 'myusername',
+        'PASSWORD': 'mypassword',
+        'HOST': '',
+        'PORT': '',
+    }
 
 # Application definition
 
