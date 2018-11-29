@@ -4,22 +4,53 @@ import './styles.css';
 class CreateTournament extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      name: '',
+      startDate: '',
+      endDate: '',
+      numTeams: '',
+      location: '',
+      numRounds: ''
+    };
+    this.nameChange = this.nameChange.bind(this);
+    this.startDateChange = this.startDateChange.bind(this);
+    this.endDateChange = this.endDateChange.bind(this);
+    this.numTeamsChange = this.numTeamsChange.bind(this);
+    this.locationChange = this.locationChange.bind(this);
+    this.numRoundsChange = this.numRoundsChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log('submitting');
-    console.log(this.props);
     const data = JSON.stringify({
-      name: this.getName.value,
-      location: this.getLocation.value,
-      start_date: this.getSDate.value,
-      end_date: this.getEDate.value
+      name: this.state.name,
+      location: this.state.location,
+      start_date: this.state.startDate,
+      end_date: this.state.endDate
     });
-    console.log(data);
     this.props.addTournament(data);
-    console.log(this.props);
+    this.setState({});
   };
+
+  nameChange(event) {
+    this.setState({ name: event.target.value });
+  }
+  startDateChange(event) {
+    this.setState({ startDate: event.target.value });
+  }
+  numTeamsChange(event) {
+    this.setState({ numTeams: event.target.value });
+  }
+  endDateChange(event) {
+    this.setState({ endDate: event.target.value });
+  }
+  numRoundsChange(event) {
+    this.setState({ numRounds: event.target.value });
+  }
+  locationChange(event) {
+    this.setState({ location: event.target.value });
+  }
 
   render() {
     return (
@@ -30,7 +61,8 @@ class CreateTournament extends Component {
             <input
               type="text"
               name="name"
-              ref={input => (this.getName = input)}
+              onChange={this.nameChange}
+              value={this.state.name}
             />
           </p>
 
@@ -39,7 +71,8 @@ class CreateTournament extends Component {
             <input
               type="text"
               name="location"
-              ref={input => (this.getLocation = input)}
+              onChange={this.locationChange}
+              value={this.state.location}
             />
           </p>
 
@@ -50,7 +83,8 @@ class CreateTournament extends Component {
                 <input
                   type="text"
                   name="startDate"
-                  ref={input => (this.getSDate = input)}
+                  onChange={this.startDateChange}
+                  value={this.state.startDate}
                 />
               </p>
             </u2>
@@ -68,7 +102,8 @@ class CreateTournament extends Component {
             <input
               type="text"
               name="endDate"
-              ref={input => (this.getEDate = input)}
+              onChange={this.endDateChange}
+              value={this.state.endDate}
             />
           </p>
 
