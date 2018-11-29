@@ -3,6 +3,7 @@
 # dependencies
 node_modules
 .venv
+venv
 
 # testing
 coverage
@@ -22,3 +23,6 @@ db.sqlite3
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# postman
+postman.tar.gz
