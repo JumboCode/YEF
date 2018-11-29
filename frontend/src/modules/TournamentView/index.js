@@ -4,6 +4,14 @@ import Header from '../Header';
 import './styles.css';
 
 class TournamentView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      items: []
+    };
+  }
   componentDidMount() {
     fetch('http://localhost:8000/teams')
       .then(res => res.json())
@@ -26,8 +34,6 @@ class TournamentView extends React.Component {
   render() {
     const { tournamentName, tournamentId } = this.props;
     if (this.state.isLoaded && !this.state.error) {
-      var presentTlist = [];
-      var pastTlist = [];
       this.state.items.forEach(item => {});
 
       return (
