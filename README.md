@@ -42,7 +42,7 @@ Three key parts:
 
 [React](https://facebook.github.io/react/docs/hello-world.html) application.
 
-[Mockups](https://xd.adobe.com/view/079cf1b1-193d-480a-5cc2-bdd162119a3b-71ad/) 
+[Mockups](https://xd.adobe.com/view/079cf1b1-193d-480a-5cc2-bdd162119a3b-71ad/)
 
 ### Component Descriptions (Pages)
 
@@ -50,15 +50,13 @@ Homepage
 
 Frontend Route: http://localhost:3000
 
-Shows list of upcoming tournaments with Date, Tournament Name, and Location on left half of web page. Has button for popup to create new tournament (inputs Tournament Name, Location, Start Date, Number of Teams, End Date, and Number of Rounds). Has a search bar to search all tournaments and a master calendar, both of which are not currently functional. 
-
+Shows list of upcoming tournaments with Date, Tournament Name, and Location on left half of web page. Has button for popup to create new tournament (inputs Tournament Name, Location, Start Date, Number of Teams, End Date, and Number of Rounds). Has a search bar to search all tournaments and a master calendar, both of which are not currently functional.
 
 Tournament Page
 
 Frontend Route: http://localhost:3000/tournament
 
-Has a section to show registered teams, which is a list showing Team Name, Club, and City of all current registered teams. Also has a form to add a team, which takes in Club Name, City, Team Name and Team Members(3) in order to create a team. 
-
+Has a section to show registered teams, which is a list showing Team Name, Club, and City of all current registered teams. Also has a form to add a team, which takes in Club Name, City, Team Name and Team Members(3) in order to create a team.
 
 ## One time developer setup
 
