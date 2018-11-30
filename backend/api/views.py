@@ -92,13 +92,13 @@ class MatchUpViewSet(viewsets.ModelViewSet):
     queryset = MatchUp.objects.all()
     serializer_class = MatchUpSerializer
         
-class TeamList(APIView):
-    """
+"""class TeamList(APIView):
+    
     View to list all users in the system.
 
     * Requires token authentication.
     * Only admin users are able to access this view.
-    """
+    
     authentication_classes = (authentication.BasicAuthentication,authentication.SessionAuthentication)
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -115,4 +115,4 @@ class TeamList(APIView):
             matched_team[str(t_id)].append(team)
         if(r_id != ""):
             return Response(matched_team[r_id])
-        return Response(matched_team)
+        return Response(matched_team)"""
