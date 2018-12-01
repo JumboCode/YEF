@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from django.shortcuts import get_object_or_404
-
+from rest_framework.views import APIView
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -92,13 +92,14 @@ class MatchUpViewSet(viewsets.ModelViewSet):
     queryset = MatchUp.objects.all()
     serializer_class = MatchUpSerializer
         
+"""
 class TeamList(APIView):
-    """
+
     View to list all users in the system.
 
     * Requires token authentication.
     * Only admin users are able to access this view.
-    """
+
     authentication_classes = (authentication.BasicAuthentication,authentication.SessionAuthentication)
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -116,3 +117,4 @@ class TeamList(APIView):
         if(r_id != ""):
             return Response(matched_team[r_id])
         return Response(matched_team)
+"""
