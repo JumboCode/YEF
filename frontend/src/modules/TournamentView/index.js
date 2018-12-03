@@ -32,10 +32,21 @@ class TournamentView extends React.Component {
   }
 
   render() {
+    var teamList = [];
+    const link_id = this.props.match.params.id;
     const { tournamentName, tournamentId } = this.props;
     if (this.state.isLoaded && !this.state.error) {
-      this.state.items.forEach(item => {});
-
+      this.state.items.forEach(item => {
+        if (item.tournamentID == link_id) {
+          var data_t = {
+            name: item.name,
+            city: item.city,
+            club: item.clubName,
+            id: item.tournamentID
+          };
+          teamList.push(data_t);
+        }
+      });
       return (
         <div>
           <Header />
@@ -69,50 +80,20 @@ class TournamentView extends React.Component {
                     <th>Club</th>
                     <th>City</th>
                   </tr>
-                  <tr>
-                    <td className="row" style={{ fontSize: 24 }}>
-                      Tufts A
-                    </td>
-                    <td className="row" style={{ fontSize: 24 }}>
-                      Tufts University
-                    </td>
-                    <td className="row" style={{ fontSize: 24 }}>
-                      Medford, MA
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="row" style={{ fontSize: 24 }}>
-                      Tufts B
-                    </td>
-                    <td className="row" style={{ fontSize: 24 }}>
-                      Tufts University
-                    </td>
-                    <td className="row" style={{ fontSize: 24 }}>
-                      Medford, MA
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="row" style={{ fontSize: 24 }}>
-                      Tufts C
-                    </td>
-                    <td className="row" style={{ fontSize: 24 }}>
-                      Tufts University
-                    </td>
-                    <td className="row" style={{ fontSize: 24 }}>
-                      Medford, MA
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="row" style={{ fontSize: 24 }}>
-                      Tufts D
-                    </td>
-                    <td className="row" style={{ fontSize: 24 }}>
-                      Tufts University
-                    </td>
-                    <td className="row" style={{ fontSize: 24 }}>
-                      Medford, MA
-                    </td>
-                  </tr>
+
+                  {teamList.map(item => (
+                    <tr>
+                      <td className="row" style={{ fontSize: 24 }}>
+                        {item.name}
+                      </td>
+                      <td className="row" style={{ fontSize: 24 }}>
+                        {item.club}
+                      </td>
+                      <td className="row" style={{ fontSize: 24 }}>
+                        {item.city}
+                      </td>
+                    </tr>
+                  ))}
                 </table>
               </div>
             </div>
