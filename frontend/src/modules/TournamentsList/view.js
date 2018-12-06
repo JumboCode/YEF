@@ -67,7 +67,6 @@ class TournamentList extends Component {
     var presentTlist = [];
     var pastTlist = [];
     this.props.tournamentList.forEach(item => {
-      console.log(item);
       var e_date = item.end_date.split('-');
       var s_date = item.start_date.split('-');
       item['date'] = { date: s_date[2], month: monthList[s_date[1]] };
