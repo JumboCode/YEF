@@ -1,56 +1,49 @@
-let error;
+import {FETCH_TOURNAMENTS_START, FETCH_TOURNAMENTS_SUCCESS, 
+       FETCH_TOURNAMENTS_FAILURE, ADD_TOURNAMENT_START,
+       ADD_TOURNAMENT_SUCCESS, ADD_TOURNAMENTS_FAILURE} from '../Actions/ActionTypes.js';
 
 const INITIAL_STATE = {
-  tournamentList: { tournaments: [], error: null, loading: false },
-  newTournament: { tournament: null, error: null, loading: false }
+  tournaments: [], error: null, loading: false,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'ADD_TOURNAMENT':
+    case 'ADD_TOURNAMENT_START':
       return {
-        ...state,
-        newTournament: { tournament: null, error: null, loading: true }
+        tournaments: state.tournaments, 
+        error: null, 
+        loading: true
       };
     case 'ADD_TOURNAMENT_SUCCESS':
       return {
-        tournamentList: {
-          tournaments: [...state.tournamentList.tournaments, action.payload],
+          tournaments: [...state.tournaments, action.payload],
           error: null,
           loading: false
-        },
-        newTournament: {
-          tournament: action.payload,
-          error: null,
-          loading: false
-        }
       };
     case 'ADD_TOURNAMENT_FAILURE':
-      error = action.payload;
       return {
-        ...state,
-        newTournament: { tournament: null, error: error, loading: false }
+        tournaments: state.tournaments,
+        error: action.payload,
+        loading: false
       };
 
-    case 'FETCH_TOURNAMENTS':
+    case 'FETCH_TOURNAMENTS_START':
       return {
-        ...state,
-        tournamentList: { tournaments: [], error: null, loading: true }
+        tournaments: state.tournaments, 
+        error: null, 
+        loading: true
       };
     case 'FETCH_TOURNAMENTS_SUCCESS':
       return {
-        ...state,
-        tournamentList: {
           tournaments: action.payload,
           error: null,
           loading: false
-        }
       };
     case 'FETCH_TOURNAMENTS_FAILURE':
-      error = action.payload;
       return {
-        ...state,
-        tournamentList: { tournaments: [], error: error, loading: false }
+        tournaments: state.tournaments,
+        error: action.payload,
+        loading: false
       };
     default:
       return state;

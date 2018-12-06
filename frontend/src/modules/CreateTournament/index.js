@@ -9,7 +9,7 @@ import CreateTournament from './view.js';
 
 const mapStateToProps = state => {
   return {
-    tournamentList: state.tournamentList.tournaments
+    tournamentList: state.tournaments
   };
 };
 
