@@ -43,12 +43,12 @@ fieldset {
   display: flex;
   flex-direction: column;
 }
-input {
+/*input {
   padding: 10px;
   font-size: 1.1em;
   border-radius: 2px;
   border: 1px #dfe1e5 solid;
-}
+}*/
 input:focus {
   outline: none;
   border-color: #d4d6da;

@@ -5,5 +5,4 @@ import TournamentsList from '../modules/TournamentsList';
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<TournamentsList />, div);
-  ReactDOM.unmountComponentAtNode(div);
 });
