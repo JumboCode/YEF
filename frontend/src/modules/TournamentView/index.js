@@ -17,8 +17,9 @@ class TournamentView extends React.Component {
       .then(res => res.json())
       .then(
         result => {
+          const link_id = this.props.match.params.id;
           this.setState({
-            items: result,
+            items: result.filter(r => r.tournamentID == link_id),
             isLoaded: true
           });
         },
@@ -32,21 +33,8 @@ class TournamentView extends React.Component {
   }
 
   render() {
-    var teamList = [];
-    const link_id = this.props.match.params.id;
     const { tournamentName, tournamentId } = this.props;
     if (this.state.isLoaded && !this.state.error) {
-      this.state.items.forEach(item => {
-        if (item.tournamentID == link_id) {
-          var data_t = {
-            name: item.name,
-            city: item.city,
-            club: item.clubName,
-            id: item.tournamentID
-          };
-          teamList.push(data_t);
-        }
-      });
       return (
         <div>
           <Header />
@@ -80,14 +68,13 @@ class TournamentView extends React.Component {
                     <th>Club</th>
                     <th>City</th>
                   </tr>
-
-                  {teamList.map(item => (
+                  {this.state.items.map(item => (
                     <tr>
                       <td className="row" style={{ fontSize: 24 }}>
                         {item.name}
                       </td>
                       <td className="row" style={{ fontSize: 24 }}>
-                        {item.club}
+                        {item.clubName}
                       </td>
                       <td className="row" style={{ fontSize: 24 }}>
                         {item.city}
