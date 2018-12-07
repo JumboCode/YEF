@@ -19,7 +19,7 @@ class TournamentView extends React.Component {
         result => {
           const link_id = this.props.match.params.id;
           this.setState({
-            items: result.filter(r => r.tournamentID == link_id),
+            items: result.filter(r => r.tournamentID === parseInt(link_id, 10)),
             isLoaded: true
           });
         },
@@ -33,7 +33,6 @@ class TournamentView extends React.Component {
   }
 
   render() {
-    const { tournamentName, tournamentId } = this.props;
     if (this.state.isLoaded && !this.state.error) {
       return (
         <div>
@@ -63,24 +62,26 @@ class TournamentView extends React.Component {
               </div>
               <div style={{ padding: 40 }}>
                 <table style={{ width: '100%', backgroundColor: 'white' }}>
-                  <tr>
-                    <th>Team Name</th>
-                    <th>Club</th>
-                    <th>City</th>
-                  </tr>
-                  {this.state.items.map(item => (
+                  <tbody>
                     <tr>
-                      <td className="row" style={{ fontSize: 24 }}>
-                        {item.name}
-                      </td>
-                      <td className="row" style={{ fontSize: 24 }}>
-                        {item.clubName}
-                      </td>
-                      <td className="row" style={{ fontSize: 24 }}>
-                        {item.city}
-                      </td>
+                      <th>Team Name</th>
+                      <th>Club</th>
+                      <th>City</th>
                     </tr>
-                  ))}
+                    {this.state.items.map(item => (
+                      <tr key={item.name}>
+                        <td className="row" style={{ fontSize: 24 }}>
+                          {item.name}
+                        </td>
+                        <td className="row" style={{ fontSize: 24 }}>
+                          {item.clubName}
+                        </td>
+                        <td className="row" style={{ fontSize: 24 }}>
+                          {item.city}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </table>
               </div>
             </div>
