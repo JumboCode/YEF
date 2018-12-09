@@ -9,7 +9,8 @@ class TournamentView extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      items: []
+      items: [],
+      tabID: 'teams'
     };
   }
   componentDidMount() {
@@ -33,7 +34,11 @@ class TournamentView extends React.Component {
   }
 
   render() {
-    if (this.state.isLoaded && !this.state.error) {
+    if (
+      this.state.isLoaded &&
+      !this.state.error &&
+      this.state.tabID == 'teams'
+    ) {
       return (
         <div>
           <Header />
@@ -43,15 +48,51 @@ class TournamentView extends React.Component {
           </div>
           <br />
           <div style={{ display: 'flex' }}>
-            <div style={{ padding: 20 }}>
-              <h2>Details</h2>
-            </div>
-            <div style={{ padding: 20, backgroundColor: '#e07f00' }}>
-              <h2>Teams</h2>
-            </div>
-            <div style={{ padding: 20 }}>
-              <h2>Results</h2>
-            </div>
+            <button
+              style={{
+                width: '15%',
+                backgroundColor: '#ffffff',
+                fontSize: 24,
+                color: 'black',
+                paddingTop: 20,
+                paddingBottom: 20,
+                outline: 'none',
+                borderWidth: 0
+              }}
+              onClick={() => this.setState({ tabID: 'details' })}
+            >
+              Details
+            </button>
+            <button
+              style={{
+                width: '15%',
+                backgroundColor: '#e07f00',
+                fontSize: 24,
+                color: 'black',
+                paddingTop: 20,
+                paddingBottom: 20,
+                outline: 'none',
+                borderWidth: 0
+              }}
+              onClick={() => this.setState({ tabID: 'teams' })}
+            >
+              Teams
+            </button>
+            <button
+              style={{
+                width: '15%',
+                backgroundColor: '#ffffff',
+                fontSize: 24,
+                color: 'black',
+                paddingTop: 20,
+                paddingBottom: 20,
+                outline: 'none',
+                borderWidth: 0
+              }}
+              onClick={() => this.setState({ tabID: 'results' })}
+            >
+              Results
+            </button>
           </div>
           <div style={{ display: 'flex' }}>
             <div style={{ flex: 1, backgroundColor: ' #797877' }}>
@@ -100,6 +141,147 @@ class TournamentView extends React.Component {
                 <AddTeam />
               </div>
             </div>
+          </div>
+        </div>
+      );
+    } else if (
+      this.state.isLoaded &&
+      !this.state.error &&
+      this.state.tabID == 'details'
+    ) {
+      return (
+        <div>
+          <Header />
+          <br />
+          <div style={{ margin: 20 }}>
+            <h1>Tournament ID: {this.props.match.params.id}</h1>
+          </div>
+          <br />
+          <div style={{ display: 'flex' }}>
+            <button
+              style={{
+                width: '15%',
+                backgroundColor: '#e07f00',
+                fontSize: 24,
+                color: 'black',
+                paddingTop: 20,
+                paddingBottom: 20,
+                outline: 'none',
+                borderWidth: 0
+              }}
+              onClick={() => this.setState({ tabID: 'details' })}
+            >
+              Details
+            </button>
+            <button
+              style={{
+                width: '15%',
+                backgroundColor: '#ffffff',
+                fontSize: 24,
+                color: 'black',
+                paddingTop: 20,
+                paddingBottom: 20,
+                outline: 'none',
+                borderWidth: 0
+              }}
+              onClick={() => this.setState({ tabID: 'teams' })}
+            >
+              Teams
+            </button>
+            <button
+              style={{
+                width: '15%',
+                backgroundColor: '#ffffff',
+                fontSize: 24,
+                color: 'black',
+                paddingTop: 20,
+                paddingBottom: 20,
+                outline: 'none',
+                borderWidth: 0
+              }}
+              onClick={() => this.setState({ tabID: 'results' })}
+            >
+              Results
+            </button>
+          </div>
+          <div style={{ display: 'flex' }}>
+            <div style={{ flex: 1, backgroundColor: 'white' }}>
+              <div
+                style={{
+                  textAlign: 'left',
+                  color: 'gray',
+                  paddingTop: 20,
+                  paddingLeft: 50
+                }}
+              >
+                <h1>Starts: </h1>
+                <h1>Ends: </h1>
+                <h1>Number of Teams: {this.state.items.length}</h1>
+                <h1>Number of Rounds: </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else if (
+      this.state.isLoaded &&
+      !this.state.error &&
+      this.state.tabID == 'results'
+    ) {
+      return (
+        <div>
+          <Header />
+          <br />
+          <div style={{ margin: 20 }}>
+            <h1>Tournament ID: {this.props.match.params.id}</h1>
+          </div>
+          <br />
+          <div style={{ display: 'flex' }}>
+            <button
+              style={{
+                width: '15%',
+                backgroundColor: '#ffffff',
+                fontSize: 24,
+                color: 'black',
+                paddingTop: 20,
+                paddingBottom: 20,
+                outline: 'none',
+                borderWidth: 0
+              }}
+              onClick={() => this.setState({ tabID: 'details' })}
+            >
+              Details
+            </button>
+            <button
+              style={{
+                width: '15%',
+                backgroundColor: '#ffffff',
+                fontSize: 24,
+                color: 'black',
+                paddingTop: 20,
+                paddingBottom: 20,
+                outline: 'none',
+                borderWidth: 0
+              }}
+              onClick={() => this.setState({ tabID: 'teams' })}
+            >
+              Teams
+            </button>
+            <button
+              style={{
+                width: '15%',
+                backgroundColor: '#e07f00',
+                fontSize: 24,
+                color: 'black',
+                paddingTop: 20,
+                paddingBottom: 20,
+                outline: 'none',
+                borderWidth: 0
+              }}
+              onClick={() => this.setState({ tabID: 'results' })}
+            >
+              Results
+            </button>
           </div>
         </div>
       );
