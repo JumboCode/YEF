@@ -22,7 +22,7 @@ class TeamSerializer(serializers.ModelSerializer):
 class TournamentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tournament
-        fields = ('id', 'name', 'location', 'start_date', 'end_date', 'teams')
+        fields = ('id', 'name', 'location', 'start_date', 'end_date')
 
 class MemberPointSerializer(serializers.ModelSerializer):
     class Meta:
@@ -42,7 +42,7 @@ class MatchUpSerializer(serializers.ModelSerializer):
 class JudgeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Judge
-        fields = ("name", "teamID", "clubID")
+        fields = ("name", "tournamentID", "clubID")
 
 class MemberSerializer(serializers.ModelSerializer):
     class Meta:
@@ -52,9 +52,9 @@ class MemberSerializer(serializers.ModelSerializer):
 class ClubSerializer(serializers.ModelSerializer):
     class Meta:
         model = Club
-        fields = ("name")
+        fields = ["name"]
 
 class RoundSerializer(serializers.ModelSerializer):
     class Meta:
         model = Round
-        fields = ("round","tournament", "statement","chair","win","decision")
+        fields = ("round","tournament", "statement")
