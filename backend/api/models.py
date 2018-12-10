@@ -30,6 +30,12 @@ class Round(models.Model):
     round = models.IntegerField()
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
     statement = models.CharField(max_length=4096)
+    chair = models.CharField(max_length=4096)
+    # added the below because it was present in the serializer
+    win = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
+    decision = models.CharField(max_length=20, choices=(
+        ("Split",'Split'),
+        ("Unaminous",'Unaminous')), default='Split')
 
 
 
