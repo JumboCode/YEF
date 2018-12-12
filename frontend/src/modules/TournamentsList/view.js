@@ -46,15 +46,15 @@ class TournamentList extends Component {
 
   render() {
     var monthList = {
-      '1': 'Jan',
-      '2': 'Feb',
-      '3': 'Mar',
-      '4': 'Apr',
-      '5': 'May',
-      '6': 'Jun',
-      '7': 'Jul',
-      '8': 'Aug',
-      '9': 'Sept',
+      '01': 'Jan',
+      '02': 'Feb',
+      '03': 'Mar',
+      '04': 'Apr',
+      '05': 'May',
+      '06': 'Jun',
+      '07': 'Jul',
+      '08': 'Aug',
+      '09': 'Sept',
       '10': 'Oct',
       '11': 'Nov',
       '12': 'Dec'
@@ -87,7 +87,7 @@ class TournamentList extends Component {
             <hr className="orange_line" />
             <div>
               {presentTlist.map(item => (
-                <Link to="/tournament">
+                <Link to={`/tournaments/${item.id}`}>
                   <div className="tournament_div" key={item.id}>
                     <div className="present_date_box">
                       <p className="month"> {item.date.month} </p>
@@ -106,16 +106,18 @@ class TournamentList extends Component {
               <h3 className="titles"> Past Tournaments </h3>
               <hr className="orange_line" />
               {pastTlist.map(item => (
-                <div className="tournament_div" key={item.id}>
-                  <div className="present_date_box">
-                    <p className="month"> {item.date.month} </p>
-                    <p className="date"> {item.date.date} </p>
+                <Link to={`/tournaments/${item.id}`}>
+                  <div className="tournament_div" key={item.id}>
+                    <div className="present_date_box">
+                      <p className="month"> {item.date.month} </p>
+                      <p className="date"> {item.date.date} </p>
+                    </div>
+                    <div className="current_tournament_box">
+                      <p className="tournament_name"> {item.name} </p>
+                      <p className="tournament_name"> {item.location} </p>
+                    </div>
                   </div>
-                  <div className="current_tournament_box">
-                    <p className="tournament_name"> {item.name} </p>
-                    <p className="tournament_name"> {item.location} </p>
-                  </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
