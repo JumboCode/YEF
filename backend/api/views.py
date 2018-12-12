@@ -30,8 +30,8 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
 
 class TeamViewSet(viewsets.ModelViewSet):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    #authentication_classes = (TokenAuthentication,)
+    #permission_classes = (IsAuthenticated,)
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
 
