@@ -20,9 +20,19 @@ class TeamSerializer(serializers.ModelSerializer):
         fields = ('name', 'city', 'clubName',  'tournamentID')
 
 class TournamentSerializer(serializers.ModelSerializer):
+    #teams = serializers.HyperlinkedIdentityField(view_name='Team-detail')
+    teams = TeamSerializer(source='team_set', many=True, read_only=True)
+
     class Meta:
         model = Tournament
-        fields = ('id', 'name', 'location', 'start_date', 'end_date')
+        fields = ('id', 'name', 'location', 'start_date', 'end_date', 'teams')
+
+class TeamsInTournamentSerializer(serializers.ModelSerializer):
+    #teams = serializers.HyperlinkedIdentityField(view_name='Team-detail')
+    teams = TeamSerializer(source='team_set', many=True)
+    class Meta:
+        model = Tournament
+        fields = ('id', 'name', 'location', 'start_date', 'end_date', 'teams')
 
 class MemberPointSerializer(serializers.ModelSerializer):
     class Meta:
