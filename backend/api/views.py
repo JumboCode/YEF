@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from django.shortcuts import get_object_or_404
+from rest_framework.views import APIView
 
 
 
@@ -98,9 +99,9 @@ class MatchUpViewSet(viewsets.ModelViewSet):
 
     * Requires token authentication.
     * Only admin users are able to access this view.
-    
-    authentication_classes = (authentication.BasicAuthentication,authentication.SessionAuthentication)
-    permission_classes = (permissions.IsAuthenticated,)
+    """
+    #authentication_classes = (authentication.BasicAuthentication,authentication.SessionAuthentication)
+    #permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, format=None):
         r_id = ""
