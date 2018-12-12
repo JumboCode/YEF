@@ -38,8 +38,8 @@ router.register(r'matchup', views.MatchUpViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include(router.urls)),
+    path('tournaments/<int:t_id>/rounds/<int:r_id>', views.Tournament_Matchups.as_view()),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api-token-auth/',views.CustomAuthToken.as_view()),
     #url(r'^teamlist/', views.TeamList.as_view())
 ]
 
