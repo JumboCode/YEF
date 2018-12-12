@@ -26,13 +26,13 @@ router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'teams', views.TeamViewSet)
 router.register(r'tournaments', views.TournamentViewSet)
-router.register(r'round', views.RoundViewSet)
+router.register(r'rounds', views.RoundViewSet)
 router.register(r'memberpoints', views.MemberPointViewSet)
 router.register(r'judgepoints', views.JudgePointViewSet)
-router.register(r'club', views.ClubViewSet)
-router.register(r'judge', views.JudgeViewSet)
-router.register(r'member', views.MemberViewSet)
-router.register(r'matchup', views.MatchUpViewSet)
+router.register(r'clubs', views.ClubViewSet)
+router.register(r'judges', views.JudgeViewSet)
+router.register(r'members', views.MemberViewSet)
+router.register(r'matchups', views.MatchUpViewSet)
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [

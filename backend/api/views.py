@@ -40,10 +40,10 @@ class TeamViewSet(viewsets.ModelViewSet):
 
 
 class TournamentViewSet(viewsets.ModelViewSet):
-    serializer_class = TournamentSerializer
-    queryset = Tournament.objects.all()#Team.objects.all()
+    queryset = Tournament.objects.all()
+    serializer_class = TournamentSerializer#Team.objects.all()
     #serializer_class = TournamentSerializer
-    def list(self, request):
+    """def list(self, request):
         queryset = Tournament.objects.all()#Team.objects.all()
         serializer = TournamentSerializer(queryset, many=True)
         return Response(serializer.data)
@@ -52,7 +52,7 @@ class TournamentViewSet(viewsets.ModelViewSet):
         queryset = Tournament.objects.all()
         tournament = get_object_or_404(queryset, pk=pk)
         serializer = TeamsInTournamentSerializer(tournament)
-        return Response(serializer.data)
+        return Response(serializer.data)"""
 
 class CustomAuthToken(ObtainAuthToken):
 
