@@ -19,13 +19,25 @@ class TeamSerializer(serializers.ModelSerializer):
         model = Team
         fields = ('name', 'city', 'clubName',  'tournamentID')
 
+class MatchUpSerializer(serializers.ModelSerializer):
+    oppName = TeamSerializer(source="team_set", read_only=True)
+    class Meta:
+        model = MatchUp
+        fields = ("oppID", "propID", "judgeID", "roundID")
+class RoundSerializer(serializers.ModelSerializer):
+    matchups = MatchUpSerializer(source='matchup_set', many=True, read_only=True)
+    class Meta:
+        model = Round
+        fields = ("round","tournament", "statement", "matchups")
+
 class TournamentSerializer(serializers.ModelSerializer):
     #teams = serializers.HyperlinkedIdentityField(view_name='Team-detail')
     teams = TeamSerializer(source='team_set', many=True, read_only=True)
+    rounds = RoundSerializer(source='round_set', many=True, read_only=True)
 
     class Meta:
         model = Tournament
-        fields = ('id', 'name', 'location', 'start_date', 'end_date', 'teams')
+        fields = ('id', 'name', 'location', 'start_date', 'end_date', 'teams', 'rounds')
 
 class TeamsInTournamentSerializer(serializers.ModelSerializer):
     #teams = serializers.HyperlinkedIdentityField(view_name='Team-detail')
@@ -44,11 +56,6 @@ class JudgePointSerializer(serializers.ModelSerializer):
         model = JudgePoint
         fields = ("judgeID", "points", "roundID")
 
-class MatchUpSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MatchUp
-        fields = ("oppID", "propID", "judgeID", "roundID")
-
 class JudgeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Judge
@@ -63,8 +70,3 @@ class ClubSerializer(serializers.ModelSerializer):
     class Meta:
         model = Club
         fields = ["name"]
-
-class RoundSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Round
-        fields = ("round","tournament", "statement")
