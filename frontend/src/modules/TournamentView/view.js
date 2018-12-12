@@ -14,18 +14,15 @@ class TournamentView extends React.Component {
     };
   }
   componentDidMount() {
+    console.log(this.props);
     const { tournament } = this.state;
-    debugger;
     if (!tournament) {
-      fetch('http://localhost:8000/teams')
+      fetch(`http://localhost:8000/tournaments/${this.props.match.params.id}`)
         .then(res => res.json())
         .then(
           result => {
-            const link_id = this.props.match.params.id;
             this.setState({
-              tournament: result.filter(
-                r => r.tournamentID === parseInt(link_id, 10)
-              ),
+              tournament: result,
               isLoaded: true
             });
           },
@@ -40,6 +37,7 @@ class TournamentView extends React.Component {
   }
 
   render() {
+    const { tournament } = this.state;
     if (
       this.state.isLoaded &&
       !this.state.error &&
@@ -49,9 +47,7 @@ class TournamentView extends React.Component {
         <div>
           <Header />
           <br />
-          <div style={{ margin: 20 }}>
-            <h1>Tournament ID: {this.props.match.params.id}</h1>
-          </div>
+
           <br />
           <div style={{ display: 'flex' }}>
             <button
@@ -121,7 +117,7 @@ class TournamentView extends React.Component {
                           {item.name}
                         </td>
                         <td className="row" style={{ fontSize: 24 }}>
-                          {item.clubName}
+                          {item.club_name}
                         </td>
                         <td className="row" style={{ fontSize: 24 }}>
                           {item.city}
@@ -159,9 +155,7 @@ class TournamentView extends React.Component {
         <div>
           <Header />
           <br />
-          <div style={{ margin: 20 }}>
-            <h1>Tournament ID: {this.props.match.params.id}</h1>
-          </div>
+
           <br />
           <div style={{ display: 'flex' }}>
             <button
@@ -220,10 +214,10 @@ class TournamentView extends React.Component {
                   paddingLeft: 50
                 }}
               >
-                <h1>Starts: </h1>
-                <h1>Ends: </h1>
+                <h1>Starts: {this.state.tournament.start_date}</h1>
+                <h1>Ends: {this.state.tournament.start_date}</h1>
                 <h1>Number of Teams: {this.state.tournament.teams.length}</h1>
-                <h1>Number of Rounds: </h1>
+                {/*<h1>Number of Rounds: </h1>*/}
               </div>
             </div>
           </div>
@@ -238,9 +232,7 @@ class TournamentView extends React.Component {
         <div>
           <Header />
           <br />
-          <div style={{ margin: 20 }}>
-            <h1>Tournament ID: {this.props.match.params.id}</h1>
-          </div>
+
           <br />
           <div style={{ display: 'flex' }}>
             <button
@@ -286,8 +278,58 @@ class TournamentView extends React.Component {
               }}
               onClick={() => this.setState({ tabID: 'results' })}
             >
-              Results
+              Schedule
             </button>
+          </div>
+          <div style={{ display: 'flex' }}>
+            <div style={{ flex: 1, backgroundColor: ' #797877' }}>
+              <div
+                style={{ textAlign: 'center', color: 'white', paddingTop: 20 }}
+              >
+                <h1>Schedule</h1>
+              </div>
+              <div style={{ padding: 40 }}>
+                <table style={{ width: '100%', backgroundColor: 'white' }}>
+                  <tbody>
+                    <tr>
+                      <th>Round</th>
+                      <th>Proposition Team</th>
+                      <th>Opposition Team</th>
+                    </tr>
+                    {tournament.rounds.map(round =>
+                      round.matchups.map(matchup => (
+                        <tr
+                          key={matchup.id}
+                          onClick={() =>
+                            this.props.history.push(
+                              `/enterResults/${tournament.id}/${round.id}/${
+                                matchup.id
+                              }`
+                            )
+                          }
+                        >
+                          <td className="row" style={{ fontSize: 24 }}>
+                            {round.round}
+                          </td>
+                          <td className="row" style={{ fontSize: 24 }}>
+                            {
+                              tournament.teams.find(t => t.id == matchup.propID)
+                                .name
+                            }
+                          </td>
+                          <td className="row" style={{ fontSize: 24 }}>
+                            {
+                              tournament.teams.find(t => t.id == matchup.oppID)
+                                .name
+                            }
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       );
