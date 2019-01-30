@@ -76,26 +76,20 @@ class CreateTournament extends Component {
             />
           </p>
 
-          <u2 class="flex2">
-            <u2>
-              <p> Start Date: </p>
-              <p>
-                <input
-                  type="text"
-                  name="startDate"
-                  onChange={this.startDateChange}
-                  value={this.state.startDate}
-                />
-              </p>
-            </u2>
+          <p> Start Date: </p>
+          <p>
+            <input
+              type="text"
+              name="startDate"
+              onChange={this.startDateChange}
+              value={this.state.startDate}
+            />
+          </p>
 
-            <u2>
-              <p> Number of Teams: </p>
-              <p>
-                <input type="text" name="numTeams" />
-              </p>
-            </u2>
-          </u2>
+          <p> Number of Teams: </p>
+          <p>
+            <input type="text" name="numTeams" />
+          </p>
 
           <p> End Date: </p>
           <p>

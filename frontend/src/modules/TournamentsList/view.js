@@ -142,16 +142,16 @@ class TournamentList extends Component {
                 style={{
                   fontSize: 24
                 }}
-                class="bp3-input-group bp3-large .modifier"
+                className="bp3-input-group bp3-large .modifier"
               >
-                <span class="bp3-icon bp3-icon-search" />
+                <span className="bp3-icon bp3-icon-search" />
                 <input
                   style={{ fontSize: 24, paddingLeft: 50 }}
                   type="text"
-                  class="bp3-input"
+                  className="bp3-input"
                   placeholder="Search"
                 />
-                <button class="bp3-button bp3-minimal bp3-intent-primary bp3-icon-arrow-right" />
+                <button className="bp3-button bp3-minimal bp3-intent-primary bp3-icon-arrow-right" />
               </div>
               <br />
               <div>
