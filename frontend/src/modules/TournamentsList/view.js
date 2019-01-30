@@ -85,7 +85,7 @@ class TournamentList extends Component {
           <div className="tournament-list-container">
             <h3 className="titles"> Upcoming Tournaments </h3>
             <hr className="orange_line" />
-            <div>
+            <div className="tournament-list-small-container">
               {presentTlist.map(item => (
                 <Link to={`/tournaments/${item.id}`}>
                   <div className="tournament_div" key={item.id}>
@@ -102,9 +102,9 @@ class TournamentList extends Component {
               ))}
             </div>
 
-            <div>
-              <h3 className="titles"> Past Tournaments </h3>
-              <hr className="orange_line" />
+            <h3 className="titles"> Past Tournaments </h3>
+            <hr className="orange_line" />
+            <div className="tournament-list-small-container">
               {pastTlist.map(item => (
                 <Link to={`/tournaments/${item.id}`}>
                   <div className="tournament_div" key={item.id}>
