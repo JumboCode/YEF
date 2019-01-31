@@ -65,8 +65,8 @@ class TeamTestCase(APITestCase):
 
 
 
-    # def test_add_team(self):
-    """
+        # def test_add_team(self):
+        """
         url = "/teams/"
         time = datetime.date.today()
         tournament_data = {"name": "first", "location": "here", "start_date": time, "end_date": time}
@@ -78,8 +78,8 @@ class TeamTestCase(APITestCase):
         response = self.client.post(url, team_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Team.objects.count(), 1)
-    """
-    # def test_member_teams(self):
+        """
+        # def test_member_teams(self):
 
         #test get and post for each object from each view
         #focus on get and post request for tournament class and then make PR
