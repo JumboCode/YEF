@@ -28,8 +28,8 @@ class TournamentList extends Component {
     var date = today.getDate();
     var month = today.getMonth() + 1;
     var year = today.getFullYear();
-    if (year == t_date[0]) {
-      if (month == t_date[1]) {
+    if (year === t_date[0]) {
+      if (month === t_date[1]) {
         if (date <= t_date[2]) {
           return 1;
         } else {

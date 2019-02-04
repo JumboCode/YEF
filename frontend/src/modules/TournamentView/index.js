@@ -10,7 +10,7 @@ import TournamentView from './view.js';
 const mapStateToProps = (state, ownProps) => {
   const tournamentId = ownProps.match.params.id;
   return {
-    tournament: state.tournaments.find(t => t.id == tournamentId)
+    tournament: state.tournaments.find(t => t.id === tournamentId)
   };
 };
 

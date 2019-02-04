@@ -17,6 +17,7 @@ class TournamentView extends React.Component {
     console.log(this.props);
     const { tournament } = this.state;
     if (!tournament) {
+      console.log(this.props.match.params.id);
       fetch(`http://localhost:8000/tournaments/${this.props.match.params.id}`)
         .then(res => res.json())
         .then(
