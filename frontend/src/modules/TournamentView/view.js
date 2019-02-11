@@ -10,7 +10,8 @@ class TournamentView extends React.Component {
       error: null,
       isLoaded: props.tournament ? true : false,
       tournament: props.tournament,
-      tabID: 'teams'
+      tabID: 'teams',
+      invalid: false
     };
   }
   componentDidMount() {
@@ -22,10 +23,18 @@ class TournamentView extends React.Component {
         .then(res => res.json())
         .then(
           result => {
-            this.setState({
-              tournament: result,
-              isLoaded: true
-            });
+            if (!result.detail) {
+              console.log('Does Exist');
+              debugger;
+              this.setState({
+                tournament: result,
+                isLoaded: true
+              });
+            } else {
+              this.setState({
+                invalid: true
+              });
+            }
           },
           error => {
             this.setState({
@@ -42,6 +51,7 @@ class TournamentView extends React.Component {
     if (
       this.state.isLoaded &&
       !this.state.error &&
+      !this.state.invalid &&
       this.state.tabID == 'teams'
     ) {
       return (
@@ -150,6 +160,7 @@ class TournamentView extends React.Component {
     } else if (
       this.state.isLoaded &&
       !this.state.error &&
+      !this.state.invalid &&
       this.state.tabID == 'details'
     ) {
       return (
@@ -227,6 +238,7 @@ class TournamentView extends React.Component {
     } else if (
       this.state.isLoaded &&
       !this.state.error &&
+      !this.state.invalid &&
       this.state.tabID == 'results'
     ) {
       return (
@@ -334,6 +346,12 @@ class TournamentView extends React.Component {
           </div>
         </div>
       );
+    } else if (this.state.invalid) {
+      alert(
+        'Sorry this tournament does not exist. Click Ok to redirect to the home page'
+      );
+      window.location = 'http://localhost:3000/tournaments/';
+      return null;
     } else {
       return 'Loading...';
     }
