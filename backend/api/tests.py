@@ -91,5 +91,5 @@ class ClubTestCase(APITestCase):
         club1 = Club.objects.create(name="Andrew's Club")
 
     def test_name(self):
-        club1 = Team.objects.get(name="Andrew's Club")
+        club1 = Club.objects.get(name="Andrew's Club")
         self.assertEqual(club1.name, "Andrew's Club")
