@@ -10,31 +10,28 @@ class TournamentView extends React.Component {
       error: null,
       isLoaded: props.tournament ? true : false,
       tournament: props.tournament,
-      tabID: 'teams',
-      invalid: false
+      tabID: 'teams'
     };
   }
   componentDidMount() {
-    console.log(this.props);
     const { tournament } = this.state;
     if (!tournament) {
-      console.log(this.props.match.params.id);
       fetch(`http://localhost:8000/tournaments/${this.props.match.params.id}`)
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) {
+            alert(
+              'Sorry this tournament does not exist. Click Ok to redirect to the home page'
+            );
+            window.location = 'http://localhost:3000/tournaments/';
+          }
+          return res.json();
+        })
         .then(
           result => {
-            if (!result.detail) {
-              console.log('Does Exist');
-              debugger;
-              this.setState({
-                tournament: result,
-                isLoaded: true
-              });
-            } else {
-              this.setState({
-                invalid: true
-              });
-            }
+            this.setState({
+              tournament: result,
+              isLoaded: true
+            });
           },
           error => {
             this.setState({
@@ -51,7 +48,6 @@ class TournamentView extends React.Component {
     if (
       this.state.isLoaded &&
       !this.state.error &&
-      !this.state.invalid &&
       this.state.tabID == 'teams'
     ) {
       return (
@@ -160,7 +156,6 @@ class TournamentView extends React.Component {
     } else if (
       this.state.isLoaded &&
       !this.state.error &&
-      !this.state.invalid &&
       this.state.tabID == 'details'
     ) {
       return (
@@ -238,7 +233,6 @@ class TournamentView extends React.Component {
     } else if (
       this.state.isLoaded &&
       !this.state.error &&
-      !this.state.invalid &&
       this.state.tabID == 'results'
     ) {
       return (
@@ -346,12 +340,6 @@ class TournamentView extends React.Component {
           </div>
         </div>
       );
-    } else if (this.state.invalid) {
-      alert(
-        'Sorry this tournament does not exist. Click Ok to redirect to the home page'
-      );
-      window.location = 'http://localhost:3000/tournaments/';
-      return null;
     } else {
       return 'Loading...';
     }
