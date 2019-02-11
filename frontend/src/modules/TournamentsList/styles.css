@@ -91,3 +91,7 @@
   min-height: 7em;
   display: flex;
 }
+.tournament-list-small-container {
+  overflow: scroll;
+  height: 80vh;
+}

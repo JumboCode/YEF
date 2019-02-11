@@ -85,7 +85,7 @@ class TournamentList extends Component {
           <div className="tournament-list-container">
             <h3 className="titles"> Upcoming Tournaments </h3>
             <hr className="orange_line" />
-            <div>
+            <div className="tournament-list-small-container">
               {presentTlist.map(item => (
                 <Link to={`/tournaments/${item.id}`}>
                   <div className="tournament_div" key={item.id}>
@@ -102,9 +102,9 @@ class TournamentList extends Component {
               ))}
             </div>
 
-            <div>
-              <h3 className="titles"> Past Tournaments </h3>
-              <hr className="orange_line" />
+            <h3 className="titles"> Past Tournaments </h3>
+            <hr className="orange_line" />
+            <div className="tournament-list-small-container">
               {pastTlist.map(item => (
                 <Link to={`/tournaments/${item.id}`}>
                   <div className="tournament_div" key={item.id}>
@@ -142,16 +142,16 @@ class TournamentList extends Component {
                 style={{
                   fontSize: 24
                 }}
-                class="bp3-input-group bp3-large .modifier"
+                className="bp3-input-group bp3-large .modifier"
               >
-                <span class="bp3-icon bp3-icon-search" />
+                <span className="bp3-icon bp3-icon-search" />
                 <input
                   style={{ fontSize: 24, paddingLeft: 50 }}
                   type="text"
-                  class="bp3-input"
+                  className="bp3-input"
                   placeholder="Search"
                 />
-                <button class="bp3-button bp3-minimal bp3-intent-primary bp3-icon-arrow-right" />
+                <button className="bp3-button bp3-minimal bp3-intent-primary bp3-icon-arrow-right" />
               </div>
               <br />
               <div>
