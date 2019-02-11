@@ -56,29 +56,30 @@ class TeamTestCase(APITestCase):
         test_club = Club.objects.create(name = "Carl's Club")
         test_tournament = Tournament.objects.create(name = "first", location="here", start_date = time, end_date = time)
         data = {"name": "Carl's Team", "city": "Atlanta", "clubName": test_club, "tournamentID": test_tournament}
-       # sec_data = {"username:" "carlf", "password:" "rQ82ghZe"}   # post data for getting teams (restricted)
-       # sec_response = self.client.post(url, sec_data, format='json') # post command for providing credentials for entry
-       # response = self.client.get(url, data, format='json')
-       # self.assertEqual(sec_response.status_code, status.HTTP_201_CREATED)
-       # self.assertEqual(response.status_code, status.HTTP_200_OK)
+        """
+        sec_data = {"username:" "carlf", "password:" "rQ82ghZe"}   # post data for getting teams (restricted)
+        sec_response = self.client.post(url, sec_data, format='json') # post command for providing credentials for entry
+        response = self.client.get(url, data, format='json')
+        self.assertEqual(sec_response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        """
         self.assertEqual(Team.objects.count(), 1)
 
 
 
-        # def test_add_team(self):
-        """
-        url = "/teams/"
-        time = datetime.date.today()
-        tournament_data = {"name": "first", "location": "here", "start_date": time, "end_date": time}
-        test_tournament = self.client.get("/tournaments/1", tournament_data, format='json')
-        # test_tournament = Tournament.objects.create(name = "first", location="here", start_date = time, end_date = time)
-        test_club = Club.objects.create(name = "Carl's Club")
-        test_team = Team.objects.create(name = "Carl's Team", city = "Atlanta", clubName = test_club, tournamentID = test_tournament)
-        team_data = {"name": "Carl's Team", "city": "Atlanta", "clubName": "Carl's Club", "tournametID": "1"}
-        response = self.client.post(url, team_data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Team.objects.count(), 1)
-        """
+        def test_add_team(self):
+            url = "/teams/"
+            time = datetime.date.today()
+            tournament_data = {"name": "first", "location": "here", "start_date": time, "end_date": time}
+            test_tournament = self.client.get("/tournaments/1", tournament_data, format='json')
+            test_club = Club.objects.create(name = "Carl's Club")
+            test_team = Team.objects.create(name = "Carl's Team", city = "Atlanta", clubName = test_club, tournamentID = test_tournament)
+            team_data = {"name": "Carl's Team", "city": "Atlanta", "clubName": "Carl's Club", "tournametID": "1"}
+            response = self.client.post(url, team_data, format='json')
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            self.assertEqual(Team.objects.count(), 1)
+            self.assertEqual(Team.objects.count(), 200)
+        
         # def test_member_teams(self):
 
         #test get and post for each object from each view
