@@ -17,7 +17,7 @@ class Team(models.Model):
 
 class Judge(models.Model):
     name = models.CharField(max_length=512)
-    teamID = models.ForeignKey(Team, on_delete=models.CASCADE)
+    tournamentID = models.ForeignKey(Tournament, on_delete=models.CASCADE, null=True)
     clubID = models.ForeignKey(Club, on_delete=models.CASCADE)
 
 
@@ -36,8 +36,6 @@ class Round(models.Model):
     decision = models.CharField(max_length=20, choices=(
         ("Split",'Split'),
         ("Unaminous",'Unaminous')), default='Split')
-
-
 
 class MatchUp(models.Model):
     oppID = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='opposition')

@@ -12,9 +12,12 @@ export default class AppRouter extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route path="/createTournament" component={CreateTournament} />
-          <Route path="/tournament" component={TournamentView} />
+          <Route path="/tournaments/:id" component={TournamentView} />
+          <Route
+            path="/enterResults/:tournamentId/:roundId/:matchupId"
+            component={BallotEnterResults}
+          />
           <Route path="/" component={TournamentsList} />
-          <Route path="/enterResults" component={BallotEnterResults} />
         </Switch>
       </BrowserRouter>
     );
