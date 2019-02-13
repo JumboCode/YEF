@@ -42,7 +42,7 @@ class TournamentView extends React.Component {
     if (
       this.state.isLoaded &&
       !this.state.error &&
-      this.state.tabID == 'teams'
+      this.state.tabID === 'teams'
     ) {
       return (
         <div>
@@ -150,7 +150,7 @@ class TournamentView extends React.Component {
     } else if (
       this.state.isLoaded &&
       !this.state.error &&
-      this.state.tabID == 'details'
+      this.state.tabID === 'details'
     ) {
       return (
         <div>
@@ -227,7 +227,7 @@ class TournamentView extends React.Component {
     } else if (
       this.state.isLoaded &&
       !this.state.error &&
-      this.state.tabID == 'results'
+      this.state.tabID === 'results'
     ) {
       return (
         <div>
@@ -314,13 +314,14 @@ class TournamentView extends React.Component {
                           </td>
                           <td className="row" style={{ fontSize: 24 }}>
                             {
-                              tournament.teams.find(t => t.id == matchup.propID)
-                                .name
+                              tournament.teams.find(
+                                t => t.id === matchup.propID
+                              ).name
                             }
                           </td>
                           <td className="row" style={{ fontSize: 24 }}>
                             {
-                              tournament.teams.find(t => t.id == matchup.oppID)
+                              tournament.teams.find(t => t.id === matchup.oppID)
                                 .name
                             }
                           </td>
