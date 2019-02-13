@@ -15,14 +15,21 @@ class TournamentView extends React.Component {
   }
   componentDidMount() {
     const { tournament } = this.state;
+    const { history } = this.props;
     if (!tournament) {
       fetch(`http://localhost:8000/tournaments/${this.props.match.params.id}`)
         .then(res => {
           if (!res.ok) {
-            alert(
-              'Sorry this tournament does not exist. Click Ok to redirect to the home page'
-            );
-            this.props.history.push('/tournaments');
+            if (res.status === 404) {
+              alert(
+                'Sorry this tournament does not exist. Click Ok to redirect to the home page'
+              );
+            } else {
+              alert(
+                'Something went wrong on our end. Click Ok to redirect to the home page'
+              );
+            }
+            history.push('/tournaments');
           }
           return res.json();
         })
@@ -41,6 +48,56 @@ class TournamentView extends React.Component {
           }
         );
     }
+  }
+
+  renderTabBar() {
+    <div style={{ display: 'flex' }}>
+      <button
+        style={{
+          width: '15%',
+          backgroundColor: '#ffffff',
+          fontSize: 24,
+          color: 'black',
+          paddingTop: 20,
+          paddingBottom: 20,
+          outline: 'none',
+          borderWidth: 0
+        }}
+        onClick={() => this.setState({ tabID: 'details' })}
+      >
+        Details
+      </button>
+      <button
+        style={{
+          width: '15%',
+          backgroundColor: '#e07f00',
+          fontSize: 24,
+          color: 'black',
+          paddingTop: 20,
+          paddingBottom: 20,
+          outline: 'none',
+          borderWidth: 0
+        }}
+        onClick={() => this.setState({ tabID: 'teams' })}
+      >
+        Teams
+      </button>
+      <button
+        style={{
+          width: '15%',
+          backgroundColor: '#ffffff',
+          fontSize: 24,
+          color: 'black',
+          paddingTop: 20,
+          paddingBottom: 20,
+          outline: 'none',
+          borderWidth: 0
+        }}
+        onClick={() => this.setState({ tabID: 'results' })}
+      >
+        Results
+      </button>
+    </div>;
   }
 
   renderTeams() {
