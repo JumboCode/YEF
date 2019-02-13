@@ -22,7 +22,7 @@ class TournamentView extends React.Component {
             alert(
               'Sorry this tournament does not exist. Click Ok to redirect to the home page'
             );
-            window.location = 'http://localhost:3000/tournaments/';
+            this.props.history.push('/tournaments');
           }
           return res.json();
         })
