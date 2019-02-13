@@ -14,12 +14,18 @@ class TournamentView extends React.Component {
     };
   }
   componentDidMount() {
-    console.log(this.props);
     const { tournament } = this.state;
     if (!tournament) {
-      console.log(this.props.match.params.id);
       fetch(`http://localhost:8000/tournaments/${this.props.match.params.id}`)
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) {
+            alert(
+              'Sorry this tournament does not exist. Click Ok to redirect to the home page'
+            );
+            this.props.history.push('/tournaments');
+          }
+          return res.json();
+        })
         .then(
           result => {
             this.setState({
