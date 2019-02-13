@@ -51,53 +51,55 @@ class TournamentView extends React.Component {
   }
 
   renderTabBar() {
-    <div style={{ display: 'flex' }}>
-      <button
-        style={{
-          width: '15%',
-          backgroundColor: '#ffffff',
-          fontSize: 24,
-          color: 'black',
-          paddingTop: 20,
-          paddingBottom: 20,
-          outline: 'none',
-          borderWidth: 0
-        }}
-        onClick={() => this.setState({ tabID: 'details' })}
-      >
-        Details
-      </button>
-      <button
-        style={{
-          width: '15%',
-          backgroundColor: '#e07f00',
-          fontSize: 24,
-          color: 'black',
-          paddingTop: 20,
-          paddingBottom: 20,
-          outline: 'none',
-          borderWidth: 0
-        }}
-        onClick={() => this.setState({ tabID: 'teams' })}
-      >
-        Teams
-      </button>
-      <button
-        style={{
-          width: '15%',
-          backgroundColor: '#ffffff',
-          fontSize: 24,
-          color: 'black',
-          paddingTop: 20,
-          paddingBottom: 20,
-          outline: 'none',
-          borderWidth: 0
-        }}
-        onClick={() => this.setState({ tabID: 'results' })}
-      >
-        Results
-      </button>
-    </div>;
+    return (
+      <div style={{ display: 'flex' }}>
+        <button
+          style={{
+            width: '15%',
+            backgroundColor: '#ffffff',
+            fontSize: 24,
+            color: 'black',
+            paddingTop: 20,
+            paddingBottom: 20,
+            outline: 'none',
+            borderWidth: 0
+          }}
+          onClick={() => this.setState({ tabID: 'details' })}
+        >
+          Details
+        </button>
+        <button
+          style={{
+            width: '15%',
+            backgroundColor: '#e07f00',
+            fontSize: 24,
+            color: 'black',
+            paddingTop: 20,
+            paddingBottom: 20,
+            outline: 'none',
+            borderWidth: 0
+          }}
+          onClick={() => this.setState({ tabID: 'teams' })}
+        >
+          Teams
+        </button>
+        <button
+          style={{
+            width: '15%',
+            backgroundColor: '#ffffff',
+            fontSize: 24,
+            color: 'black',
+            paddingTop: 20,
+            paddingBottom: 20,
+            outline: 'none',
+            borderWidth: 0
+          }}
+          onClick={() => this.setState({ tabID: 'results' })}
+        >
+          Results
+        </button>
+      </div>
+    );
   }
 
   renderTeams() {
@@ -105,55 +107,8 @@ class TournamentView extends React.Component {
       <div>
         <Header />
         <br />
-
         <br />
-        <div style={{ display: 'flex' }}>
-          <button
-            style={{
-              width: '15%',
-              backgroundColor: '#ffffff',
-              fontSize: 24,
-              color: 'black',
-              paddingTop: 20,
-              paddingBottom: 20,
-              outline: 'none',
-              borderWidth: 0
-            }}
-            onClick={() => this.setState({ tabID: 'details' })}
-          >
-            Details
-          </button>
-          <button
-            style={{
-              width: '15%',
-              backgroundColor: '#e07f00',
-              fontSize: 24,
-              color: 'black',
-              paddingTop: 20,
-              paddingBottom: 20,
-              outline: 'none',
-              borderWidth: 0
-            }}
-            onClick={() => this.setState({ tabID: 'teams' })}
-          >
-            Teams
-          </button>
-          <button
-            style={{
-              width: '15%',
-              backgroundColor: '#ffffff',
-              fontSize: 24,
-              color: 'black',
-              paddingTop: 20,
-              paddingBottom: 20,
-              outline: 'none',
-              borderWidth: 0
-            }}
-            onClick={() => this.setState({ tabID: 'results' })}
-          >
-            Results
-          </button>
-        </div>
+        {this.renderTabBar()}
         <div style={{ display: 'flex' }}>
           <div style={{ flex: 1, backgroundColor: ' #797877' }}>
             <div
@@ -213,53 +168,7 @@ class TournamentView extends React.Component {
         <br />
 
         <br />
-        <div style={{ display: 'flex' }}>
-          <button
-            style={{
-              width: '15%',
-              backgroundColor: '#e07f00',
-              fontSize: 24,
-              color: 'black',
-              paddingTop: 20,
-              paddingBottom: 20,
-              outline: 'none',
-              borderWidth: 0
-            }}
-            onClick={() => this.setState({ tabID: 'details' })}
-          >
-            Details
-          </button>
-          <button
-            style={{
-              width: '15%',
-              backgroundColor: '#ffffff',
-              fontSize: 24,
-              color: 'black',
-              paddingTop: 20,
-              paddingBottom: 20,
-              outline: 'none',
-              borderWidth: 0
-            }}
-            onClick={() => this.setState({ tabID: 'teams' })}
-          >
-            Teams
-          </button>
-          <button
-            style={{
-              width: '15%',
-              backgroundColor: '#ffffff',
-              fontSize: 24,
-              color: 'black',
-              paddingTop: 20,
-              paddingBottom: 20,
-              outline: 'none',
-              borderWidth: 0
-            }}
-            onClick={() => this.setState({ tabID: 'results' })}
-          >
-            Results
-          </button>
-        </div>
+        {this.renderTabBar()}
         <div style={{ display: 'flex' }}>
           <div style={{ flex: 1, backgroundColor: 'white' }}>
             <div
@@ -289,53 +198,7 @@ class TournamentView extends React.Component {
         <br />
 
         <br />
-        <div style={{ display: 'flex' }}>
-          <button
-            style={{
-              width: '15%',
-              backgroundColor: '#ffffff',
-              fontSize: 24,
-              color: 'black',
-              paddingTop: 20,
-              paddingBottom: 20,
-              outline: 'none',
-              borderWidth: 0
-            }}
-            onClick={() => this.setState({ tabID: 'details' })}
-          >
-            Details
-          </button>
-          <button
-            style={{
-              width: '15%',
-              backgroundColor: '#ffffff',
-              fontSize: 24,
-              color: 'black',
-              paddingTop: 20,
-              paddingBottom: 20,
-              outline: 'none',
-              borderWidth: 0
-            }}
-            onClick={() => this.setState({ tabID: 'teams' })}
-          >
-            Teams
-          </button>
-          <button
-            style={{
-              width: '15%',
-              backgroundColor: '#e07f00',
-              fontSize: 24,
-              color: 'black',
-              paddingTop: 20,
-              paddingBottom: 20,
-              outline: 'none',
-              borderWidth: 0
-            }}
-            onClick={() => this.setState({ tabID: 'results' })}
-          >
-            Schedule
-          </button>
-        </div>
+        {this.renderTabBar()}
         <div style={{ display: 'flex' }}>
           <div style={{ flex: 1, backgroundColor: ' #797877' }}>
             <div
