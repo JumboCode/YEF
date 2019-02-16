@@ -12,7 +12,7 @@ class Club(models.Model):
 class Team(models.Model):
 	name = models.CharField(max_length=255)
 	city = models.CharField(max_length=512)
-	clubName = models.ForeignKey(Club, on_delete=models.CASCADE)
+	clubID = models.ForeignKey(Club, on_delete=models.CASCADE)
 	tournamentID = models.ForeignKey(Tournament, on_delete=models.CASCADE)
 
 class Judge(models.Model):
@@ -28,14 +28,9 @@ class Member(models.Model):
 
 class Round(models.Model):
     round = models.IntegerField()
-    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    tournamentID = models.ForeignKey(Tournament, on_delete=models.CASCADE)
     statement = models.CharField(max_length=4096)
     chair = models.CharField(max_length=4096)
-    # added the below because it was present in the serializer
-    win = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
-    decision = models.CharField(max_length=20, choices=(
-        ("Split",'Split'),
-        ("Unaminous",'Unaminous')), default='Split')
 
 class MatchUp(models.Model):
     oppID = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='opposition')

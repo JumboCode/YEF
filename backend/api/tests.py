@@ -7,6 +7,8 @@ import datetime
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
+import sys
+import json
 # Create your tests here.
 
 class TournamentTestCase(APITestCase):
@@ -44,7 +46,7 @@ class TeamTestCase(APITestCase):
         test_club = Club.objects.create(name = "Carl's Club")
         time = datetime.date.today()
         test_tournament = Tournament.objects.create(name = "first", location="here", start_date = time, end_date = time)
-        Team.objects.create(name = "Carl's Team", city = "Atlanta", clubName = test_club, tournamentID = test_tournament)
+        Team.objects.create(name = "Carl's Team", city = "Atlanta", clubID = test_club, tournamentID = test_tournament)
 
     def test_name(self):
         carls_team = Team.objects.get(name="Carl's Team")
@@ -55,7 +57,7 @@ class TeamTestCase(APITestCase):
         time = datetime.date.today()
         test_club = Club.objects.create(name = "Carl's Club")
         test_tournament = Tournament.objects.create(name = "first", location="here", start_date = time, end_date = time)
-        data = {"name": "Carl's Team", "city": "Atlanta", "clubName": test_club, "tournamentID": test_tournament}
+        data = {"name": "Carl's Team", "city": "Atlanta", "clubID": test_club, "tournamentID": test_tournament}
         """
         sec_data = {"username:" "carlf", "password:" "rQ82ghZe"}   # post data for getting teams (restricted)
         sec_response = self.client.post(url, sec_data, format='json') # post command for providing credentials for entry
@@ -66,21 +68,24 @@ class TeamTestCase(APITestCase):
         self.assertEqual(Team.objects.count(), 1)
 
 
-
-        def test_add_team(self):
-            url = "/teams/"
-            time = datetime.date.today()
-            tournament_data = {"name": "first", "location": "here", "start_date": time, "end_date": time}
-            test_tournament = self.client.get("/tournaments/1", tournament_data, format='json')
-            test_club = Club.objects.create(name = "Carl's Club")
-            test_team = Team.objects.create(name = "Carl's Team", city = "Atlanta", clubName = test_club, tournamentID = test_tournament)
-            team_data = {"name": "Carl's Team", "city": "Atlanta", "clubName": "Carl's Club", "tournametID": "1"}
-            response = self.client.post(url, team_data, format='json')
-            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-            self.assertEqual(Team.objects.count(), 1)
-            self.assertEqual(Team.objects.count(), 200)
+    def test_add_team(self):
+        time = datetime.date.today()
+        tournament_data = {"name": "first", "location": "here", "start_date": time, "end_date": time}
+        test_tournament = self.client.post("/tournaments/", tournament_data, format='json')
+        self.assertEqual(test_tournament.status_code, status.HTTP_201_CREATED)
+        test_tournament = self.client.get("/tournaments/", name = "first", format='json')
+        self.assertEqual(test_tournament.status_code, status.HTTP_200_OK)
+        test_club = Club.objects.create(name = "Carl's Club")
         
-        # def test_member_teams(self):
+        print(json.loads(test_tournament.getvalue()), file=sys.stderr)
+        test_team = Team.objects.create(name = "Carl's Team", city = "Atlanta", clubID = test_club, tournamentID = test_tournament)
+        team_data = {"name": "Carl's Team", "city": "Atlanta", "clubID": "Carl's Club", "tournametID": "1"}
+        response = self.client.post("/teams/", team_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Team.objects.count(), 1)
+        
+        
+    # def test_member_teams(self):
 
         #test get and post for each object from each view
         #focus on get and post request for tournament class and then make PR

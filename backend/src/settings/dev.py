@@ -5,7 +5,7 @@
 from .common import *
 
 DEBUG = True
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # It's okay to have secret key in plain text since it is
 # different then the production environment key
