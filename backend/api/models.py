@@ -46,7 +46,7 @@ class MemberPoint(models.Model):
     roundID = models.ForeignKey(Round, on_delete=models.CASCADE)
     StylePoints = models.FloatField()
     ContentPoints = models.FloatField()
-    StratergyPoints = models.FloatField()
+    StrategyPoints = models.FloatField()
 
 class JudgePoint(models.Model):
     judgeID = models.ForeignKey(Judge, on_delete=models.CASCADE)

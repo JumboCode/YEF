@@ -197,7 +197,7 @@ class Tournament_Matchups(APIView):
 
      #doesn't work when the there are people of same name from a team!
     def addMemberPoints(self, team_points, r_id, teams):
-        len_teamPoints = len(team_points)
+        len_teamPoints = len(team_points)   # two team_points, opp and prop
         for counter in range(0, len_teamPoints):
             member_names = list(team_points[counter].keys())
             teamID = teams[counter]
@@ -206,8 +206,8 @@ class Tournament_Matchups(APIView):
                 memberPoint.roundID = r_id
                 memberPoint.StylePoints = member_names[name][0]
                 memberPoint.ContentPoints = member_names[name][1]
-                memberPoint.StratergyPoints = member_names[name][2]
-                memberPoint.memberID = Member.objects.filter(Q(teamID__pk=teamID) & Q(name__contains = name))
+                memberPoint.StrategyPoints = member_names[name][2]
+                memberPoint.memberID = Member.objects.filter(Q(teamID__pk=teamID) & Q(name__iexact = name))
                 memberPoint.save()
        
     
@@ -218,10 +218,11 @@ class Tournament_Matchups(APIView):
         judge_points.judgeID = judge_points.judgeID
         judge_points.save()
     
+
     def post(self, request, t_id, r_id):
         if(request):
             data = json.loads(request.body)
-            matchup = data["round_points"]
+            matchup = data["matchup_points"]
             for matchup_points in matchup:
                 team_points = matchup_points["team_points"]
                 judge_points = matchup_points["judge_points"]
@@ -230,4 +231,9 @@ class Tournament_Matchups(APIView):
                 self.addJudgePoints(judge_points, r_id)
             return Response({"status": "success"})
         else:
-            return Response({"status": "failed"}) 
+            return Response({"status": "failed"})
+
+'''
+get request -- {matchups: matchups, statement: statement}
+post request -- {round}
+'''
