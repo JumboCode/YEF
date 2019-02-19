@@ -12,12 +12,28 @@ class TournamentList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isModalOpen: false
+      isModalOpen: false,
+      searchRes: []
     };
+    this.updateSearchResults = this.updateSearchResults.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchTournaments();
+  }
+
+  updateSearchResults(event) {
+    let searchResults = [];
+    if (event.target.value !== '') {
+      searchResults = this.props.tournamentList.filter(tourn => {
+        let tournName = tourn.name.toLowerCase();
+        let searchVal = event.target.value.toLowerCase();
+        return tournName.includes(searchVal);
+      });
+    }
+    this.setState({ searchRes: searchResults });
+
+    console.log(this.state);
   }
 
   checkDate(t_date) {
@@ -150,7 +166,16 @@ class TournamentList extends Component {
                   type="text"
                   className="bp3-input"
                   placeholder="Search"
+                  onChange={this.updateSearchResults}
                 />
+                <div className="search-results-container">
+                  {this.state.searchRes.map(item => (
+                    <Link to={`/tournaments/${item.id}`} key={item.id}>
+                      <p>{item.name}</p>
+                    </Link>
+                  ))}
+                </div>
+
                 <button className="bp3-button bp3-minimal bp3-intent-primary bp3-icon-arrow-right" />
               </div>
               <br />
