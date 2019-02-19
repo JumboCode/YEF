@@ -3,5 +3,7 @@
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
   "python.linting.pylintArgs": ["--load-plugins", "pylint_django"],
-  "javascript.validate.enable": false
+  "javascript.validate.enable": false,
+  "python.linting.pylintPath": "${workspaceFolder}/backend/.venv/bin/pylint",
+  "eslint.autoFixOnSave": true
 }
