@@ -12,12 +12,28 @@ class TournamentList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isModalOpen: false
+      isModalOpen: false,
+      searchRes: []
     };
+    this.updateSearchResults = this.updateSearchResults.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchTournaments();
+  }
+
+  updateSearchResults(event) {
+    let searchResults = [];
+    if (event.target.value !== '') {
+      searchResults = this.props.tournamentList.filter(tourn => {
+        let tournName = tourn.name.toLowerCase();
+        let searchVal = event.target.value.toLowerCase();
+        return tournName.includes(searchVal);
+      });
+    }
+    this.setState({ searchRes: searchResults });
+
+    console.log(this.state);
   }
 
   checkDate(t_date) {
@@ -28,8 +44,8 @@ class TournamentList extends Component {
     var date = today.getDate();
     var month = today.getMonth() + 1;
     var year = today.getFullYear();
-    if (year == t_date[0]) {
-      if (month == t_date[1]) {
+    if (year === t_date[0]) {
+      if (month === t_date[1]) {
         if (date <= t_date[2]) {
           return 1;
         } else {
@@ -85,7 +101,7 @@ class TournamentList extends Component {
           <div className="tournament-list-container">
             <h3 className="titles"> Upcoming Tournaments </h3>
             <hr className="orange_line" />
-            <div>
+            <div className="tournament-list-small-container">
               {presentTlist.map(item => (
                 <Link to={`/tournaments/${item.id}`}>
                   <div className="tournament_div" key={item.id}>
@@ -102,9 +118,9 @@ class TournamentList extends Component {
               ))}
             </div>
 
-            <div>
-              <h3 className="titles"> Past Tournaments </h3>
-              <hr className="orange_line" />
+            <h3 className="titles"> Past Tournaments </h3>
+            <hr className="orange_line" />
+            <div className="tournament-list-small-container">
               {pastTlist.map(item => (
                 <Link to={`/tournaments/${item.id}`}>
                   <div className="tournament_div" key={item.id}>
@@ -142,16 +158,25 @@ class TournamentList extends Component {
                 style={{
                   fontSize: 24
                 }}
-                class="bp3-input-group bp3-large .modifier"
+                className="bp3-input-group bp3-large .modifier"
               >
-                <span class="bp3-icon bp3-icon-search" />
+                <span className="bp3-icon bp3-icon-search" />
                 <input
                   style={{ fontSize: 24, paddingLeft: 50 }}
                   type="text"
-                  class="bp3-input"
+                  className="bp3-input"
                   placeholder="Search"
+                  onChange={this.updateSearchResults}
                 />
-                <button class="bp3-button bp3-minimal bp3-intent-primary bp3-icon-arrow-right" />
+                <div className="search-results-container">
+                  {this.state.searchRes.map(item => (
+                    <Link to={`/tournaments/${item.id}`} key={item.id}>
+                      <p>{item.name}</p>
+                    </Link>
+                  ))}
+                </div>
+
+                <button className="bp3-button bp3-minimal bp3-intent-primary bp3-icon-arrow-right" />
               </div>
               <br />
               <div>

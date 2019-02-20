@@ -91,3 +91,18 @@
   min-height: 7em;
   display: flex;
 }
+.tournament-list-small-container {
+  overflow: scroll;
+  height: 80vh;
+}
+.search-results-container {
+  z-index: 100;
+  position: absolute;
+  background-color: #efefef;
+  border-radius: 2px;
+  width: 100%;
+}
+.search-results-container a p {
+  padding: 5px;
+  margin: 0;
+}
