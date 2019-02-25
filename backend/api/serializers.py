@@ -24,11 +24,11 @@ class ClubSerializer(serializers.ModelSerializer):
         fields = ['id', "name"]
 
 class TeamSerializer(serializers.ModelSerializer):
-    club_name = serializers.ReadOnlyField(source='clubName.name')
+    club_name = serializers.ReadOnlyField(source='clubID.name')
     members = MemberSerializer(source='member_set', many=True, read_only=True)
     class Meta:
         model = Team
-        fields = ('id', 'name', 'city', 'clubName',  'tournamentID', 'club_name', 'members')
+        fields = ('id', 'name', 'city', 'clubID',  'tournamentID', 'club_name', 'members')
 
 class MatchUpSerializer(serializers.ModelSerializer):
     opp_name = serializers.ReadOnlyField(source='oppID.name')
