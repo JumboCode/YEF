@@ -15,8 +15,6 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 
 
-
-
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
