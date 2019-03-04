@@ -8,11 +8,12 @@ class TournamentView extends React.Component {
     super(props);
     this.state = {
       error: null,
-      isLoaded: props.tournament ? true : false,
+      isLoaded: !!props.tournament,
       tournament: props.tournament,
       tabID: 'teams'
     };
   }
+
   componentDidMount() {
     const { tournament } = this.state;
     const { history } = this.props;
@@ -51,12 +52,13 @@ class TournamentView extends React.Component {
   }
 
   renderTabBar() {
+    const { tabID } = this.state;
     return (
       <div style={{ display: 'flex' }}>
         <button
           style={{
             width: '15%',
-            backgroundColor: '#ffffff',
+            backgroundColor: tabID === 'details' ? '#e07f00' : '#ffffff',
             fontSize: 24,
             color: 'black',
             paddingTop: 20,
@@ -69,9 +71,10 @@ class TournamentView extends React.Component {
           Details
         </button>
         <button
+          name="team"
           style={{
             width: '15%',
-            backgroundColor: '#e07f00',
+            backgroundColor: tabID === 'teams' ? '#e07f00' : '#ffffff',
             fontSize: 24,
             color: 'black',
             paddingTop: 20,
@@ -86,7 +89,7 @@ class TournamentView extends React.Component {
         <button
           style={{
             width: '15%',
-            backgroundColor: '#ffffff',
+            backgroundColor: tabID === 'results' ? '#e07f00' : '#ffffff',
             fontSize: 24,
             color: 'black',
             paddingTop: 20,
@@ -94,7 +97,9 @@ class TournamentView extends React.Component {
             outline: 'none',
             borderWidth: 0
           }}
-          onClick={() => this.setState({ tabID: 'results' })}
+          onClick={() => {
+            this.setState({ tabID: 'results' });
+          }}
         >
           Results
         </button>
@@ -162,6 +167,7 @@ class TournamentView extends React.Component {
   }
 
   renderDetails() {
+    const { tournament } = this.state;
     return (
       <div>
         <Header />
@@ -179,10 +185,10 @@ class TournamentView extends React.Component {
                 paddingLeft: 50
               }}
             >
-              <h1>Starts: {this.state.tournament.start_date}</h1>
-              <h1>Ends: {this.state.tournament.start_date}</h1>
-              <h1>Number of Teams: {this.state.tournament.teams.length}</h1>
-              {/*<h1>Number of Rounds: </h1>*/}
+              <h1>Starts: {tournament.start_date}</h1>
+              <h1>Ends: {tournament.start_date}</h1>
+              <h1>Number of Teams: {tournament.teams.length}</h1>
+              {/* <h1>Number of Rounds: </h1> */}
             </div>
           </div>
         </div>
@@ -192,6 +198,7 @@ class TournamentView extends React.Component {
 
   renderResults() {
     const { tournament } = this.state;
+    const { history } = this.props;
     return (
       <div>
         <Header />
@@ -219,7 +226,7 @@ class TournamentView extends React.Component {
                       <tr
                         key={matchup.id}
                         onClick={() =>
-                          this.props.history.push(
+                          history.push(
                             `/enterResults/${tournament.id}/${round.id}/${
                               matchup.id
                             }`
@@ -257,13 +264,14 @@ class TournamentView extends React.Component {
     const { isLoaded, error, tabID } = this.state;
     if (isLoaded && !error && tabID === 'teams') {
       return this.renderTeams();
-    } else if (isLoaded && !error && tabID === 'details') {
-      return this.renderDetails();
-    } else if (isLoaded && !error && tabID === 'results') {
-      return this.renderResults();
-    } else {
-      return 'Loading...';
     }
+    if (isLoaded && !error && tabID === 'details') {
+      return this.renderDetails();
+    }
+    if (isLoaded && !error && tabID === 'results') {
+      return this.renderResults();
+    }
+    return 'Loading...';
   }
 }
 
