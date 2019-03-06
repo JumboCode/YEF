@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
+import sys
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -229,3 +230,45 @@ class Tournament_Matchups(APIView):
             return Response({"status": "success"})
         else:
             return Response({"status": "failed"}) 
+
+class AddTeam(APIView):
+    def create_club(self, club_name):
+        new_club = Club.objects.create(name = club_name) # This is a post to the database
+
+
+    def create_team(self, team_name, team_city, club_id, tournament_id):
+        new_team = Team.objects.create(name=team_name, city=team_city, clubID=club_id, tournamentID=tournament_id)
+
+
+    def post(self, request, club_name):
+        if(request):
+            data = json.loads(request.body)
+            # request needs to contain: club name, team name, team city, tournament id, 3 member names
+            clubs = Club.objects.all()
+            clublist = ClubSerializer(clubs, many=True)
+            found = False
+            for e in clubs:
+                if (e.name == data["club_name"]):
+                    found = True
+
+            if (found):
+                # testing
+                print("FOUND!")
+                # create a new team and assign that team to the club we found
+                # We need to verify how the frontend will format the JSON body
+                club_name_from_user = data["club_name"]
+                club_id = Club.objects.get(name=club_name_from_user)
+                create_team(data["team_name"], data["team_city"], club_id, data["tournament_id"])
+
+            else:
+                # testing
+                print("Not found")
+                newclub = create_club(data["club_id"])
+                create_team(data["team_name"], data["team_city"], newclub.id, data["tournament_id"])
+                # create a new club and a new team, together
+
+        else:
+            return Resposen({"status": "failed"})
+                
+
+        print("End of post")

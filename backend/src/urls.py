@@ -33,12 +33,14 @@ router.register(r'clubs', views.ClubViewSet)
 router.register(r'judges', views.JudgeViewSet)
 router.register(r'members', views.MemberViewSet)
 router.register(r'matchups', views.MatchUpViewSet)
+#router.register(r'addteam', views.AddTeam, 'addteam')
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include(router.urls)),
     path('tournaments/<int:t_id>/rounds/<int:r_id>', views.Tournament_Matchups.as_view()),
+    path('createTeam/<str:club_name>', views.AddTeam.as_view()),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     #url(r'^teamlist/', views.TeamList.as_view())
 ]
