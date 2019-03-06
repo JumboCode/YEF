@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { fetchTournaments } from '../Actions';
-import TournamentView from './view.js';
+import TournamentView from './view';
 
 const mapStateToProps = (state, ownProps) => {
   const tournamentId = ownProps.match.params.id;
@@ -9,11 +9,9 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchTournaments: () => dispatch(fetchTournaments())
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  fetchTournaments: () => dispatch(fetchTournaments())
+});
 
 export default connect(
   mapStateToProps,
