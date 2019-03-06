@@ -112,6 +112,8 @@ class TournamentView extends React.Component {
       <div>
         <Header />
         <br />
+        {this.renderBackButton()}
+        {this.renderTournTitle()}
         <br />
         {this.renderTabBar()}
         <div style={{ display: 'flex' }}>
@@ -172,7 +174,8 @@ class TournamentView extends React.Component {
       <div>
         <Header />
         <br />
-
+        {this.renderBackButton()}
+        {this.renderTournTitle()}
         <br />
         {this.renderTabBar()}
         <div style={{ display: 'flex' }}>
@@ -203,7 +206,8 @@ class TournamentView extends React.Component {
       <div>
         <Header />
         <br />
-
+        {this.renderBackButton()}
+        {this.renderTournTitle()}
         <br />
         {this.renderTabBar()}
         <div style={{ display: 'flex' }}>
@@ -256,6 +260,37 @@ class TournamentView extends React.Component {
             </div>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  renderTournTitle() {
+    return (
+      <div style={{ margin: 20 }}>
+        {console.log(this.state)}
+        <h1>{this.state.tournament.name}</h1>
+      </div>
+    );
+  }
+
+  renderBackButton() {
+    const { history } = this.props;
+    return (
+      <div>
+        <button
+          style={{
+            width: '20%',
+            fontSize: 24,
+            color: 'gray',
+            paddingTop: 20,
+            paddingBottom: 20,
+            outline: 'none',
+            borderWidth: 0
+          }}
+          onClick={() => history.push('/tournaments')}
+        >
+          Back to List of Tournaments
+        </button>
       </div>
     );
   }
