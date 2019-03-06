@@ -289,7 +289,7 @@ class TournamentView extends React.Component {
           }}
           onClick={() => history.push('/tournaments')}
         >
-          Back to List of Tournaments
+          {'<- Back to List of Tournaments'}
         </button>
       </div>
     );
