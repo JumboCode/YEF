@@ -40,7 +40,7 @@ class RoundSerializer(serializers.ModelSerializer):
     matchups = MatchUpSerializer(source='matchup_set', many=True, read_only=True)
     class Meta:
         model = Round
-        fields = ('id', "round","tournament", "statement", "matchups")
+        fields = ('id', "round","tournamentID", "statement", "matchups")
 
 class TournamentSerializer(serializers.ModelSerializer):
     #teams = serializers.HyperlinkedIdentityField(view_name='Team-detail')
