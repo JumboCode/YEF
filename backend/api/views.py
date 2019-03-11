@@ -268,7 +268,7 @@ class AddTeam(APIView):
                 # create a new club and a new team, together
 
         else:
-            return Resposen({"status": "failed"})
+            return Response({"status": "failed"})
                 
 
         print("End of post")
