@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from api.models import Team, Tournament, Round, MemberPoint, JudgePoint, MatchUp, Judge, Member, Club
 from api.serializers import UserSerializer, GroupSerializer, TeamSerializer, TournamentSerializer, TeamsInTournamentSerializer, RoundSerializer, MemberPointSerializer, JudgePointSerializer, MatchUpSerializer, JudgeSerializer, MemberSerializer, ClubSerializer
 import json
@@ -232,43 +232,43 @@ class Tournament_Matchups(APIView):
             return Response({"status": "failed"}) 
 
 class AddTeam(APIView):
-    def create_club(self, club_name):
-        new_club = Club.objects.create(name = club_name) # This is a post to the database
-
-
     def create_team(self, team_name, team_city, club_id, tournament_id):
+        print("about to assign new_team")
+        print("team_name: {}".format(team_name))
+        print("team_city: {}".format(team_city))
+        print("club_id: {}".format(club_id))
+        print("tournament_id: {}".format(tournament_id))
+
         new_team = Team.objects.create(name=team_name, city=team_city, clubID=club_id, tournamentID=tournament_id)
+        print("made new team! {}".format(new_team.team_name))
+        return new_team
 
+    def create_member(self, member_name, member_team, member_club):
+        return Member.objects.create(name=member_name, teamID=member_team, clubID=member_club)
 
-    def post(self, request, club_name):
-        if(request):
-            data = json.loads(request.body)
-            # request needs to contain: club name, team name, team city, tournament id, 3 member names
-            clubs = Club.objects.all()
-            clublist = ClubSerializer(clubs, many=True)
-            found = False
-            for e in clubs:
-                if (e.name == data["club_name"]):
-                    found = True
+    def post(self, request): 
+        data = request.data
+        # print("got that data")
+        club_name = data["club_name"]
+        # print("got that clubname")
+        club, created = Club.objects.get_or_create(name=club_name)
+        # print("Created that club?,{}".format(created))
+        # print("data[name] = {}".format(data["name"]))
+        # print("data[city] = {}".format(data["city"]))
+        # print("club.id = {}".format(club.id))
+        # print("data[tournamentID] = {}".format(data["tournamentID"]))
+        tournament = Tournament.objects.get(id=data["tournamentID"])
+        team = Team.objects.create(name=data["name"], city=data["city"], clubID=club, tournamentID=tournament)
+        print("got that team")
 
-            if (found):
-                # testing
-                print("FOUND!")
-                # create a new team and assign that team to the club we found
-                # We need to verify how the frontend will format the JSON body
-                club_name_from_user = data["club_name"]
-                club_id = Club.objects.get(name=club_name_from_user)
-                create_team(data["team_name"], data["team_city"], club_id, data["tournament_id"])
+        # This should work if we get the data passed to us correctly. However, we are not sure how to pass
+        # the data correctly. Our iterator does not work if we do not pass the data correctly.
+        # Let's write a loop that, depending on the number of keys in the schema, creates that will represent
+        # each member name. This should work correctly. The issue that we are having lies in how to pass the
+        # data from Postman to our server
+        [self.create_member(member_name, team, club) for member_name in data["member_names"]]
 
-            else:
-                # testing
-                print("Not found")
-                newclub = create_club(data["club_id"])
-                create_team(data["team_name"], data["team_city"], newclub.id, data["tournament_id"])
-                # create a new club and a new team, together
-
-        else:
-            return Response({"status": "failed"})
+        print(data["member_names"])
+        print("that team list be finished")
+        return Response(TeamSerializer(team).data, status=status.HTTP_201_CREATED)
                 
-
-        print("End of post")
