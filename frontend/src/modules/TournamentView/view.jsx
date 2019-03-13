@@ -51,71 +51,10 @@ class TournamentView extends React.Component {
     }
   }
 
-  renderTabBar() {
-    const { tabID } = this.state;
-    return (
-      <div style={{ display: 'flex' }}>
-        <button
-          style={{
-            width: '15%',
-            backgroundColor: tabID === 'details' ? '#e07f00' : '#ffffff',
-            fontSize: 24,
-            color: 'black',
-            paddingTop: 20,
-            paddingBottom: 20,
-            outline: 'none',
-            borderWidth: 0
-          }}
-          onClick={() => this.setState({ tabID: 'details' })}
-        >
-          Details
-        </button>
-        <button
-          name="team"
-          style={{
-            width: '15%',
-            backgroundColor: tabID === 'teams' ? '#e07f00' : '#ffffff',
-            fontSize: 24,
-            color: 'black',
-            paddingTop: 20,
-            paddingBottom: 20,
-            outline: 'none',
-            borderWidth: 0
-          }}
-          onClick={() => this.setState({ tabID: 'teams' })}
-        >
-          Teams
-        </button>
-        <button
-          style={{
-            width: '15%',
-            backgroundColor: tabID === 'results' ? '#e07f00' : '#ffffff',
-            fontSize: 24,
-            color: 'black',
-            paddingTop: 20,
-            paddingBottom: 20,
-            outline: 'none',
-            borderWidth: 0
-          }}
-          onClick={() => {
-            this.setState({ tabID: 'results' });
-          }}
-        >
-          Results
-        </button>
-      </div>
-    );
-  }
-
   renderTeams() {
     return (
       <div>
-        <Header />
-        <br />
-        {this.renderBackButton()}
-        {this.renderTournTitle()}
-        <br />
-        {this.renderTabBar()}
+        {this.renderHeader()}
         <div style={{ display: 'flex' }}>
           <div style={{ flex: 1, backgroundColor: ' #797877' }}>
             <div
@@ -172,12 +111,7 @@ class TournamentView extends React.Component {
     const { tournament } = this.state;
     return (
       <div>
-        <Header />
-        <br />
-        {this.renderBackButton()}
-        {this.renderTournTitle()}
-        <br />
-        {this.renderTabBar()}
+        {this.renderHeader()}
         <div style={{ display: 'flex' }}>
           <div style={{ flex: 1, backgroundColor: 'white' }}>
             <div
@@ -204,12 +138,7 @@ class TournamentView extends React.Component {
     const { history } = this.props;
     return (
       <div>
-        <Header />
-        <br />
-        {this.renderBackButton()}
-        {this.renderTournTitle()}
-        <br />
-        {this.renderTabBar()}
+        {this.renderHeader()}
         <div style={{ display: 'flex' }}>
           <div style={{ flex: 1, backgroundColor: ' #797877' }}>
             <div
@@ -264,19 +193,14 @@ class TournamentView extends React.Component {
     );
   }
 
-  renderTournTitle() {
-    return (
-      <div style={{ margin: 20 }}>
-        {console.log(this.state)}
-        <h1>{this.state.tournament.name}</h1>
-      </div>
-    );
-  }
-
-  renderBackButton() {
+  renderHeader() {
+    /* Renders Back Button, Tourn Title, and Tab Bar */
     const { history } = this.props;
+    const { tabID } = this.state;
     return (
       <div>
+        <Header />
+        <br />
         <button
           style={{
             width: '20%',
@@ -291,6 +215,61 @@ class TournamentView extends React.Component {
         >
           {'<- Back to List of Tournaments'}
         </button>
+
+        <div style={{ margin: 20 }}>
+          <h1>{this.state.tournament.name}</h1>
+        </div>
+        <br />
+        <div style={{ display: 'flex' }}>
+          <button
+            style={{
+              width: '15%',
+              backgroundColor: tabID === 'details' ? '#e07f00' : '#ffffff',
+              fontSize: 24,
+              color: 'black',
+              paddingTop: 20,
+              paddingBottom: 20,
+              outline: 'none',
+              borderWidth: 0
+            }}
+            onClick={() => this.setState({ tabID: 'details' })}
+          >
+            Details
+          </button>
+          <button
+            name="team"
+            style={{
+              width: '15%',
+              backgroundColor: tabID === 'teams' ? '#e07f00' : '#ffffff',
+              fontSize: 24,
+              color: 'black',
+              paddingTop: 20,
+              paddingBottom: 20,
+              outline: 'none',
+              borderWidth: 0
+            }}
+            onClick={() => this.setState({ tabID: 'teams' })}
+          >
+            Teams
+          </button>
+          <button
+            style={{
+              width: '15%',
+              backgroundColor: tabID === 'results' ? '#e07f00' : '#ffffff',
+              fontSize: 24,
+              color: 'black',
+              paddingTop: 20,
+              paddingBottom: 20,
+              outline: 'none',
+              borderWidth: 0
+            }}
+            onClick={() => {
+              this.setState({ tabID: 'results' });
+            }}
+          >
+            Results
+          </button>
+        </div>
       </div>
     );
   }
