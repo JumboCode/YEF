@@ -233,14 +233,7 @@ class Tournament_Matchups(APIView):
 
 class AddTeam(APIView):
     def create_team(self, team_name, team_city, club_id, tournament_id):
-        print("about to assign new_team")
-        print("team_name: {}".format(team_name))
-        print("team_city: {}".format(team_city))
-        print("club_id: {}".format(club_id))
-        print("tournament_id: {}".format(tournament_id))
-
         new_team = Team.objects.create(name=team_name, city=team_city, clubID=club_id, tournamentID=tournament_id)
-        print("made new team! {}".format(new_team.team_name))
         return new_team
 
     def create_member(self, member_name, member_team, member_club):
@@ -248,27 +241,23 @@ class AddTeam(APIView):
 
     def post(self, request): 
         data = request.data
-        # print("got that data")
         club_name = data["club_name"]
-        # print("got that clubname")
         club, created = Club.objects.get_or_create(name=club_name)
-        # print("Created that club?,{}".format(created))
-        # print("data[name] = {}".format(data["name"]))
-        # print("data[city] = {}".format(data["city"]))
-        # print("club.id = {}".format(club.id))
-        # print("data[tournamentID] = {}".format(data["tournamentID"]))
         tournament = Tournament.objects.get(id=data["tournamentID"])
         team = Team.objects.create(name=data["name"], city=data["city"], clubID=club, tournamentID=tournament)
-        print("got that team")
-
-        # This should work if we get the data passed to us correctly. However, we are not sure how to pass
-        # the data correctly. Our iterator does not work if we do not pass the data correctly.
-        # Let's write a loop that, depending on the number of keys in the schema, creates that will represent
-        # each member name. This should work correctly. The issue that we are having lies in how to pass the
-        # data from Postman to our server
-        [self.create_member(member_name, team, club) for member_name in data["member_names"]]
-
-        print(data["member_names"])
-        print("that team list be finished")
+        for e in data["member_names"].split(', '):
+            self.create_member(e, team, club)
         return Response(TeamSerializer(team).data, status=status.HTTP_201_CREATED)
+
+# SCHEME for frontend: for json body:
+# "name": "NAME"
+# "city": "CITY"
+# "club_name": "CLUB_NAME"
+# "member_names": "MEMBER1, MEMBER2, MEMBER3, ..., MEMBERN"
+# "tournamentID": (int -> tournament id from database)
+
+
+
+# class idea: AddMember API that simply adds team members to an existing team
+# class idea: Find tournamentID given a tournament name to help frontend out
                 
