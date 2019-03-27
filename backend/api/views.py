@@ -13,7 +13,6 @@ from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
-import sys
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -241,7 +240,6 @@ class AddTeam(APIView):
 
     def post(self, request): 
         data = request.data
-        print(data)
         club_name = data["club_name"]
         club, created = Club.objects.get_or_create(name=club_name)
         tournament = Tournament.objects.get(id=data["tournamentID"])
