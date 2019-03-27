@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from api.models import Team, Tournament, Round, MemberPoint, JudgePoint, MatchUp, Judge, Member, Club
 from api.serializers import UserSerializer, GroupSerializer, TeamSerializer, TournamentSerializer, TeamsInTournamentSerializer, RoundSerializer, MemberPointSerializer, JudgePointSerializer, MatchUpSerializer, JudgeSerializer, MemberSerializer, ClubSerializer
 import json
@@ -229,3 +229,34 @@ class Tournament_Matchups(APIView):
             return Response({"status": "success"})
         else:
             return Response({"status": "failed"}) 
+
+class AddTeam(APIView):
+    def create_team(self, team_name, team_city, club_id, tournament_id):
+        new_team = Team.objects.create(name=team_name, city=team_city, clubID=club_id, tournamentID=tournament_id)
+        return new_team
+
+    def create_member(self, member_name, member_team, member_club):
+        return Member.objects.create(name=member_name, teamID=member_team, clubID=member_club)
+
+    def post(self, request): 
+        data = request.data
+        club_name = data["club_name"]
+        club, created = Club.objects.get_or_create(name=club_name)
+        tournament = Tournament.objects.get(id=data["tournamentID"])
+        team = Team.objects.create(name=data["name"], city=data["city"], clubID=club, tournamentID=tournament)
+        for name in data["member_names"]:
+            self.create_member(name, team, club)
+        return Response(TeamSerializer(team).data, status=status.HTTP_201_CREATED)
+
+# SCHEME for frontend: for json body:
+# "name": "NAME"
+# "city": "CITY"
+# "club_name": "CLUB_NAME"
+# "member_names": ['MEMBER1', 'MEMBER2', 'MEMBER3', ..., 'MEMBERN']
+# "tournamentID": (int -> tournament id from database)
+
+
+
+# class idea: AddMember API that simply adds team members to an existing team
+# class idea: Find tournamentID given a tournament name to help frontend out
+                
