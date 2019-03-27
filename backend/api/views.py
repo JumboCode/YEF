@@ -241,19 +241,20 @@ class AddTeam(APIView):
 
     def post(self, request): 
         data = request.data
+        print(data)
         club_name = data["club_name"]
         club, created = Club.objects.get_or_create(name=club_name)
         tournament = Tournament.objects.get(id=data["tournamentID"])
         team = Team.objects.create(name=data["name"], city=data["city"], clubID=club, tournamentID=tournament)
-        for e in data["member_names"].split(', '):
-            self.create_member(e, team, club)
+        for name in data["member_names"]:
+            self.create_member(name, team, club)
         return Response(TeamSerializer(team).data, status=status.HTTP_201_CREATED)
 
 # SCHEME for frontend: for json body:
 # "name": "NAME"
 # "city": "CITY"
 # "club_name": "CLUB_NAME"
-# "member_names": "MEMBER1, MEMBER2, MEMBER3, ..., MEMBERN"
+# "member_names": ['MEMBER1', 'MEMBER2', 'MEMBER3', ..., 'MEMBERN']
 # "tournamentID": (int -> tournament id from database)
 
 
