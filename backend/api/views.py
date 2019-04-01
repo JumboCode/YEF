@@ -13,12 +13,22 @@ from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
 
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
+    permission_classes = (IsAuthenticated,)
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
@@ -27,12 +37,13 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
+    permission_classes = (IsAuthenticated,)
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
 class TeamViewSet(viewsets.ModelViewSet):
     #authentication_classes = (TokenAuthentication,)
-    #permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
 
@@ -231,6 +242,9 @@ class Tournament_Matchups(APIView):
             return Response({"status": "failed"}) 
 
 class AddTeam(APIView):
+    for user in User.objects.all():
+        Token.objects.get_or_create(user=user)
+    permission_classes = (IsAuthenticated,)
     def create_team(self, team_name, team_city, club_id, tournament_id):
         new_team = Team.objects.create(name=team_name, city=team_city, clubID=club_id, tournamentID=tournament_id)
         return new_team
