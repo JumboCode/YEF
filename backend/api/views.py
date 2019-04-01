@@ -241,9 +241,8 @@ class Tournament_Matchups(APIView):
         else:
             return Response({"status": "failed"}) 
 
+# createTeam route view
 class AddTeam(APIView):
-    for user in User.objects.all():
-        Token.objects.get_or_create(user=user)
     permission_classes = (IsAuthenticated,)
     def create_team(self, team_name, team_city, club_id, tournament_id):
         new_team = Team.objects.create(name=team_name, city=team_city, clubID=club_id, tournamentID=tournament_id)
