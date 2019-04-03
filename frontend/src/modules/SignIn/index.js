@@ -53,48 +53,53 @@ class SignIn extends React.Component {
         <div
           style={{
             display: 'flex',
+            flexDirection: 'column',
             justifyContent: 'center',
-            paddingTop: 200,
-            paddingBottom: 200,
-            paddingLeft: 150,
-            paddingRight: 150,
+            paddingTop: 50,
+            paddingBottom: 50,
+            paddingLeft: 50,
+            paddingRight: 50,
             backgroundColor: 'white'
           }}
         >
-          <form>
-            <h1>Youth Educational Forum</h1>
+          <h1>Youth Educational Forum</h1>
 
-            <label htmlFor="form-email-input">
-              {' '}
-              Email Address <br />{' '}
-            </label>
-            <input
-              id="form-email-input"
-              className={errors.email ? invalidInputClass : ''}
-              type="text"
-              value={this.state.email}
-              placeholder="Enter email here"
-              onChange={this.setEmail}
-              style={{ width: 400 }}
-            />
-            <br />
-            <br />
-            <br />
-            <label htmlFor="form-pass-input">
-              {' '}
-              Password <br />{' '}
-            </label>
-            <input
-              id="form-pass-input"
-              className={errors.password ? invalidInputClass : ''}
-              type="password"
-              value={this.state.password}
-              placeholder="Enter password here"
-              onChange={this.setPassword}
-              style={{ width: 400 }}
-            />
-            <br />
-            <br />
+          <label htmlFor="form-email-input">
+            {' '}
+            Email Address <br />{' '}
+          </label>
+          <input
+            id="form-email-input"
+            className={errors.email ? invalidInputClass : ''}
+            type="text"
+            value={this.state.email}
+            placeholder="Enter email here"
+            onChange={this.setEmail}
+            style={{ width: 400 }}
+          />
+          <br />
+          <label htmlFor="form-pass-input">
+            {' '}
+            Password <br />{' '}
+          </label>
+          <input
+            id="form-pass-input"
+            className={errors.password ? invalidInputClass : ''}
+            type="password"
+            value={this.state.password}
+            placeholder="Enter password here"
+            onChange={this.setPassword}
+            style={{ width: 400 }}
+          />
+          <br />
+          <br />
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'column'
+            }}
+          >
             <button
               onClick={this.sendSubmit}
               style={{
@@ -117,7 +122,7 @@ class SignIn extends React.Component {
             <br />
             <p>Forgot Your Password?</p>
             <a href="/tournaments">Click here</a>
-          </form>
+          </div>
         </div>
       </div>
     );
