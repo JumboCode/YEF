@@ -1,5 +1,5 @@
 from django.db import models
-
+  
 class Tournament(models.Model):
     name = models.CharField(max_length = 30)
     location = models.CharField(max_length = 30)
@@ -53,3 +53,4 @@ class JudgePoint(models.Model):
     judgeID = models.ForeignKey(Judge, on_delete=models.CASCADE)
     points = models.FloatField()
     roundID = models.ForeignKey(Round, on_delete=models.CASCADE)
+

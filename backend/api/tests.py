@@ -1,14 +1,19 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from api.models import Tournament
 from api.models import Round
 from api.models import Team
 from api.models import Club
+
 import datetime
+from api import views
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIRequestFactory, force_authenticate
 import sys
 import json
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
+
 # Create your tests here.
 
 class TournamentTestCase(APITestCase):
@@ -68,10 +73,18 @@ class TeamTestCase(APITestCase):
         self.assertEqual(Team.objects.count(), 1)
 
     # This test tests the adding of a team to our test database via both create() and post request to the test database
+    # TALK TO SPENCER: Testing authentication useing force_authenticate is not working.
     def test_add_team(self):
+        # create a testing factory
+        factory = APIRequestFactory()
+
+        user = User.objects.create_user(username='user', email='email.com', password='pass')
+        token, created = Token.objects.get_or_create(user=user)
+
         team_count = Team.objects.count()
         time = datetime.date.today()
 
+        # Testing POST of a new tournament
         tournament_data = {"name": "first", "location": "here", "start_date": time, "end_date": time}
         test_tournament_response = self.client.post("/tournaments/", tournament_data, format='json')
         self.assertEqual(test_tournament_response.status_code, status.HTTP_201_CREATED)
@@ -82,15 +95,21 @@ class TeamTestCase(APITestCase):
         test_tournament_new = Tournament.objects.create(name=test_tournament_json[0]['name'], location=test_tournament_json[0]['location'], start_date=test_tournament_json[0]['start_date'], end_date=test_tournament_json[0]['end_date'])
         self.assertEqual(test_tournament_response.status_code, status.HTTP_200_OK)
 
-        test_club = Club.objects.create(name = "Carl's Club")
-        # print('club id {}', test_club.id, file=sys.stderr)
-        # print(test_tournament_json, file=sys.stderr)
-        test_team = Team.objects.create(name = "Carl's Team", city = "Atlanta", clubID = test_club, tournamentID = test_tournament_new)
-        team_data = {"name": test_team.name, "city": test_team.city, "clubID": test_club.id, "tournamentID":test_tournament_new.id}
-
-        test_team_response = self.client.post("/teams/", team_data, format='json')
-        self.assertEqual(test_team_response.status_code, status.HTTP_201_CREATED)
+        test_club = Club.objects.create(name="Carl's Club")
+        test_team = Team.objects.create(name="Carl's Team", city="Atlanta", clubID=test_club, tournamentID=test_tournament_new)
+        team_data = {"name": test_team.name, "city": test_team.city, "club_name": test_club.name, "tournamentID":test_tournament_new.id, "member_names": ["Andrew", "Andrew2"]}
+        token_string = 'Token {}'.format(user.auth_token)
+        # Code that does not work below:
+        """
+        # print('TOKEN STRING{}'.format(token_string))
+        # test_team_response = self.client.post("/createTeam/", team_data, format='json', headers={"Authorization": token_string, "Content-Type": "application/json"})
+        request = factory.post('/createTeam/', team_data, format='json')
+        force_authenticate(request, user=user, token=token_string)
+        response = views.AddTeam.post(request)
+        print("response: {}".format(response))
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Team.objects.count() - team_count, 2)
+        """
         
         
     # def test_member_teams(self):
