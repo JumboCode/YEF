@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import AddTeam from '../AddTeam';
+import PropTypes from 'prop-types';
+import * as B from '@blueprintjs/core';
 import CreateTournament from '../CreateTournament';
 import Header from '../Header';
-import * as B from '@blueprintjs/core';
 import './styles.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
@@ -19,15 +19,17 @@ class TournamentList extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchTournaments();
+    const { fetchTournaments } = this.props;
+    fetchTournaments();
   }
 
   updateSearchResults(event) {
+    const { tournamentList } = this.props;
     let searchResults = [];
     if (event.target.value !== '') {
-      searchResults = this.props.tournamentList.filter(tourn => {
-        let tournName = tourn.name.toLowerCase();
-        let searchVal = event.target.value.toLowerCase();
+      searchResults = tournamentList.filter(tourn => {
+        const tournName = tourn.name.toLowerCase();
+        const searchVal = event.target.value.toLowerCase();
         return tournName.includes(searchVal);
       });
     }
@@ -37,21 +39,21 @@ class TournamentList extends Component {
   }
 
   checkDate(t_date) {
-    for (var i = 0; i < t_date.length; i++) {
+    for (let i = 0; i < t_date.length; i++) {
       t_date[i] = parseInt(t_date[i], 10);
     }
-    var today = new Date();
-    var date = today.getDate();
-    var month = today.getMonth() + 1;
-    var year = today.getFullYear();
+    const today = new Date();
+    const date = today.getDate();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
     if (year === t_date[0]) {
       if (month === t_date[1]) {
         if (date <= t_date[2]) {
           return 1;
-        } else {
-          return 0;
         }
-      } else if (month < t_date[1]) {
+        return 0;
+      }
+      if (month < t_date[1]) {
         return 1;
       }
     } else if (year < t_date[0]) {
@@ -61,7 +63,7 @@ class TournamentList extends Component {
   }
 
   render() {
-    var monthList = {
+    const monthList = {
       '01': 'Jan',
       '02': 'Feb',
       '03': 'Mar',
@@ -71,22 +73,36 @@ class TournamentList extends Component {
       '07': 'Jul',
       '08': 'Aug',
       '09': 'Sept',
-      '10': 'Oct',
-      '11': 'Nov',
-      '12': 'Dec'
+      10: 'Oct',
+      11: 'Nov',
+      12: 'Dec'
     };
 
-    if (this.props.loading) {
+    const { loading, tournamentList } = this.props;
+    const { searchRes, isModalOpen } = this.state;
+    if (loading) {
       return <p>Loading...</p>;
     }
 
-    var presentTlist = [];
-    var pastTlist = [];
-    this.props.tournamentList.forEach(item => {
-      var e_date = item.end_date.split('-');
-      var s_date = item.start_date.split('-');
-      item['date'] = { date: s_date[2], month: monthList[s_date[1]] };
-      var flag_present = this.checkDate(e_date);
+    const presentTlist = [];
+    const pastTlist = [];
+    tournamentList.forEach(item => {
+      const e_date = item.end_date.split('-');
+      const s_date = item.start_date.split('-');
+      item.date = { date: s_date[2], month: monthList[s_date[1]] };
+      const flag_present = this.checkDate(e_date);
+      if (flag_present) {
+        presentTlist.push(item);
+      } else {
+        pastTlist.push(item);
+      }
+    });
+
+    tournamentList.forEach(item => {
+      const e_date = item.end_date.split('-');
+      const s_date = item.start_date.split('-');
+      item.date = { date: s_date[2], month: monthList[s_date[1]] };
+      const flag_present = this.checkDate(e_date);
       if (flag_present) {
         presentTlist.push(item);
       } else {
@@ -102,39 +118,47 @@ class TournamentList extends Component {
             <h3 className="titles"> Upcoming Tournaments </h3>
             <hr className="orange_line" />
             <div className="tournament-list-small-container">
-              {presentTlist.map(item => (
-                <Link to={`/tournaments/${item.id}`}>
-                  <div className="tournament_div" key={item.id}>
-                    <div className="present_date_box">
-                      <p className="month"> {item.date.month} </p>
-                      <p className="date"> {item.date.date} </p>
+              {presentTlist.length === 0 ? (
+                <h2>No upcoming tournaments</h2>
+              ) : (
+                presentTlist.map(item => (
+                  <Link to={`/tournaments/${item.id}`}>
+                    <div className="tournament_div" key={item.id}>
+                      <div className="present_date_box">
+                        <p className="month">{item.date.month}</p>
+                        <p className="date"> {item.date.date} </p>
+                      </div>
+                      <div className="current_tournament_box">
+                        <p className="tournament_name"> {item.name} </p>
+                        <p className="tournament_name"> {item.location} </p>
+                      </div>
                     </div>
-                    <div className="current_tournament_box">
-                      <p className="tournament_name"> {item.name} </p>
-                      <p className="tournament_name"> {item.location} </p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))
+              )}
             </div>
 
             <h3 className="titles"> Past Tournaments </h3>
             <hr className="orange_line" />
             <div className="tournament-list-small-container">
-              {pastTlist.map(item => (
-                <Link to={`/tournaments/${item.id}`}>
-                  <div className="tournament_div" key={item.id}>
-                    <div className="present_date_box">
-                      <p className="month"> {item.date.month} </p>
-                      <p className="date"> {item.date.date} </p>
+              {pastTlist.length === 0 ? (
+                <h2>No past tournaments</h2>
+              ) : (
+                pastTlist.map(item => (
+                  <Link to={`/tournaments/${item.id}`}>
+                    <div className="tournament_div" key={item.id}>
+                      <div className="present_date_box">
+                        <p className="month"> {item.date.month} </p>
+                        <p className="date"> {item.date.date} </p>
+                      </div>
+                      <div className="current_tournament_box">
+                        <p className="tournament_name"> {item.name} </p>
+                        <p className="tournament_name"> {item.location} </p>
+                      </div>
                     </div>
-                    <div className="current_tournament_box">
-                      <p className="tournament_name"> {item.name} </p>
-                      <p className="tournament_name"> {item.location} </p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))
+              )}
             </div>
           </div>
           <div className="right-container">
@@ -169,7 +193,7 @@ class TournamentList extends Component {
                   onChange={this.updateSearchResults}
                 />
                 <div className="search-results-container">
-                  {this.state.searchRes.map(item => (
+                  {searchRes.map(item => (
                     <Link to={`/tournaments/${item.id}`} key={item.id}>
                       <p>{item.name}</p>
                     </Link>
@@ -189,7 +213,7 @@ class TournamentList extends Component {
         </div>
         <div>
           <B.Dialog
-            isOpen={this.state.isModalOpen}
+            isOpen={isModalOpen}
             onClose={() => this.setState({ isModalOpen: false })}
             title="Create a Tournament"
           >
@@ -200,4 +224,11 @@ class TournamentList extends Component {
     );
   }
 }
+
+TournamentList.propTypes = {
+  tournamentList: PropTypes.instanceOf(Array).isRequired,
+  fetchTournaments: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired
+};
+
 export default TournamentList;
