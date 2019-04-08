@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './style.css';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -41,27 +42,8 @@ class SignIn extends React.Component {
     const errors = this.validate(this.state.email, this.state.password);
 
     return (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-          backgroundColor: '#e07f00'
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            paddingTop: 50,
-            paddingBottom: 50,
-            paddingLeft: 50,
-            paddingRight: 50,
-            backgroundColor: 'white'
-          }}
-        >
+      <div className="back">
+        <div className="form">
           <h1>Youth Educational Forum</h1>
 
           <label htmlFor="form-email-input">
@@ -93,30 +75,8 @@ class SignIn extends React.Component {
           />
           <br />
           <br />
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              flexDirection: 'column'
-            }}
-          >
-            <button
-              onClick={this.sendSubmit}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '50%',
-                fontSize: 16,
-                color: 'white',
-                paddingTop: 15,
-                paddingBottom: 15,
-                paddingLeft: 50,
-                paddingRight: 50,
-                outline: 'none',
-                backgroundColor: '#e07f00'
-              }}
-            >
+          <div className="linking">
+            <button onClick={this.sendSubmit} className="button">
               Log In
             </button>
             <br />
