@@ -1,0 +1,36 @@
+.back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #e07f00;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  background-color: white;
+}
+
+.linking {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.button {
+  width: 50%;
+  font-size: 16px;
+  color: white;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 50px;
+  padding-right: 50px;
+  outline: none;
+  background-color: #e07f00;
+}
