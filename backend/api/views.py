@@ -184,8 +184,6 @@ class Tournament_Matchups(APIView):
     def addMatchups(self, matchups, r_id):
         for pairs in matchups:
             matchup = MatchUp()
-            matchup.decision = None
-            matchup.win = None
             matchup.roundID = r_id
             matchup.judgeID = pairs["judge"][0].get("id")
             matchup.oppID = pairs["pair"][0][0].get("id")
@@ -231,6 +229,25 @@ class Tournament_Matchups(APIView):
         judge_points.roundID = r_id
         judge_points.judgeID = judge_points.judgeID
         judge_points.save()
+    
+    def update_matchup_win(self, teams, r_id, team_points ):
+        propTeamID = teams[0]
+        oppTeamID = teams[1]
+        propTeam = list(team_points[0].keys())
+        oppTeam = list(team_points[1].keys())
+        points_opp = 0
+        points_prop = 0
+        for member in propTeam:
+            points_prop += propTeam[member][0]
+            points_prop += propTeam[member][1]
+            points_prop += propTeam[member][2]
+        for member in oppTeam:
+            points_opp += oppTeam[member][0]
+            points_opp += oppTeam[member][1]
+            points_opp += oppTeam[member][2]
+        matchup = MatchUp.objects.filter(Q(propID__pk=propTeamID) & Q(oppID__pk=oppTeamID) & Q(roundID__pk=r_id))       
+        matchup.win = propTeamID if points_prop > points_opp else oppTeamID
+        matchup.save()
 
     def post(self, request, t_id, r_id):
         if(request):
@@ -242,6 +259,7 @@ class Tournament_Matchups(APIView):
                 teams = matchup_points["teams"]
                 self.addMemberPoints(team_points, r_id, teams)
                 self.addJudgePoints(judge_points, r_id)
+                self.update_matchup_win(teams, r_id, team_points)
             return Response({"status": "success"})
         else:
             return Response({"status": "failed"})
