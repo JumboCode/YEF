@@ -13,7 +13,9 @@ from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
-
+from pprint import pprint
+import math
+import random
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -95,89 +97,100 @@ class MatchUpViewSet(viewsets.ModelViewSet):
     serializer_class = MatchUpSerializer
 
 class Tournament_Matchups(APIView):
-    #authentication_classes = (authentication.BasicAuthentication,authentication.SessionAuthentication)
-    #permission_classes = (permissions.IsAuthenticated,)
 
-    def alterMatchups(self, club_teams, matched_teams, ct_length):
-        counter = 0
-        club_id = club_teams[0][1]
-        inner_flag, different_teams = True, True
-        mt_length = len(matched_teams)
+    def randomizeTeams(self, teamlist):
+        for team in teamlist:
+            random.shuffle(teamlist[team])
 
+    def leastConstraintJudge(self, judgelist, judge_constraints):
+        smallest = 54762489730469
+        least_constrainted_judge = None
+        for judge in judgelist:
+            current_constraint = judge_constraints[judge[0]['id']]
+            if current_constraint < smallest:
+                least_constrainted_judge = judge
+                smallest = current_constraint
+        return least_constrainted_judge
 
-        while(len(club_teams) > 2 and counter < mt_length): 
-            different_teams = True
-            while(inner_flag):    
-                team_pair = matched_teams[counter]
-                counter += 1
-                club_ids = [team[1] for team in team_pair["matchup_teams"]]
-                inner_flag &= club_ids[0] != club_id and club_ids[1] != club_id
-                different_teams &= club_ids[0] != club_id and club_ids[1] != club_id
-                inner_flag &= counter == mt_length
-            
-            if (different_teams):
-                matched_teams.remove(team_pair)
-                matched_teams.append({"matchup_teams": [club_teams.pop(), team_pair[0]]})
-                matched_teams.append({"matchup_teams": [club_teams.pop(), team_pair[1]]})
+    def createRoundMatchups(self, matchup_pairs, teamlist):
+        self.randomizeTeams(teamlist)
+        dict_list = []  #converting dictionaries to a list with teams of same club grouped together
+        for key, value in teamlist.items():
+            dict_list.extend(value)
+        side_bracket = math.ceil(len(dict_list) /2)
         
-        swing_matchups = [ {"matchup_teams": [team, ("swing_team", None)]} for team in club_teams ]
-        matched_teams.extend(swing_matchups)       
-
-    def createMatchups(self, matched_teams, teamlist):
-        buffer_teams, skipped_team = (0, 0)
-        last_clubid = None
-        len_teams = len(teamlist)
-        pair = []
-
-        while(skipped_team < (len_teams - 1) ):
-            for key, value in teamlist.items():
-                skipped_team += 1
-                if (value != []):
-                    last_clubid = key
-                    pair.append(value.pop())
-                    buffer_teams += 1
-                    skipped_team -= 1
-
-                if(buffer_teams % 2 == 0):
-                    matched_teams.append({"matchup_teams": pair})
-                    pair = []
- 
-        teamlist[last_clubid].extend(pair)
-        if(teamlist[last_clubid] != []):
-            self.alterMatchups(teamlist[last_clubid], matched_teams, len_teams)
-
-    def addJudges(self, matched_teams, judgelist):
-        counter = 0
-        len_teams = len(matched_teams)
-        len_judges = len(judgelist)
-        while(counter < len_teams and counter < len_judges):
-            matched_teams[counter]["judge"] = judgelist[counter]
-            counter += 1
+        i = 0 #creating matchups
+        for club in dict_list:
+            if(i < side_bracket):
+                matchup_pairs.append({"pair" : [club]} )     
+            else:
+                matchup_pairs[i - side_bracket]["pair"].append(club)
+            i += 1
+        if(len(dict_list) - 2*side_bracket != 0):
+            matchup_pairs[side_bracket - 1]["pair"].append([{ "name": "Swing Team", "club_name":None}, "None"])
     
+    def addJudges(self, matched_teams, judgelist):
+        judge_constraints = {} #contains judge with the number of teams it can judge
+        for judge in judgelist:
+            judge_constraints[judge[0]['id']] = 0
+
+        matched_team_judges = [] #contains the judges that can judge a team
+        for teams in matched_teams:
+            matched_team_judges.append([])
+            side1 = teams["pair"][0][1]
+            side2 = teams["pair"][1][1]
+            for judge in judgelist:
+                judge_id = judge[1]
+                if( judge_id != side1 and judge_id != side2):
+                    judge_constraints[judge[0]['id']] += 1
+                    matched_team_judges[-1].append(judge)
+        
+        matched_team_judges.sort(key=lambda t: len(t), reverse=False)
+        i = 0
+        while( i < len(matched_team_judges)):
+            judgelist = matched_team_judges[i]
+            judge = self.leastConstraintJudge(judgelist, judge_constraints)
+            matched_teams[i]["judge"] = judge
+            for matched_team in matched_team_judges:
+                if judge in matched_team:
+                    matched_team.remove(judge)
+            matched_team_judges.sort(key=lambda t: len(t), reverse=False)
+            i += 1
+
     def entities_sameTournament(self, t_id):
         teams = Team.objects.all()
         teamlist = TeamSerializer(teams, many=True)
-       
+
         judges = Judge.objects.all()
         judgelist = JudgeSerializer(judges, many=True)
 
-        print(teamlist.data)
         matchup_judges, matchup_teams = ([], {})
         for team in teamlist.data:
-            tournament_id = list(team.items())[3][1]
-            club_id = list(team.items())[2][1]
-            if(tournament_id == t_id): 
-                if(club_id in matchup_teams):
-                    matchup_teams[club_id].append((team, club_id))
+            tournament_id = team["tournamentID"]
+            club_name = team["club_name"]
+            if(tournament_id == t_id):
+                if(club_name in matchup_teams):
+                    matchup_teams[club_name].append((team, club_name))
                 else:
-                    matchup_teams[club_id]= [(team, club_id)]
+                    matchup_teams[club_name] = [(team, club_name)]
 
         for judge in judgelist.data:
-            tournament_id = list(judge.items())[1][1]
-            club_id = list(judge.items())[2][1]
+            tournament_id = judge["tournamentID"]
+            club_name = judge["club_name"]
             if(tournament_id == t_id):
-                matchup_judges.append((judge, club_id))
+                matchup_judges.append((judge, club_name))
         return (matchup_teams, matchup_judges)
+
+    def addMatchups(self, matchups, r_id):
+        for pairs in matchups:
+            matchup = MatchUp()
+            matchup.decision = None
+            matchup.win = None
+            matchup.roundID = r_id
+            matchup.judgeID = pairs["judge"][0].get("id")
+            matchup.oppID = pairs["pair"][0][0].get("id")
+            matchup.propID = pairs["pair"][1][0].get("id")
+            matchup.save()
 
     def get(self, request, t_id, r_id):
         rounds = Round.objects.all()
@@ -185,15 +198,19 @@ class Tournament_Matchups(APIView):
         (teamlist, judgelist) = self.entities_sameTournament(t_id)
 
         matchups = []
-        self.createMatchups(matchups, teamlist)
+        self.createRoundMatchups(matchups, teamlist)
         self.addJudges(matchups, judgelist)
+        #self.addMatchups(matchups, r_id)
         statement = [list(r.items())[2][1] for r in roundlist.data if (list(r.items())[1][1] == t_id and list(r.items())[0][1] == r_id)][0]
-        return Response(
-        {"matchups" : matchups,
-         "statement": statement
+        
+        return Response(  {"matchups" : matchups,
+        "statement": statement
         })
 
+
+
      #doesn't work when the there are people of same name from a team!
+    
     def addMemberPoints(self, team_points, r_id, teams):
         len_teamPoints = len(team_points)
         for counter in range(0, len_teamPoints):
@@ -207,15 +224,14 @@ class Tournament_Matchups(APIView):
                 memberPoint.StratergyPoints = member_names[name][2]
                 memberPoint.memberID = Member.objects.filter(Q(teamID__pk=teamID) & Q(name__contains = name))
                 memberPoint.save()
-       
-    
+
     def addJudgePoints(self, judge_points, r_id):
         judgePoint = JudgePoint()
         judgePoint.points = judge_points.points
         judge_points.roundID = r_id
         judge_points.judgeID = judge_points.judgeID
         judge_points.save()
-    
+
     def post(self, request, t_id, r_id):
         if(request):
             data = json.loads(request.body)
@@ -228,7 +244,10 @@ class Tournament_Matchups(APIView):
                 self.addJudgePoints(judge_points, r_id)
             return Response({"status": "success"})
         else:
-            return Response({"status": "failed"}) 
+            return Response({"status": "failed"})
+
+
+
 
 class AddTeam(APIView):
     def create_team(self, team_name, team_city, club_id, tournament_id):
@@ -238,7 +257,7 @@ class AddTeam(APIView):
     def create_member(self, member_name, member_team, member_club):
         return Member.objects.create(name=member_name, teamID=member_team, clubID=member_club)
 
-    def post(self, request): 
+    def post(self, request):
         data = request.data
         club_name = data["club_name"]
         club, created = Club.objects.get_or_create(name=club_name)
@@ -259,4 +278,3 @@ class AddTeam(APIView):
 
 # class idea: AddMember API that simply adds team members to an existing team
 # class idea: Find tournamentID given a tournament name to help frontend out
-                

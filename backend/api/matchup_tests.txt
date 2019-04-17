@@ -1,0 +1,20 @@
+Teams Available:
+1. Club 1
+    Team 1/1
+    Team 2/1
+2. Club 2
+    Team 1/1
+3. Club 3
+    Team 1/1
+    Team 2/1
+    Team 3/1
+
+Possible matchup expected:
+Team 1 from Club 3 vs Team 1 from Club 1
+Team 2 from Club 3 vs Team 2 from Club 1
+Team 3 from Club 3 vs Team 1 from Club 2
+
+Matchup teams got are:
+Team 2/Club 1 vs Team 1/Club 2
+Team 3/Club 3 vs Team 1/Club 1
+Team 1/Club 3 vs Team 2/Club 3

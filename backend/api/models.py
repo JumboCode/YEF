@@ -20,7 +20,6 @@ class Judge(models.Model):
     tournamentID = models.ForeignKey(Tournament, on_delete=models.CASCADE, null=True)
     clubID = models.ForeignKey(Club, on_delete=models.CASCADE)
 
-
 class Member(models.Model):
     name = models.CharField(max_length=512)
     teamID = models.ForeignKey(Team, on_delete=models.CASCADE)

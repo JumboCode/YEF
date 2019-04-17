@@ -15,9 +15,10 @@ class GroupSerializer(serializers.ModelSerializer):
         fields = ('url', 'name')
 
 class MemberSerializer(serializers.ModelSerializer):
+    club_name = serializers.ReadOnlyField(source='clubID.name')
     class Meta:
         model = Member
-        fields = ('id', "name", "teamID", "clubID")
+        fields = ('id', "name", "teamID", "clubID", "club_name")
 class ClubSerializer(serializers.ModelSerializer):
     class Meta:
         model = Club
@@ -69,7 +70,7 @@ class JudgePointSerializer(serializers.ModelSerializer):
         fields = ('id', "judgeID", "points", "roundID")
 
 class JudgeSerializer(serializers.ModelSerializer):
+    club_name = serializers.ReadOnlyField(source='clubID.name')
     class Meta:
         model = Judge
-        fields = ('id', "name", "tournamentID", "clubID")
-
+        fields = ('id', "name", "tournamentID", "clubID", "club_name")
