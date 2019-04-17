@@ -789,6 +789,22 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@blueprintjs/core@^3.15.1":
+  version "3.15.1"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/core/-/core-3.15.1.tgz#9792e9fb7e2e066dd5339fadeaf2f85b1485832a"
+  integrity sha512-M8ltbqqlMZuZ6SEuqo/3Fr59ZcUfd8Er7ocbm7EACVfRW7dRhOCd/TKkf2kfICNtCDwznwXk0iAePLXZhUGtQg==
+  dependencies:
+    "@blueprintjs/icons" "^3.8.0"
+    "@types/dom4" "^2.0.1"
+    classnames "^2.2"
+    dom4 "^2.0.1"
+    normalize.css "^8.0.0"
+    popper.js "^1.14.1"
+    react-popper "^1.0.0"
+    react-transition-group "^2.2.1"
+    resize-observer-polyfill "^1.5.0"
+    tslib "^1.9.0"
+
 "@blueprintjs/core@^3.6.1":
   version "3.13.0"
   resolved "https://registry.yarnpkg.com/@blueprintjs/core/-/core-3.13.0.tgz#2f767d7c8ae06e94380460e1ba43987671e86e67"
@@ -805,10 +821,28 @@
     resize-observer-polyfill "^1.5.0"
     tslib "^1.9.0"
 
+"@blueprintjs/datetime@^3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/datetime/-/datetime-3.9.0.tgz#86813be32fc87d9f2a875634549f18c709b85757"
+  integrity sha512-yhacQOfuqUwMs7Gk/vy9JYN1bag6KfRh4++0Fw923gLHR7cueX1gRFhmHeQ4JkqIKaAOL9Jvv0EhfpvX/48IIA==
+  dependencies:
+    "@blueprintjs/core" "^3.15.1"
+    classnames "^2.2"
+    react-day-picker "^7.3.0"
+    tslib "^1.9.0"
+
 "@blueprintjs/icons@^3.6.0":
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/@blueprintjs/icons/-/icons-3.6.0.tgz#af1d2de091d67927ed61671e6967c43620cb416d"
   integrity sha512-sgB6rJtMjc2mS4aCS+65gK5DCr8fiWgOYi0buc0ODvGD2fwOtOFZuE4Duuj6/GZnCYj4s7E8NZgYK9Krd7G73Q==
+  dependencies:
+    classnames "^2.2"
+    tslib "^1.9.0"
+
+"@blueprintjs/icons@^3.8.0":
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/icons/-/icons-3.8.0.tgz#7c77c67e4a241740f803f05e4f6e3ce43c6d6560"
+  integrity sha512-yHaRQ3vfV9Gf3foZ4ONtxddz+u5ufkHqHj8Ia5VhPbFgG4el+cPdmsGGIIM72rgKS1KQa5Ay+ggjpByUlXvrKg==
   dependencies:
     classnames "^2.2"
     tslib "^1.9.0"
@@ -943,7 +977,7 @@
     "@svgr/plugin-svgo" "^4.0.3"
     loader-utils "^1.1.0"
 
-"@types/dom4@^2.0.0":
+"@types/dom4@^2.0.0", "@types/dom4@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/dom4/-/dom4-2.0.1.tgz#506d5781b9bcab81bd9a878b198aec7dee2a6033"
   integrity sha512-kSkVAvWmMZiCYtvqjqQEwOmvKwcH+V4uiv3qPQ8pAh1Xl39xggGEo8gHUqV4waYGHezdFw0rKBR8Jt0CrQSDZA==
@@ -8286,6 +8320,13 @@ react-app-polyfill@^0.2.1:
     promise "8.0.2"
     raf "3.4.1"
     whatwg-fetch "3.0.0"
+
+react-day-picker@^7.3.0:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-7.3.0.tgz#59b6d4e19d274650c79dcf49fbcce2637313467d"
+  integrity sha512-t2kz0Zy4P5U4qwU5YhsBq2QGmypP8L/u+89TSnuD0h4dYKSEDQArFPWfin9gv8erV1ciR1Wzr485TMaYnI7FTw==
+  dependencies:
+    prop-types "^15.6.2"
 
 react-dev-utils@^7.0.3:
   version "7.0.3"
