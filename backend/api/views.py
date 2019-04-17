@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
+from django.contrib.auth import authenticate
 from rest_framework import viewsets, status
 from api.models import Team, Tournament, Round, MemberPoint, JudgePoint, MatchUp, Judge, Member, Club
 from api.serializers import UserSerializer, GroupSerializer, TeamSerializer, TournamentSerializer, TeamsInTournamentSerializer, RoundSerializer, MemberPointSerializer, JudgePointSerializer, MatchUpSerializer, JudgeSerializer, MemberSerializer, ClubSerializer
@@ -18,6 +19,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
+from django.http import JsonResponse, HttpRequest
+
+# from django.core.exceptions import ObjectDoesNotExist
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
@@ -267,6 +271,24 @@ class AddTeam(APIView):
 # "club_name": "CLUB_NAME"
 # "member_names": ['MEMBER1', 'MEMBER2', 'MEMBER3', ..., 'MEMBERN']
 # "tournamentID": (int -> tournament id from database)
+
+class AuthenticateUser(APIView):
+    def post(self, request):
+        data = request.data
+        try:
+            user = User.objects.get(username=data['username'])
+        except:
+            return Response(None, status.HTTP_404_NOT_FOUND)
+        user = authenticate(username=data['username'],password=data['password'])
+        if user is not None:
+            serializer_context = {'request': request}
+            serialized_user = UserSerializer(instance=user, context=serializer_context)
+            serialized_user.data['auth_token'] = user.auth_token
+            user_dict = serialized_user.data
+            user_dict['token'] = user.auth_token.key
+            return Response(user_dict, status=status.HTTP_200_OK)
+        else:
+            return Response(None, status.HTTP_404_NOT_FOUND)
 
 
 
