@@ -86,25 +86,22 @@ class CreateTournament extends Component {
               value={location}
             />
           </p>
-          <div style={{ width: '50%' }}>
-            <p> Start Date: </p>
-            <DatePicker onChange={this.startDateChange} value={startDate} />
-          </div>
-          <br />
           <p> Number of Teams: </p>
           <p>
             <input type="text" name="numTeams" />
           </p>
-          <div style={{ width: '50%' }}>
-            <p> End Date: </p>
-            <DatePicker onChange={this.endDateChange} value={endDate} />
-          </div>
-          <br />
           <p> Number of Rounds: </p>
           <p>
             <input type="text" name="numRounds" />
           </p>
-
+          <div style={{ width: '50%' }}>
+            <p> Start Date: </p>
+            <DatePicker onChange={this.startDateChange} value={startDate} />
+            <br />
+            <p> End Date: </p>
+            <DatePicker onChange={this.endDateChange} value={endDate} />
+          </div>
+          <br />
           <p>
             <input type="submit" value="Create" />
           </p>
