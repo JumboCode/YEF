@@ -22,7 +22,7 @@ jobs:
         app: yefbackend
         api_key:
           secure: OwVXcsp4uftuTeIdMg9Do3Ij8nVCUhnfQ66s+i1ZCfeDfKRYnjrv6iIEXsDwLj2VtFdgOOVhoM/WLP7iPdOgRUp9uhTkWEx2lE2L7l5QLvs/2a6ailDyirxLTM1HVj8a7VLjFyIR2pNSTGi6tNUn3/suJEX2cuB9kKfGuKlSXsvd8OnADFKr/ZpiXpGQUi6WU5Ewm5Fx9VN1zcDBweofbu3bUTP2XoNtfqq8LahENmi+u0j6UFNu5CrdEVzQvNEd3YxfS5HzTi3CvOL0zCmeK4x00/qKCz3UuA8c7UGx+Rxd3KG2kKS7YbwH2hyOqIob5BOJLIx2XmopKJVznQrjzueGjNElbyhMRGurS5+cgP9asX8kSz/bWbNpj/uvqZtLNZ0QrwQ+vN9KGFNjXCi+LDwjgQQS8DBvPfZFTBSH0HlCCJXu2hdMxdmfRW5sqT4Ejk8OGZ3nDcFF/GKVg8RUIks+rrFp5MRmCvPFqSJrZ5njKn/2mawRmXaqG97/SYXhh/F+fLNiH1XFi+Lbfs4vi/hU4HyD+uKvrwk+cdyj0eFOvMxDn4piqNrGJx6qX1iWPgGzJ0pRHH+7rgMQwEK4J2S4N+8nIx0ufH7Abg8f5AIYxvttnrGJGl4a5n5A4CZp3SGhcpT02t7kr/qWcVFYPbstHgU7YY8kKs/VOkld8b4=
-    - stage: deploy frontend to production
+    - stage: deploy frontend app to production
       language: node_js
       node_js:
         - stable
