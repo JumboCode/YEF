@@ -32,7 +32,8 @@ jobs:
       before_install:
         - cd frontend
       install:
-        - yarn
+        - npm install
+        - npm run build
       script: echo foo
       deploy:
         provider: heroku
