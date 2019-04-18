@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { DatePicker } from '@blueprintjs/datetime';
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
