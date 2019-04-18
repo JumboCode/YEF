@@ -93,7 +93,7 @@
 }
 .tournament-list-small-container {
   overflow: scroll;
-  height: 80vh;
+  height: 20vh;
 }
 .search-results-container {
   z-index: 100;
