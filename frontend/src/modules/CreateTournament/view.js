@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { DatePicker } from '@blueprintjs/datetime';
+import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
 import './styles.css';
 
 class CreateTournament extends Component {
@@ -6,8 +8,8 @@ class CreateTournament extends Component {
     super(props);
     this.state = {
       name: '',
-      startDate: '',
-      endDate: '',
+      startDate: new Date(),
+      endDate: new Date(),
       numTeams: '',
       location: '',
       numRounds: ''
@@ -26,9 +28,10 @@ class CreateTournament extends Component {
     const data = JSON.stringify({
       name: this.state.name,
       location: this.state.location,
-      start_date: this.state.startDate,
-      end_date: this.state.endDate
+      start_date: this.state.startDate.toJSON().slice(0, 10),
+      end_date: this.state.endDate.toJSON().slice(0, 10)
     });
+    console.log(data);
     this.props.addTournament(data);
     this.setState({});
   };
@@ -36,14 +39,14 @@ class CreateTournament extends Component {
   nameChange(event) {
     this.setState({ name: event.target.value });
   }
-  startDateChange(event) {
-    this.setState({ startDate: event.target.value });
+  startDateChange(date) {
+    this.setState({ startDate: date });
   }
   numTeamsChange(event) {
     this.setState({ numTeams: event.target.value });
   }
-  endDateChange(event) {
-    this.setState({ endDate: event.target.value });
+  endDateChange(date) {
+    this.setState({ endDate: date });
   }
   numRoundsChange(event) {
     this.setState({ numRounds: event.target.value });
@@ -53,6 +56,14 @@ class CreateTournament extends Component {
   }
 
   render() {
+    const {
+      name,
+      location,
+      startDate,
+      endDate,
+      numTeams,
+      numRounds
+    } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
         <ul class="flex">
@@ -62,7 +73,7 @@ class CreateTournament extends Component {
               type="text"
               name="name"
               onChange={this.nameChange}
-              value={this.state.name}
+              value={name}
             />
           </p>
 
@@ -72,40 +83,25 @@ class CreateTournament extends Component {
               type="text"
               name="location"
               onChange={this.locationChange}
-              value={this.state.location}
+              value={location}
             />
           </p>
-
-          <p> Start Date: </p>
-          <p>
-            <input
-              type="text"
-              name="startDate"
-              onChange={this.startDateChange}
-              value={this.state.startDate}
-            />
-          </p>
-
           <p> Number of Teams: </p>
           <p>
             <input type="text" name="numTeams" />
           </p>
-
-          <p> End Date: </p>
-          <p>
-            <input
-              type="text"
-              name="endDate"
-              onChange={this.endDateChange}
-              value={this.state.endDate}
-            />
-          </p>
-
           <p> Number of Rounds: </p>
           <p>
             <input type="text" name="numRounds" />
           </p>
-
+          <div style={{ width: '50%' }}>
+            <p> Start Date: </p>
+            <DatePicker onChange={this.startDateChange} value={startDate} />
+            <br />
+            <p> End Date: </p>
+            <DatePicker onChange={this.endDateChange} value={endDate} />
+          </div>
+          <br />
           <p>
             <input type="submit" value="Create" />
           </p>

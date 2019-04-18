@@ -34,8 +34,6 @@ class TournamentList extends Component {
       });
     }
     this.setState({ searchRes: searchResults });
-
-    console.log(this.state);
   }
 
   checkDate(t_date) {
@@ -64,18 +62,18 @@ class TournamentList extends Component {
 
   render() {
     const monthList = {
-      '01': 'Jan',
-      '02': 'Feb',
-      '03': 'Mar',
-      '04': 'Apr',
-      '05': 'May',
-      '06': 'Jun',
-      '07': 'Jul',
-      '08': 'Aug',
-      '09': 'Sept',
-      10: 'Oct',
-      11: 'Nov',
-      12: 'Dec'
+      0: 'Jan',
+      1: 'Feb',
+      2: 'Mar',
+      3: 'Apr',
+      4: 'May',
+      5: 'Jun',
+      6: 'Jul',
+      7: 'Aug',
+      8: 'Sept',
+      9: 'Oct',
+      10: 'Nov',
+      11: 'Dec'
     };
 
     const { loading, tournamentList } = this.props;
@@ -86,24 +84,12 @@ class TournamentList extends Component {
 
     const presentTlist = [];
     const pastTlist = [];
-    tournamentList.forEach(item => {
-      const e_date = item.end_date.split('-');
-      const s_date = item.start_date.split('-');
-      item.date = { date: s_date[2], month: monthList[s_date[1]] };
-      const flag_present = this.checkDate(e_date);
-      if (flag_present) {
-        presentTlist.push(item);
-      } else {
-        pastTlist.push(item);
-      }
-    });
 
     tournamentList.forEach(item => {
-      const e_date = item.end_date.split('-');
-      const s_date = item.start_date.split('-');
-      item.date = { date: s_date[2], month: monthList[s_date[1]] };
-      const flag_present = this.checkDate(e_date);
-      if (flag_present) {
+      const date = new Date(item.start_date);
+      item.date = { date: date.getDate(), month: monthList[date.getMonth()] };
+      const upcoming = date - new Date();
+      if (upcoming > 0) {
         presentTlist.push(item);
       } else {
         pastTlist.push(item);
