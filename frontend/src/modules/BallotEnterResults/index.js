@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { connect } from 'react-redux';
 import {
   fetchTournaments,

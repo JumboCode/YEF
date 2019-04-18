@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   FETCH_TOURNAMENTS_START,
   FETCH_TOURNAMENTS_SUCCESS,
