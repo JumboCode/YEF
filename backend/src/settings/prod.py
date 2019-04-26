@@ -10,7 +10,7 @@ import dj_database_url
 # We don't want any debug warnings giving
 # away unnecessary information to attackers
 
-DEBUG=False
+DEBUG = False
 
 # We grab the secret key from the environment because it is
 # our production key and no can know it
@@ -21,7 +21,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 SECURE_SSL_REDIRECT = True
 
-ALLOWED_HOSTS = ["yefbackend.herokuapp.com"]
+ALLOWED_HOSTS = ["yefbackend.herokuapp.com", "localhost"]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
