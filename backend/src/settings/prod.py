@@ -41,3 +41,8 @@ DATABASES = {
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES
 }
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
+    'yefclient.herokuapp.com'
+)
