@@ -126,7 +126,7 @@ class TournamentList extends Component {
 
             <h3 className="titles"> Past Tournaments </h3>
             <hr className="orange_line" />
-            <div className="tournament-list-small-container">
+            <div className="tournament-list-small-container2">
               {pastTlist.length === 0 ? (
                 <h2>No past tournaments</h2>
               ) : (
@@ -152,7 +152,7 @@ class TournamentList extends Component {
               style={{
                 width: '100%',
                 backgroundColor: '#ffaf3c',
-                fontSize: 24,
+                fontSize: 20,
                 color: 'white',
                 paddingTop: 10,
                 paddingBottom: 10
